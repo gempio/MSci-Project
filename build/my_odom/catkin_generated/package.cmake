@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "my_odom")
+set(my_odom_MAINTAINER "maciejm <maciejm@todo.todo>")
+set(my_odom_DEPRECATED "")
+set(my_odom_VERSION "0.0.0")
+set(my_odom_BUILD_DEPENDS "nav_msgs" "tf")
+set(my_odom_RUN_DEPENDS "nav_msgs" "tf")
+set(my_odom_BUILDTOOL_DEPENDS "catkin")

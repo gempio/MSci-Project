@@ -1,0 +1,15 @@
+<package>
+  <description brief="Chapter 7 tutorials">
+    Chapter 7 tutorials.
+    Learning ROS for Robotics Programming
+  </description>
+  <author>Aaron Martinez, Enrique Fernández</author>
+  <license>GPL</license>
+  <review status="reviewed" notes=""/>
+  <url>http://www.packtpub.com/learning-ros-for-robotics-programming/book</url>
+  <depend package="roscpp"/>
+  <depend package="tf" />
+  <depend package="laser_geometry" />
+</package>
+
+

@@ -1,0 +1,8 @@
+prefix=/home/maciejm/catkin_ws/install
+
+Name: my_sensor
+Description: Description of my_sensor
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/maciejm/catkin_ws/install/lib 
+Requires: 

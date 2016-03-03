@@ -1,0 +1,2 @@
+beginner_tutorials:msci_project:my_robot_name_2dnav:my_sensor:robot_setup_tf
+-DCATKIN_DEVEL_PREFIX=/home/maciejm/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/maciejm/catkin_ws/install -G Unix Makefiles

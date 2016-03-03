@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/LaserScan.dir/src/LaserScan.cpp.o  -o /home/maciejm/catkin_ws/devel/lib/robot_setup_tf/LaserScan -rdynamic 

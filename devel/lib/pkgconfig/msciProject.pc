@@ -1,0 +1,8 @@
+prefix=/home/maciejm/catkin_ws/devel
+
+Name: msciProject
+Description: Description of msciProject
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/maciejm/catkin_ws/devel/lib 
+Requires: 

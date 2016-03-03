@@ -1,0 +1,38 @@
+background_b: 255
+background_g: 86
+background_r: 150
+compy:
+  background_b: 255
+  background_g: 86
+  background_r: 150
+  rosdistro: 'indigo
+
+    '
+  roslaunch:
+    uris: {host_maciejm_px60_2qd__36865: 'http://maciejm-PX60-2QD:36865/'}
+  rosversion: '1.11.16
+
+    '
+  run_id: cd4b143c-8f02-11e5-9ad9-cc3d82e25333
+copy:
+  background_b: 255
+  background_g: 86
+  background_r: 150
+  rosdistro: 'indigo
+
+    '
+  roslaunch:
+    uris: {host_maciejm_px60_2qd__36865: 'http://maciejm-PX60-2QD:36865/'}
+  rosversion: '1.11.16
+
+    '
+  run_id: cd4b143c-8f02-11e5-9ad9-cc3d82e25333
+rosdistro: 'indigo
+
+  '
+roslaunch:
+  uris: {host_maciejm_px60_2qd__36865: 'http://maciejm-PX60-2QD:36865/'}
+rosversion: '1.11.16
+
+  '
+run_id: cd4b143c-8f02-11e5-9ad9-cc3d82e25333
