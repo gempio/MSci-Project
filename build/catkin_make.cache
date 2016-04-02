@@ -1,2 +1,2 @@
-Robot1:Robot2:beginner_tutorials:msci_project:robot1_tf:robot2_tf
+Robot1:Robot2:robot1_tf:robot2_tf
 -DCATKIN_DEVEL_PREFIX=/home/maciejm/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/maciejm/catkin_ws/install -G Unix Makefiles

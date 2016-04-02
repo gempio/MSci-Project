@@ -29,7 +29,7 @@ void send_goal() {
   float y []= {4.69156122208, 1.44183540344, -2.96959543228, 4.85724782944, -2.75757598877, 5.43985700607, 1.45707416534, -2.5175409317};
 
   //tell the action client that we want to spin a thread by default
-  MoveBaseClient ac("move_base", true);
+  MoveBaseClient ac("move_base2", true);
   //wait for the action server to come up
   while(!ac.waitForServer(ros::Duration(5.0))){
     ROS_INFO("Waiting for the move_base action server to come up");

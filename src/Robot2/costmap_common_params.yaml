@@ -4,7 +4,7 @@ raytrace_range: 1.5
 inflation_radius: 0.5
 transform_tolerance: 0.3
 footprint: [ [0.25, 0.25], [-0.25, 0.25],[-0.25, -0.25], [0.25, -0.25], [0.35,0.0] ]
-observation_sources: laser_scan_sensor point_cloud_sensor
+observation_sources: laser_scan_sensor2 point_cloud_sensor2
 
 laser_scan_sensor: {sensor_frame: my_sensor, data_type: LaserScan, topic: my_sensor, marking: true, clearing: true}
 

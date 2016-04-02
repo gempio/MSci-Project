@@ -15,7 +15,7 @@
 
 </node>
 
-<node name="map_server2" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
+<node name="map_server" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
 
 
   <node pkg="robot2_tf" type="my_sensor2" name="my_sensor2" output="screen">
@@ -30,7 +30,7 @@
     <param name="odom_param" value="param_value" />
   </node>
 
-  <node pkg="robot2_tf" type="tf_broadcaster" name="broadcaster2" output="screen">
+  <node pkg="robot2_tf" type="tf_broadcaster2" name="broadcaster2" output="screen">
     <param name="broadcaster" value="param_value" />
   </node>
 
@@ -45,13 +45,13 @@
     <param name="base_controller" value="param_value" />
   </node>
 
-  <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler2">
+  <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler3">
     <remap from="scan" to="tilt_scan"/>
     <param name="max_scans" type="int" value="400" />
     <param name="fixed_frame" type="string" value="base_link" />
   </node>
 
-  <node type="point_cloud_assembler" pkg="laser_assembler" name="my_assembler2">
+  <node type="point_cloud_assembler" pkg="laser_assembler" name="my_assembler4">
     <remap from="cloud" to="my_cloud_in"/>
     <param name="max_clouds" type="int" value="400" />
     <param name="fixed_frame" type="string" value="base_link" />

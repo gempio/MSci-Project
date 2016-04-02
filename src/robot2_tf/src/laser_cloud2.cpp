@@ -2,10 +2,10 @@
 #include <sensor_msgs/PointCloud.h>
 
 int main(int argc, char** argv){
-  ros::init(argc, argv, "point_cloud_publisher");
+  ros::init(argc, argv, "point_cloud_publisher2");
 
   ros::NodeHandle n;
-  ros::Publisher cloud_pub = n.advertise<sensor_msgs::PointCloud>("cloud", 50);
+  ros::Publisher cloud_pub = n.advertise<sensor_msgs::PointCloud>("cloud2", 50);
 
   unsigned int num_points = 100;
 
@@ -14,7 +14,7 @@ int main(int argc, char** argv){
   while(n.ok()){
     sensor_msgs::PointCloud cloud;
     cloud.header.stamp = ros::Time::now();
-    cloud.header.frame_id = "base_link";
+    cloud.header.frame_id = "base_link2";
 
     cloud.points.resize(num_points);
 

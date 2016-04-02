@@ -178,6 +178,20 @@ goal_reacher2/fast:
 .PHONY : goal_reacher2/fast
 
 # Convenience name for target.
+robot2_tf/CMakeFiles/laser_cloud2.dir/rule:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/laser_cloud2.dir/rule
+.PHONY : robot2_tf/CMakeFiles/laser_cloud2.dir/rule
+
+# Convenience name for target.
+laser_cloud2: robot2_tf/CMakeFiles/laser_cloud2.dir/rule
+.PHONY : laser_cloud2
+
+# fast build rule for target.
+laser_cloud2/fast:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/build
+.PHONY : laser_cloud2/fast
+
+# Convenience name for target.
 robot2_tf/CMakeFiles/laser_scan2.dir/rule:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/laser_scan2.dir/rule
 .PHONY : robot2_tf/CMakeFiles/laser_scan2.dir/rule
@@ -218,6 +232,20 @@ my_odom2: robot2_tf/CMakeFiles/my_odom2.dir/rule
 my_odom2/fast:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_odom2.dir/build.make robot2_tf/CMakeFiles/my_odom2.dir/build
 .PHONY : my_odom2/fast
+
+# Convenience name for target.
+robot2_tf/CMakeFiles/my_sensor2.dir/rule:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/my_sensor2.dir/rule
+.PHONY : robot2_tf/CMakeFiles/my_sensor2.dir/rule
+
+# Convenience name for target.
+my_sensor2: robot2_tf/CMakeFiles/my_sensor2.dir/rule
+.PHONY : my_sensor2
+
+# fast build rule for target.
+my_sensor2/fast:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/build
+.PHONY : my_sensor2/fast
 
 # Convenience name for target.
 robot2_tf/CMakeFiles/pose_publisher2.dir/rule:
@@ -309,6 +337,30 @@ src/goal_reacher2.cpp.s:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/goal_reacher2.dir/build.make robot2_tf/CMakeFiles/goal_reacher2.dir/src/goal_reacher2.cpp.s
 .PHONY : src/goal_reacher2.cpp.s
 
+src/laser_cloud2.o: src/laser_cloud2.cpp.o
+.PHONY : src/laser_cloud2.o
+
+# target to build an object file
+src/laser_cloud2.cpp.o:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/src/laser_cloud2.cpp.o
+.PHONY : src/laser_cloud2.cpp.o
+
+src/laser_cloud2.i: src/laser_cloud2.cpp.i
+.PHONY : src/laser_cloud2.i
+
+# target to preprocess a source file
+src/laser_cloud2.cpp.i:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/src/laser_cloud2.cpp.i
+.PHONY : src/laser_cloud2.cpp.i
+
+src/laser_cloud2.s: src/laser_cloud2.cpp.s
+.PHONY : src/laser_cloud2.s
+
+# target to generate assembly for a file
+src/laser_cloud2.cpp.s:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/src/laser_cloud2.cpp.s
+.PHONY : src/laser_cloud2.cpp.s
+
 src/laser_scan2.o: src/laser_scan2.cpp.o
 .PHONY : src/laser_scan2.o
 
@@ -380,6 +432,30 @@ src/my_odom2.s: src/my_odom2.cpp.s
 src/my_odom2.cpp.s:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_odom2.dir/build.make robot2_tf/CMakeFiles/my_odom2.dir/src/my_odom2.cpp.s
 .PHONY : src/my_odom2.cpp.s
+
+src/my_sensor2.o: src/my_sensor2.cpp.o
+.PHONY : src/my_sensor2.o
+
+# target to build an object file
+src/my_sensor2.cpp.o:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/src/my_sensor2.cpp.o
+.PHONY : src/my_sensor2.cpp.o
+
+src/my_sensor2.i: src/my_sensor2.cpp.i
+.PHONY : src/my_sensor2.i
+
+# target to preprocess a source file
+src/my_sensor2.cpp.i:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/src/my_sensor2.cpp.i
+.PHONY : src/my_sensor2.cpp.i
+
+src/my_sensor2.s: src/my_sensor2.cpp.s
+.PHONY : src/my_sensor2.s
+
+# target to generate assembly for a file
+src/my_sensor2.cpp.s:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/src/my_sensor2.cpp.s
+.PHONY : src/my_sensor2.cpp.s
 
 src/pose_publisher2.o: src/pose_publisher2.cpp.o
 .PHONY : src/pose_publisher2.o
@@ -465,10 +541,12 @@ help:
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
+	@echo "... laser_cloud2"
 	@echo "... laser_scan2"
 	@echo "... list_install_components"
 	@echo "... my_listener2"
 	@echo "... my_odom2"
+	@echo "... my_sensor2"
 	@echo "... pose_publisher2"
 	@echo "... rebuild_cache"
 	@echo "... test"
@@ -480,6 +558,9 @@ help:
 	@echo "... src/goal_reacher2.o"
 	@echo "... src/goal_reacher2.i"
 	@echo "... src/goal_reacher2.s"
+	@echo "... src/laser_cloud2.o"
+	@echo "... src/laser_cloud2.i"
+	@echo "... src/laser_cloud2.s"
 	@echo "... src/laser_scan2.o"
 	@echo "... src/laser_scan2.i"
 	@echo "... src/laser_scan2.s"
@@ -489,6 +570,9 @@ help:
 	@echo "... src/my_odom2.o"
 	@echo "... src/my_odom2.i"
 	@echo "... src/my_odom2.s"
+	@echo "... src/my_sensor2.o"
+	@echo "... src/my_sensor2.i"
+	@echo "... src/my_sensor2.s"
 	@echo "... src/pose_publisher2.o"
 	@echo "... src/pose_publisher2.i"
 	@echo "... src/pose_publisher2.s"
