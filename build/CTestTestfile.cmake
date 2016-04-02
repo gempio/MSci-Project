@@ -5,6 +5,7 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 SUBDIRS(gtest)
+SUBDIRS(controller)
 SUBDIRS(robot1_tf)
 SUBDIRS(robot2_tf)
 SUBDIRS(Robot1)
