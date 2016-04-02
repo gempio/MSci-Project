@@ -4,7 +4,7 @@ tf::StampedTransform tf_map_to_odom_;
 
 // set up parent and child frames
 tf_map_to_odom_.frame_id_ = std::string("map");
-tf_map_to_odom_.child_frame_id_ = std::string("odom2");
+tf_map_to_odom_.child_frame_id_ = std::string("robot2/odom2");
 
 // set up publish rate
 ros::Rate loop_rate(publish_rate_);

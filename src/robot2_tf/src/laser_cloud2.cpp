@@ -14,7 +14,7 @@ int main(int argc, char** argv){
   while(n.ok()){
     sensor_msgs::PointCloud cloud;
     cloud.header.stamp = ros::Time::now();
-    cloud.header.frame_id = "base_link2";
+    cloud.header.frame_id = "robot2/base_link2";
 
     cloud.points.resize(num_points);
 

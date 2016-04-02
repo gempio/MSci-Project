@@ -40,7 +40,7 @@ int main(int argc, char **argv) {
   
   private_nh.param<double>("publish_frequency", publish_frequency, 50);
   private_nh.param<std::string>("map_frame", map_frame, "map");
-  private_nh.param<std::string>("base_frame2", base_frame, "base_link2");
+  private_nh.param<std::string>("robot2/base_frame2", base_frame, "robot2/base_link2");
   
   pose_publisher = nh.advertise<geometry_msgs::PoseStamped>("pose", 50);
   

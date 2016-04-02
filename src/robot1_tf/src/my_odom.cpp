@@ -103,7 +103,7 @@ int main(int argc, char** argv) {
   odom_trans.header.frame_id = "odom";
   odom_trans.child_frame_id = "base_footprint";
 
-  ros::Subscriber sub = n.subscribe("initialpose2", 50, poseCallBack);
+  ros::Subscriber sub = n.subscribe("initialpose", 50, poseCallBack);
   ros::Subscriber sub2 = n.subscribe("cmd_vel", 50, poseAdjustment);
   while (ros::ok()) {
 
