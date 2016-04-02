@@ -10,11 +10,11 @@ int main(int argc, char** argv){
   unsigned int num_points = 100;
 
   int count = 0;
-  ros::Rate r(1.0);
+  ros::Rate r(0.2);
   while(n.ok()){
     sensor_msgs::PointCloud cloud;
     cloud.header.stamp = ros::Time::now();
-    cloud.header.frame_id = "sensor_frame";
+    cloud.header.frame_id = "base_link";
 
     cloud.points.resize(num_points);
 

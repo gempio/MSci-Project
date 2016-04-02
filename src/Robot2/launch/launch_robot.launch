@@ -18,15 +18,15 @@
 <node name="map_server2" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
 
 
-  <node pkg="my_sensor" type="my_sensor" name="my_sensor" output="screen">
+  <node pkg="robot2_tf" type="my_sensor2" name="my_sensor2" output="screen">
     <param name="sensor_param" value="param_value" />
   </node>
 
-  <node pkg="my_sensor" type="laser_cloud" name="laser_cloud" output="screen">
+  <node pkg="robot2_tf" type="laser_cloud2" name="laser_cloud2" output="screen">
     <param name="sensor_param" value="param_value" />
   </node>
 
-  <node pkg="robot2_tf" type="my_odom2" name="my_odom" output="screen">
+  <node pkg="robot2_tf" type="my_odom2" name="my_odom2" output="screen">
     <param name="odom_param" value="param_value" />
   </node>
 
@@ -34,18 +34,18 @@
     <param name="broadcaster" value="param_value" />
   </node>
 
-  <node pkg="robot2_tf" type="tf_listener2" name="listener" output="screen">
+  <node pkg="robot2_tf" type="tf_listener2" name="listener2" output="screen">
     <param name="listener" value="param_value" />
   </node>
 
-<node pkg="robot2_tf" type="pose_publisher2" name="pose_publisher" output="screen">
+<node pkg="robot2_tf" type="pose_publisher2" name="pose_publisher2" output="screen">
     <param name="pose_publisher" value="param_value" />
   </node>
-<node pkg="robot2_tf" type="base_controller2" name="base_controller" output="screen">
+<node pkg="robot2_tf" type="base_controller2" name="base_controller2" output="screen">
     <param name="base_controller" value="param_value" />
   </node>
 
-  <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler">
+  <node type="laser_scan_assembler" pkg="laser_assembler" name="my_assembler2">
     <remap from="scan" to="tilt_scan"/>
     <param name="max_scans" type="int" value="400" />
     <param name="fixed_frame" type="string" value="base_link" />
@@ -57,7 +57,7 @@
     <param name="fixed_frame" type="string" value="base_link" />
   </node>
 
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base2" output="screen">
     <rosparam file="$(find robot2)/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find robot2)/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find robot2)/local_costmap_params.yaml" command="load" />
@@ -66,7 +66,7 @@
     
   </node>
 
-<node pkg="rviz" type="rviz" name="rviz" output="screen">
+<node pkg="rviz" type="rviz" name="rviz2" output="screen">
     <param name="rviz" value="param_value" />
   </node>
   
