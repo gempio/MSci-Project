@@ -133,6 +133,11 @@ void runThread() {
   return;
 }
 
+void processCommand(const std_msgs::String::ConstPtr& msg)
+{
+  ROS_INFO("I heard: %s", msg->data.c_str());
+}
+
 int main(int argc, char **argv)
 {
 
@@ -148,7 +153,7 @@ int main(int argc, char **argv)
    * part of the ROS system.
    */
   
-  ros::init(argc, argv, "listener");
+  ros::init(argc, argv, "controller");
   
   
   /**
@@ -158,10 +163,10 @@ int main(int argc, char **argv)
    */
   ros::NodeHandle n;
 
-  while (true){
-      runQuestions();
-      runThread();
-  }
+
+  ros::Subscriber sub = n.subscribe("sendRobots", 50, processCommand);
+
+  ros::spin();
   
   
   
@@ -187,7 +192,6 @@ int main(int argc, char **argv)
    * callbacks will be called from within this thread (the main one).  ros::spin()
    * will exit when Ctrl-C is pressed, or the node is shutdown by the master.
    */
-  ros::spin();
 
   return 0;
 }

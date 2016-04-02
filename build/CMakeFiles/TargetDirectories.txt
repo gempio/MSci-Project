@@ -45,6 +45,7 @@
 /home/maciejm/catkin_ws/build/controller/CMakeFiles/sensor_msgs_generate_messages_cpp.dir
 /home/maciejm/catkin_ws/build/controller/CMakeFiles/sensor_msgs_generate_messages_lisp.dir
 /home/maciejm/catkin_ws/build/controller/CMakeFiles/sensor_msgs_generate_messages_py.dir
+/home/maciejm/catkin_ws/build/controller/CMakeFiles/serverToController.dir
 /home/maciejm/catkin_ws/build/controller/CMakeFiles/std_msgs_generate_messages_cpp.dir
 /home/maciejm/catkin_ws/build/controller/CMakeFiles/std_msgs_generate_messages_lisp.dir
 /home/maciejm/catkin_ws/build/controller/CMakeFiles/std_msgs_generate_messages_py.dir

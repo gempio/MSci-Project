@@ -416,6 +416,20 @@ sensor_msgs_generate_messages_py/fast:
 .PHONY : sensor_msgs_generate_messages_py/fast
 
 # Convenience name for target.
+controller/CMakeFiles/serverToController.dir/rule:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 controller/CMakeFiles/serverToController.dir/rule
+.PHONY : controller/CMakeFiles/serverToController.dir/rule
+
+# Convenience name for target.
+serverToController: controller/CMakeFiles/serverToController.dir/rule
+.PHONY : serverToController
+
+# fast build rule for target.
+serverToController/fast:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f controller/CMakeFiles/serverToController.dir/build.make controller/CMakeFiles/serverToController.dir/build
+.PHONY : serverToController/fast
+
+# Convenience name for target.
 controller/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 controller/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
 .PHONY : controller/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
@@ -565,6 +579,30 @@ src/controller.cpp.s:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f controller/CMakeFiles/controller.dir/build.make controller/CMakeFiles/controller.dir/src/controller.cpp.s
 .PHONY : src/controller.cpp.s
 
+src/serverToController.o: src/serverToController.cpp.o
+.PHONY : src/serverToController.o
+
+# target to build an object file
+src/serverToController.cpp.o:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f controller/CMakeFiles/serverToController.dir/build.make controller/CMakeFiles/serverToController.dir/src/serverToController.cpp.o
+.PHONY : src/serverToController.cpp.o
+
+src/serverToController.i: src/serverToController.cpp.i
+.PHONY : src/serverToController.i
+
+# target to preprocess a source file
+src/serverToController.cpp.i:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f controller/CMakeFiles/serverToController.dir/build.make controller/CMakeFiles/serverToController.dir/src/serverToController.cpp.i
+.PHONY : src/serverToController.cpp.i
+
+src/serverToController.s: src/serverToController.cpp.s
+.PHONY : src/serverToController.s
+
+# target to generate assembly for a file
+src/serverToController.cpp.s:
+	cd /home/maciejm/catkin_ws/build && $(MAKE) -f controller/CMakeFiles/serverToController.dir/build.make controller/CMakeFiles/serverToController.dir/src/serverToController.cpp.s
+.PHONY : src/serverToController.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -596,6 +634,7 @@ help:
 	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_py"
+	@echo "... serverToController"
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"
@@ -609,6 +648,9 @@ help:
 	@echo "... src/controller.o"
 	@echo "... src/controller.i"
 	@echo "... src/controller.s"
+	@echo "... src/serverToController.o"
+	@echo "... src/serverToController.i"
+	@echo "... src/serverToController.s"
 .PHONY : help
 
 

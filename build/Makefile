@@ -501,6 +501,19 @@ sensor_msgs_generate_messages_py/fast:
 .PHONY : sensor_msgs_generate_messages_py/fast
 
 #=============================================================================
+# Target rules for targets named serverToController
+
+# Build rule for target.
+serverToController: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 serverToController
+.PHONY : serverToController
+
+# fast build rule for target.
+serverToController/fast:
+	$(MAKE) -f controller/CMakeFiles/serverToController.dir/build.make controller/CMakeFiles/serverToController.dir/build
+.PHONY : serverToController/fast
+
+#=============================================================================
 # Target rules for targets named std_msgs_generate_messages_cpp
 
 # Build rule for target.
@@ -982,6 +995,7 @@ help:
 	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_lisp"
 	@echo "... sensor_msgs_generate_messages_py"
+	@echo "... serverToController"
 	@echo "... std_msgs_generate_messages_cpp"
 	@echo "... std_msgs_generate_messages_lisp"
 	@echo "... std_msgs_generate_messages_py"
