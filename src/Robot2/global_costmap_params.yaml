@@ -3,4 +3,3 @@ global_costmap:
   robot_base_frame: /robot2/base_link2
   update_frequency: 5.0
   static_map: true
-/robot2/move_base_simple/goal

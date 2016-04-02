@@ -27,6 +27,8 @@ move_base_msgs/MoveBaseAction.h
 -
 actionlib/client/simple_action_client.h
 -
+pthread.h
+-
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
