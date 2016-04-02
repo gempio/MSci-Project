@@ -9,7 +9,7 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 #include <pthread.h>
-
+#include <vector>
 
 int run_once;
 double x;
@@ -133,9 +133,17 @@ void runThread() {
   return;
 }
 
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, elems);
+    return elems;
+}
+
 void processCommand(const std_msgs::String::ConstPtr& msg)
 {
   ROS_INFO("I heard: %s", msg->data.c_str());
+
+
 }
 
 int main(int argc, char **argv)

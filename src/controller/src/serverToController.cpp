@@ -14,7 +14,8 @@
 #include <pthread.h>
 
 using namespace std;
- 
+bool moveRobot;
+string tempo;
 /**
     TCP Client class
 */
@@ -30,6 +31,7 @@ public:
     tcp_client();
     bool conn(string, int);
     bool send_data(string data);
+    
     string receive(int);
 };
  
@@ -160,14 +162,16 @@ void *run_server(void*) {
     while(true) {
          //receive and echo reply
         cout<<"----------------------------\n";
-        string temp = c.receive(1024);
-        if(temp.find("ping") != std::string::npos) {
+        tempo = c.receive(1024);
+        if(tempo.find("ping") != std::string::npos) {
             cout<<"PING\n";
             c.send_data("%%pong\n");
-        } else if(temp.find("ack") != std::string::npos) {
+        } else if(tempo.find("ack") != std::string::npos) {
             cout<<"ACKNOWLEDGED\n";
+        } else if(tempo.find("goto") != std::string::npos) {
+            moveRobot = true;
         }
-        cout<<temp;
+        cout<<tempo;
         cout<<"\n----------------------------\n";
      
     //done
@@ -183,28 +187,29 @@ int main(int argc , char *argv[])
 
     ros::init(argc, argv, "sender");
     ros::NodeHandle n;
-
+    tempo = "";
     ros::Publisher chatter_pub = n.advertise<std_msgs::String>("sendRobots", 50);
     ros::Rate loop_rate(10);
+    moveRobot = false;
     pthread_t temp;
     pthread_create(&temp, NULL, run_server, NULL);
+    pthread_t temp2;
+    pthread_create(&temp2, NULL, run_controller, NULL);
     while (ros::ok())
     {
     /**
      * This is a message object. You stuff it with data, and then publish it.
          */
-        std_msgs::String msg;
-        string temp;
+        if(moveRobot) {
+            std_msgs::String msg;
+            
+            msg.data = tempo;
+            chatter_pub.publish(msg);
 
-        std::cin.clear();
-        std::cin.ignore(256,'\n');
-        std::cin >> temp;
-        
-        msg.data = temp;
-        chatter_pub.publish(msg);
-
-        ROS_INFO("%s", msg.data.c_str());
-
+            ROS_INFO("%s", msg.data.c_str());
+            moveRobot = !moveRobot;
+            
+        }
         ros::spinOnce();
 
         loop_rate.sleep();
