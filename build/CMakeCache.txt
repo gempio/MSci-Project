@@ -370,22 +370,51 @@ my_odom_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/my_odom
 my_odom_configuration_dep_DIR:PATH=my_odom_configuration_dep_DIR-NOTFOUND
 
 //Value Computed by CMake
-my_robot_name_2dnav_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/my_robot_name_2dnav
+my_robot_name_2dnav_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/Robot1
 
 //Value Computed by CMake
-my_robot_name_2dnav_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/my_robot_name_2dnav
+my_robot_name_2dnav_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/Robot1
 
 //Value Computed by CMake
 my_sensor_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/my_sensor
 
-//The directory containing a CMake configuration file for my_sensor.
-my_sensor_DIR:PATH=/home/maciejm/catkin_ws/devel/share/my_sensor/cmake
+my_sensor_DIR:PATH=
 
 //Value Computed by CMake
 my_sensor_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/my_sensor
 
 //The directory containing a CMake configuration file for nav_msgs.
 nav_msgs_DIR:PATH=/opt/ros/indigo/share/nav_msgs/cmake
+
+//Value Computed by CMake
+robot1_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/Robot1
+
+//Value Computed by CMake
+robot1_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/Robot1
+
+//Value Computed by CMake
+robot1_tf_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/robot1_tf
+
+//The directory containing a CMake configuration file for robot1_tf.
+robot1_tf_DIR:PATH=/home/maciejm/catkin_ws/devel/share/robot1_tf/cmake
+
+//Value Computed by CMake
+robot1_tf_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/robot1_tf
+
+//Value Computed by CMake
+robot2_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/Robot2
+
+//Value Computed by CMake
+robot2_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/Robot2
+
+//Value Computed by CMake
+robot2_tf_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/robot2_tf
+
+//The directory containing a CMake configuration file for robot2_tf.
+robot2_tf_DIR:PATH=/home/maciejm/catkin_ws/devel/share/robot2_tf/cmake
+
+//Value Computed by CMake
+robot2_tf_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/robot2_tf
 
 //Value Computed by CMake
 robot_setup_tf_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/robot_setup_tf
@@ -546,7 +575,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=7
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=8
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

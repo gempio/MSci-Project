@@ -117,11 +117,12 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/maciejm/catkin_ws/build/gtest/cmake_install.cmake")
-  INCLUDE("/home/maciejm/catkin_ws/build/my_sensor/cmake_install.cmake")
   INCLUDE("/home/maciejm/catkin_ws/build/beginner_tutorials/cmake_install.cmake")
   INCLUDE("/home/maciejm/catkin_ws/build/msci_project/cmake_install.cmake")
-  INCLUDE("/home/maciejm/catkin_ws/build/robot_setup_tf/cmake_install.cmake")
-  INCLUDE("/home/maciejm/catkin_ws/build/my_robot_name_2dnav/cmake_install.cmake")
+  INCLUDE("/home/maciejm/catkin_ws/build/robot1_tf/cmake_install.cmake")
+  INCLUDE("/home/maciejm/catkin_ws/build/robot2_tf/cmake_install.cmake")
+  INCLUDE("/home/maciejm/catkin_ws/build/Robot1/cmake_install.cmake")
+  INCLUDE("/home/maciejm/catkin_ws/build/Robot2/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

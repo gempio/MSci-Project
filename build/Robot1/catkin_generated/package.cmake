@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "robot1")
+set(robot1_MAINTAINER "maciejm <maciejm@todo.todo>")
+set(robot1_DEPRECATED "")
+set(robot1_VERSION "0.0.0")
+set(robot1_BUILD_DEPENDS "move_base" "my_odom" "my_sensor" "robot_setup_tf")
+set(robot1_RUN_DEPENDS "move_base" "my_odom" "my_sensor" "robot_setup_tf")
+set(robot1_BUILDTOOL_DEPENDS "catkin")

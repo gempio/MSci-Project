@@ -5,8 +5,9 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 SUBDIRS(gtest)
-SUBDIRS(my_sensor)
 SUBDIRS(beginner_tutorials)
 SUBDIRS(msci_project)
-SUBDIRS(robot_setup_tf)
-SUBDIRS(my_robot_name_2dnav)
+SUBDIRS(robot1_tf)
+SUBDIRS(robot2_tf)
+SUBDIRS(Robot1)
+SUBDIRS(Robot2)

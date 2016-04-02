@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/maciejm/catkin_ws/src/robot2_tf/src/connect_to_server2.cpp
+iostream
+-
+stdio.h
+-
+string.h
+-
+string
+-
+sys/socket.h
+-
+arpa/inet.h
+-
+netdb.h
+-
+stdlib.h
+-
+
