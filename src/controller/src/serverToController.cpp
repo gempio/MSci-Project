@@ -155,7 +155,7 @@ void *run_server(void*) {
     c.conn("127.0.1.1" , 6009);
      
     //send some data
-    c.send_data("%%setid rosTerminal \r\n");
+    c.send_data("%%setid SimR \r\n");
 
     while(true) {
          //receive and echo reply
