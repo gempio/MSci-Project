@@ -1,12 +1,12 @@
 <launch>
-  <node name="map_server" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
+  
  
 
 
 
   <group ns="robot2">
     <param name="tf_prefix" value="robot2"/>
-
+    <node name="map_server" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
     <node pkg="amcl" type="amcl" name="amcl2" output="screen">
 
       <param name="base_frame" value = "base_link"/>
@@ -68,9 +68,9 @@
     <rosparam file="$(find robot2)/base_local_planner_params.yaml" command="load" />
     
   </node>
-
+</group>
 <node pkg="rviz" type="rviz" name="rviz2" output="screen">
     <param name="rviz" value="param_value" />
   </node>
-  </group>
+  
 </launch>
