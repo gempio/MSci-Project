@@ -193,8 +193,8 @@ int main(int argc , char *argv[])
     moveRobot = false;
     pthread_t temp;
     pthread_create(&temp, NULL, run_server, NULL);
-    pthread_t temp2;
-    pthread_create(&temp2, NULL, run_controller, NULL);
+    //pthread_t temp2;
+    //pthread_create(&temp2, NULL, run_controller, NULL);
     while (ros::ok())
     {
     /**

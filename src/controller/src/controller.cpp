@@ -10,6 +10,9 @@
 #include <actionlib/client/simple_action_client.h>
 #include <pthread.h>
 #include <vector>
+#include <sstream>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
 
 int run_once;
 double x;
@@ -133,6 +136,16 @@ void runThread() {
   return;
 }
 
+std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+    return elems;
+}
+
+
 std::vector<std::string> split(const std::string &s, char delim) {
     std::vector<std::string> elems;
     split(s, delim, elems);
@@ -141,9 +154,21 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 void processCommand(const std_msgs::String::ConstPtr& msg)
 {
+  using namespace boost::algorithm;
+
   ROS_INFO("I heard: %s", msg->data.c_str());
+  std::string temp2 = msg->data.c_str();
+  std::vector<std::string> tokens;
 
+  split(tokens, temp2, is_any_of(" ")); // here it is
 
+  std::cout << (tokens.at(3) + "\n");
+  std::cout << (tokens.at(4) + "\n");
+
+  numberInput2 = atoi(tokens.at(3).c_str());
+  numberInput = atoi(tokens.at(4).c_str());
+  runThread();
+  //std::cout << ("Done Converting data" + "\n");
 }
 
 int main(int argc, char **argv)
