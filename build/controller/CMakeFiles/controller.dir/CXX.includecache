@@ -29,6 +29,14 @@ actionlib/client/simple_action_client.h
 -
 pthread.h
 -
+vector
+-
+sstream
+-
+boost/algorithm/string/split.hpp
+-
+boost/algorithm/string/classification.hpp
+-
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h

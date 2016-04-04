@@ -26,16 +26,12 @@ public class Connector implements Runnable{
 		sendMessage = false;
 	}
 
-	public void sendRobot(int robot, int room) {
-		System.out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
-		out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
-		sendMessage = true;
+	public void sendMessage(String message) {
+		out.println(message);
 	}
 
 	public void setId(String id) {
-
 		out.println("%%setid " + id);
-
 	}
 
 	public boolean isRunning() {
@@ -58,19 +54,14 @@ public class Connector implements Runnable{
             
  			makeOutPublic(out);
  			isAble = true;
-            while ((fromServer = in.readLine()) != null || sendMessage) {
+            while ((fromServer = in.readLine()) != null) {
                 System.out.println("Server: " + fromServer);
-                if (fromServer.contains("ping"))
-                    out.println("%%pong");
-                else if (fromServer.contains("ack")) {
-                    System.out.println("ackowledged");
-                }
-
-                if(sendMessage) {
-                	System.out.println("Sending Message");
-                	out.println(fromUser);
-                	sendMessage = false;
-                }
+                if (fromServer.contains("ping")) out.println("%%pong");
+                else if (fromServer.contains("ack")) System.out.println("ackowledged");
+                // if(sendMessage) {
+                // 	System.out.println("Sending Message");
+                // 	out.println(fromUser);
+                // 	sendMessage = false;
             }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
