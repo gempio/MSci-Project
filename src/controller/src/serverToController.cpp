@@ -31,7 +31,6 @@ public:
     tcp_client();
     bool conn(string, int);
     bool send_data(string data);
-    
     string receive(int);
 };
  
@@ -147,10 +146,10 @@ string tcp_client::receive(int size=512)
 void *run_controller(void*) {
     system("rosrun controller controller");
 }
-
+tcp_client c;
 void *run_server(void*) {
 
-    tcp_client c;
+    //tcp_client c;
     string host;
     //system("roslaunch my_robot_name_2dnav launch_robot.launch");
     //connect to host
@@ -183,12 +182,11 @@ void *run_server(void*) {
 void processSuccess(const std_msgs::String::ConstPtr& msg) {
     std::string temp2 = msg->data.c_str();
     cout<<temp2;
+    c.send_data(temp2 + "\n");
 }
  
 int main(int argc , char *argv[])
 {
-
-
 
     ros::init(argc, argv, "sender");
     ros::NodeHandle n;
