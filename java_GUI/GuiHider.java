@@ -1,8 +1,29 @@
-import java.util.Scanner;
+import java.util.*;
 
 public class GuiHider {
 
+	static HashMap<Integer,String[]> treasures;
+
 	public static void main(String[] args) {
+
+		treasures = new HashMap<Integer,String[]>();
+		String[] temp = {"Red","Ball"};
+		treasures.put(0, temp);
+		temp = {"Blue","Hat"};
+		treasures.put(1, temp);
+		temp = {"Red", "Square"};
+		treasures.put(2, temp);
+		temp = {"Green", "Hat"};
+		treasures.put(3, temp);
+		temp = {"Yellow","Bottle"};
+		treasures.put(4, temp);
+		temp = {"Orange", "Bottle"};
+		treasures.put(5, temp);
+		temp = {"Pink", "Hat"};
+		treasures.put(6, temp);
+		temp = {"Violet", "Square"};
+		treasures.put(7, temp);
+
 
 		Connector r = new Connector("127.0.1.1", 6009);
 		Thread r2 = new Thread(r);
@@ -22,9 +43,14 @@ public class GuiHider {
 			int robot = Integer.parseInt(sendRobotTo.split(";")[1]);
 			System.out.println(room + " " + robot);
 			
-			r.sendRobot(room,robot);
+			sendRobot(r, room,robot);
 		}
 
+	}
+
+	//Simple method that sends a send robot message and asks the server to pass it through.
+	public static void sendRobot(Connector r, int robot, int room) {
+		r.sendMessage("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 	}
 
 
