@@ -2,6 +2,12 @@
 import java.io.*;
 import java.net.*;
 
+
+/**
+	Connector class is responsible for running the server. Listening to basic information coming in to the classes that
+	use it and moving forward.
+
+*/
 public class Connector implements Runnable{
 	Socket kkSocket;
 	PrintWriter out;
