@@ -25,8 +25,14 @@ public class Connector implements Runnable{
 		out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 		sendMessage = true;
 	}
+
+	public void setId(String id) {
+
+		out.println("%%setid " + id);
+
+	}
+
 	public boolean isRunning() {
-		System.out.println(isAble);
 		if(isAble) return true;
 		else return false;
 	}
@@ -44,9 +50,8 @@ public class Connector implements Runnable{
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             String fromServer;
             
- 			
- 			out.println("%%setid TabUI");
  			makeOutPublic(out);
+ 			isAble = true;
             while ((fromServer = in.readLine()) != null || sendMessage) {
                 System.out.println("Server: " + fromServer);
                 if (fromServer.contains("ping"))
