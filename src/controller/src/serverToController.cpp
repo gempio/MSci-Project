@@ -179,6 +179,11 @@ void *run_server(void*) {
    
     return 0;
 }
+
+void processSuccess(const std_msgs::String::ConstPtr& msg) {
+    std::string temp2 = msg->data.c_str();
+    cout<<temp2;
+}
  
 int main(int argc , char *argv[])
 {
@@ -189,6 +194,7 @@ int main(int argc , char *argv[])
     ros::NodeHandle n;
     tempo = "";
     ros::Publisher chatter_pub = n.advertise<std_msgs::String>("sendRobots", 50);
+    ros::Subscriber sub = n.subscribe("success", 50, processSuccess);
     ros::Rate loop_rate(10);
     moveRobot = false;
     pthread_t temp;

@@ -21,6 +21,8 @@ int numberInput;
 int numberInput2;
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 pthread_t threads[2];
+bool robotSuccess;
+std::string tempo;
 
 void *send_goal_1(void*) {
 
@@ -50,9 +52,11 @@ void *send_goal_1(void*) {
 
   ac.waitForResult();
 
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
     ROS_INFO("Robot 1 Success");
-  else
+    tempo = "robot 2 managed";
+    robotSuccess = true;
+  } else
     ROS_INFO("The base 1 failed to move forward 1 meter for some reason");
 }
 
@@ -82,9 +86,11 @@ void *send_goal_2(void*) {
 
 
   ac.waitForResult();
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) { 
     ROS_INFO("Robot 2 Success");
-  else
+    tempo = "robot 2 managed";
+    robotSuccess = true;
+  } else
     ROS_INFO("The base 2 failed to move forward 1 meter for some reason");
 }
 
@@ -195,9 +201,30 @@ int main(int argc, char **argv)
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
-
-
+  tempo = "";
+  robotSuccess = false;
   ros::Subscriber sub = n.subscribe("sendRobots", 50, processCommand);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("success", 50);
+  ros::Rate loop_rate(10);
+  while (ros::ok())
+    {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+         */
+        if(robotSuccess) {
+            std_msgs::String msg;
+            
+            msg.data = tempo;
+            chatter_pub.publish(msg);
+
+            ROS_INFO("%s", msg.data.c_str());
+            robotSuccess = !robotSuccess;
+            
+        }
+        ros::spinOnce();
+
+        loop_rate.sleep();
+    }
 
   ros::spin();
   

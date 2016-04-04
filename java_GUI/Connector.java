@@ -1,9 +1,8 @@
-
 import java.io.*;
 import java.net.*;
 
 
-/**
+/*
 	Connector class is responsible for running the server. Listening to basic information coming in to the classes that
 	use it and moving forward.
 
@@ -58,10 +57,6 @@ public class Connector implements Runnable{
                 System.out.println("Server: " + fromServer);
                 if (fromServer.contains("ping")) out.println("%%pong");
                 else if (fromServer.contains("ack")) System.out.println("ackowledged");
-                // if(sendMessage) {
-                // 	System.out.println("Sending Message");
-                // 	out.println(fromUser);
-                // 	sendMessage = false;
             }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
