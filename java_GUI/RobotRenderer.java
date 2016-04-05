@@ -6,28 +6,65 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
-import javax.swing.table.TableCellEditor;
+import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import javax.swing.JLabel;
+import javax.swing.JProgressBar;
+import java.awt.*;
+import javax.swing.BorderFactory;
 
-class RobotRenderer extends AbstractCellEditor implements TableCellEditor {
 
-  JPanel component = new JPanel();
+class RobotRenderer implements TableCellRenderer
+{
+    private JPanel panel;
+    private JPanel subPanel;
+    private JLabel robotName;
+    private JLabel robotAt;
+    private JLabel energy;
+    private JProgressBar energyLevel;
 
-  public Component getTableCellEditorComponent(JTable list, Object value, boolean isSelected,
-      int rowIndex, int vColIndex) {
+    public RobotRenderer()
+    {
+        panel = new JPanel(new BorderLayout());
+        robotName = new JLabel();
+        robotAt = new JLabel();
+        energy = new JLabel();
+        energyLevel = new JProgressBar(0,100);
+        subPanel = new JPanel(new BorderLayout());
+    }
 
-  	Robot tempRobot = (Robot) value;
-  	System.out.println(tempRobot.name);
-  	System.out.println(tempRobot.energyLeft);
-  	JTextArea name = new JTextArea(tempRobot.name);
-  	JTextArea energy = new JTextArea("" + tempRobot.energyLeft);
-  	component.add(name);
-  	component.add(energy);
+    public Component getTableCellRendererComponent(
+        JTable table, Object value, boolean isSelected,
+        boolean hasFocus, final int row, final int column)
+    {
+        panel.removeAll();
+        panel.setLayout(new BorderLayout());
+        if (isSelected)
+            panel.setBackground( table.getSelectionBackground() );
+        else
+            panel.setBackground( table.getBackground() );
 
-    return component;
-  }
+        if (value == null
+        ||  value.toString().length() == 0)
+            return panel;
+        Robot temp = (Robot) value;
 
-  public Object getCellEditorValue() {
-    return component.toString();
-  }
+        String robotNM = temp.name;
+        String robotLoc = temp.location;
+        int enrg = temp.energyLeft;
+
+        robotName.setText( robotNM );
+        robotAt.setText( "Location: " + robotLoc );
+        energyLevel.setValue(enrg);
+        energyLevel.setStringPainted(true);
+        energy.setText("Energy Left: ");
+
+        panel.add(robotName, BorderLayout.NORTH);
+        panel.add(robotAt, BorderLayout.CENTER);
+        subPanel.add(energy, BorderLayout.NORTH);
+        subPanel.add(energyLevel, BorderLayout.SOUTH);
+        panel.add(subPanel, BorderLayout.SOUTH);
+        panel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        return panel;
+    }
 }

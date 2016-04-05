@@ -3,8 +3,7 @@ import java.io.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
+import javax.swing.table.*;
 /** 
 	A class responsible for holding user data and listening to specific events
 */
@@ -145,8 +144,8 @@ public class GuiUser implements Listener{
 			//Fill out the new container
 
 			//Introduce the main panels.
-			JPanel topLabelPanel = new JPanel();
-			topLabelPanel.setBackground(Color.BLACK);
+			JPanel topLabelPanel = new JPanel(new BorderLayout());
+			//topLabelPanel.setBackground(Color.BLACK);
 			JPanel mapPanel = new JPanel();
 			mapPanel.setBackground(Color.BLUE);
 			JPanel robotList = new JPanel();
@@ -162,20 +161,22 @@ public class GuiUser implements Listener{
 			robotList.setPreferredSize(new Dimension(180,600));
 			roomOptionList.setPreferredSize(new Dimension(800,100));
 
-
 			DefaultTableModel tmodel = new DefaultTableModel();
-      		DefaultTableModel model = new DefaultTableModel();
-			tmodel.addColumn("NoHeader",new Object[] { new Robot("Robot 1",0,100),
-      		new Robot("Robot 2",2,100)});
+			tmodel.addColumn("NoHeader",new Object[] { new Robot("Robot 1",0,100,"Corridor"),
+      		new Robot("Robot 2",2,100, "Corridor")});
 			//Fill out the robotList
-			JTable table = new JTable(tmodel);
-    		table.setCellEditor(new RobotRenderer());
+			JTable table = new JTable(tmodel) {
+				 public boolean isCellEditable(int row, int column) {return false;}
+			};
+    		table.setDefaultRenderer(Object.class, new RobotRenderer());
     		table.setTableHeader(null);
+    		table.setRowHeight(90);
     		robotList.setLayout(new BorderLayout());  
     		robotList.add(new JScrollPane(table));   
 
 			//Fill out the top panel
 			topLabelPanel.add(new JLabel("Objectives can be found below"));
+			topLabelPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 
 			//Fill out the middle panel
 			middlePanel.setLayout(new BorderLayout());
