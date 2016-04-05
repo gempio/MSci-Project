@@ -1,6 +1,8 @@
 import java.util.Scanner;
 import java.io.*;
-
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
 /** 
 	A class responsible for holding user data and listening to specific events
 */
@@ -21,7 +23,9 @@ public class GuiUser implements Listener{
 		r2.start();
 		waitForServer(r);
 		r.setId("TabUI");
+		new GUI();
 		askQuestions(this.r);
+		
 	}
 
 	public void addListener(CommandObject command) {
@@ -71,4 +75,30 @@ public class GuiUser implements Listener{
     	if(attribute.contains("found")) System.out.println("Hider Message about the treasure");
   	}
 
+  	private class GUI extends JFrame{
+
+		public GUI() {
+			JFrame frame = new JFrame("Frame Trial");
+	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 
+	        JLabel emptyLabel = new JLabel("");
+	        emptyLabel.setPreferredSize(new Dimension(175, 100));
+	        frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+	 
+	        //Display the window.
+	        frame.pack();
+	        frame.setVisible(true);
+		}
+
+		public void buildRobotAskingPanel() {
+
+		}
+
+		public void buildMainPanel() {
+			
+		}
+
+	}
+
 }
+
