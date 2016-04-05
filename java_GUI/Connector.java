@@ -1,6 +1,6 @@
 import java.io.*;
 import java.net.*;
-
+import java.util.concurrent.LinkedBlockingQueue;
 
 /*
 	Connector class is responsible for running the server. Listening to basic information coming in to the classes that
@@ -16,13 +16,15 @@ public class Connector implements Runnable{
 	boolean isAble;
 	boolean sendMessage;
 	String fromUser;
+	LinkedBlockingQueue<String> commands;
 
-	public Connector(String hostName, int portNumber) {
+	public Connector(String hostName, int portNumber, LinkedBlockingQueue<String> commands) {
 		this.hostName = hostName;
 		this.portNumber = portNumber;
-		isAble = false;
-		fromUser = "";
-		sendMessage = false;
+		this.isAble = false;
+		this.fromUser = "";
+		this.sendMessage = false;
+		this.commands = commands;
 	}
 
 	public void sendMessage(String message) {
@@ -56,7 +58,7 @@ public class Connector implements Runnable{
             while ((fromServer = in.readLine()) != null) {
                 System.out.println("Server: " + fromServer);
                 if (fromServer.contains("ping")) out.println("%%pong");
-                else if (fromServer.contains("Robot")) System.out.println(fromServer);
+                else if (fromServer.contains("Robot")) commands.put(fromServer);
                 else if (fromServer.contains("ack")) System.out.println("ackowledged");
             }
         } catch (UnknownHostException e) {
@@ -66,6 +68,9 @@ public class Connector implements Runnable{
             System.err.println("Couldn't get I/O for the connection to " +
                 hostName);
             System.exit(1);
+        } catch(InterruptedException e) {
+        	System.err.println("InterruptedException");
+        	System.exit(1);
         }
 
 	}

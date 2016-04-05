@@ -1,13 +1,16 @@
 import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.io.*;
 
 public class GuiHider {
 
 	static HashMap<Integer,String[]> treasures;
-	
+	static LinkedBlockingQueue<String> commands;
+
 	public static void main(String[] args) {
 
 		treasures = new HashMap<Integer,String[]>();
-		
+		commands = new LinkedBlockingQueue<String>();
 		treasures.put(0, setTreasure("Red","Ball"));
 		treasures.put(1, setTreasure("Blue","Hat"));
 		treasures.put(2, setTreasure("Red", "Square"));
@@ -18,28 +21,29 @@ public class GuiHider {
 		treasures.put(7, setTreasure("Violet", "Square"));
 
 
-		Connector r = new Connector("127.0.1.1", 6009);
+		Connector r = new Connector("127.0.1.1", 6009, commands);
 		Thread r2 = new Thread(r);
 		r2.start();
 		
+		waitForServer(r);//Wait for the server to start up before continuing.
+
+		r.setId("Hider");
+		try {
+			System.out.println(commands.take());
+	
+		} catch(InterruptedException e) {
+			System.out.println("Intterrupted Exception");
+		}
+		
+	}
+
+	//An empty blocking method that ensures that server has time to set up before continuing running asynchrously.
+	public static void waitForServer(Connector r) {
 		while(!(r.isRunning())){
 			System.out.print("");
 		} //Wait for the server to start up before continuing.
-
-		r.setId("Hider");
-
-		while(true) {
-			System.out.println("Enter your robot and room to go to e.g. 0;0: ");
-			Scanner scanner = new Scanner(System.in);
-			String sendRobotTo = scanner.nextLine();
-			int room = Integer.parseInt(sendRobotTo.split(";")[0]);
-			int robot = Integer.parseInt(sendRobotTo.split(";")[1]);
-			System.out.println(room + " " + robot);
-			
-			sendRobot(r, room,robot);
-		}
-
 	}
+
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
 	public static void sendRobot(Connector r, int robot, int room) {

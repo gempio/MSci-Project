@@ -1,19 +1,28 @@
 import java.util.Scanner;
-
+import java.util.concurrent.LinkedBlockingQueue;
+import java.io.*;
 
 /** 
 	A Cli class that manages sending robots around and contacting the server as TabUI.
 */
 public class GuiUser {
-
+	static LinkedBlockingQueue<String> commands;
 	//Just a starter method for GUI with basic CLI.
 	public static void main(String[] args) {
+		commands = new LinkedBlockingQueue<String>();
 		boolean one_run = true;
-		Connector r = new Connector("127.0.1.1", 6009);
+		Connector r = new Connector("127.0.1.1", 6009, commands);
 		Thread r2 = new Thread(r);
 		r2.start();
 		waitForServer(r);
 		r.setId("TabUI");
+		try {
+			//System.out.println(commands.take());
+			commands.take();
+			
+		} catch(InterruptedException e) {
+			System.out.println("InterruptedException");
+		}
 		askQuestions(r);
 	}
 
