@@ -3,6 +3,8 @@ import java.io.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 /** 
 	A class responsible for holding user data and listening to specific events
 */
@@ -78,7 +80,7 @@ public class GuiUser implements Listener{
   	private class GUI extends JFrame{
 
 		public GUI() {
-			super("Frame Trial");
+			super("Treasure Hunt");
 	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	 
 	        JLabel emptyLabel = new JLabel("");
@@ -96,14 +98,22 @@ public class GuiUser implements Listener{
 			JPanel container = new JPanel();
 			container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 			JButton continueBtn = new JButton("Continue");
-			String[] noRobots = { "1","2" };
+			continueBtn.addActionListener(new ActionListener(){
+
+				public void actionPerformed(ActionEvent e)
+	            {
+	                //Execute when button is pressed
+	                buildMainPanel();
+	            }
+
+
+			});
+			String[] noRobots = { "1","2"};
 
 			//Create the combo box, select item at index 4.
 			//Indices start at 0, so 4 specifies the pig.
 			JComboBox<String> noRobotsBox = new JComboBox<String>(noRobots);
 			noRobotsBox.setSelectedIndex(0);
-
-
 
 			//Code to EDDDITTTTTTTTTTTTTTTTTTTTTT
 			//Lay out the label and scroll pane from top to bottom.
@@ -129,7 +139,67 @@ public class GuiUser implements Listener{
 		}
 
 		public void buildMainPanel() {
+			//Create a new container
+			JPanel container = new JPanel();
+			
+			//Fill out the new container
 
+			//Introduce the main panels.
+			JPanel topLabelPanel = new JPanel();
+			topLabelPanel.setBackground(Color.BLACK);
+			JPanel mapPanel = new JPanel();
+			mapPanel.setBackground(Color.BLUE);
+			JPanel robotList = new JPanel();
+			robotList.setBackground(Color.GREEN);
+			JPanel roomOptionList = new JPanel();
+			roomOptionList.setBackground(Color.WHITE);
+			JPanel middlePanel = new JPanel();
+			JPanel bottomPanel = new JPanel();
+
+			//Set their sizes.
+			topLabelPanel.setPreferredSize(new Dimension(1000,20));
+			mapPanel.setPreferredSize(new Dimension(800,600));
+			robotList.setPreferredSize(new Dimension(180,600));
+			roomOptionList.setPreferredSize(new Dimension(800,100));
+
+
+			DefaultTableModel tmodel = new DefaultTableModel();
+      		DefaultTableModel model = new DefaultTableModel();
+			tmodel.addColumn("NoHeader",new Object[] { new Robot("Robot 1",0,100),
+      		new Robot("Robot 2",2,100)});
+			//Fill out the robotList
+			JTable table = new JTable(tmodel);
+    		table.setCellEditor(new RobotRenderer());
+    		table.setTableHeader(null);
+    		robotList.setLayout(new BorderLayout());  
+    		robotList.add(new JScrollPane(table));   
+
+			//Fill out the top panel
+			topLabelPanel.add(new JLabel("Objectives can be found below"));
+
+			//Fill out the middle panel
+			middlePanel.setLayout(new BorderLayout());
+			middlePanel.add(mapPanel,BorderLayout.WEST);
+			middlePanel.add(robotList,BorderLayout.EAST);
+
+			//Fill out the bottom panel
+			bottomPanel.setLayout(new BorderLayout());
+			bottomPanel.add(Box.createRigidArea(new Dimension(0,5)), BorderLayout.NORTH);
+			bottomPanel.add(new JLabel("Please select a room to go to"), BorderLayout.NORTH);
+			bottomPanel.add(roomOptionList, BorderLayout.CENTER);
+
+			//Fill out the main container
+			container.setLayout(new BorderLayout());
+			container.add(topLabelPanel, BorderLayout.NORTH);
+			container.add(middlePanel, BorderLayout.CENTER);
+			container.add(bottomPanel, BorderLayout.SOUTH);
+
+
+			//Set the new container and repaint.
+			this.setContentPane(container);
+			this.validate();
+			this.pack();
+			this.repaint();
 		}
 
 	}
