@@ -78,24 +78,58 @@ public class GuiUser implements Listener{
   	private class GUI extends JFrame{
 
 		public GUI() {
-			JFrame frame = new JFrame("Frame Trial");
-	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			super("Frame Trial");
+	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	 
 	        JLabel emptyLabel = new JLabel("");
 	        emptyLabel.setPreferredSize(new Dimension(175, 100));
-	        frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+	        this.getContentPane().add(emptyLabel, BorderLayout.CENTER);
 	 
 	        //Display the window.
-	        frame.pack();
-	        frame.setVisible(true);
+	        buildRobotAskingPanel();
+	        this.pack();
+	        this.setVisible(true);
 		}
 
 		public void buildRobotAskingPanel() {
+			System.out.println("Robot Number Panel Called");
+			JPanel container = new JPanel();
+			container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+			JButton continueBtn = new JButton("Continue");
+			String[] noRobots = { "1","2" };
 
+			//Create the combo box, select item at index 4.
+			//Indices start at 0, so 4 specifies the pig.
+			JComboBox<String> noRobotsBox = new JComboBox<String>(noRobots);
+			noRobotsBox.setSelectedIndex(0);
+
+
+
+			//Code to EDDDITTTTTTTTTTTTTTTTTTTTTT
+			//Lay out the label and scroll pane from top to bottom.
+			JPanel listPane = new JPanel();
+			listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
+			JLabel label = new JLabel("Please provide number of robots");
+			listPane.add(label);
+			listPane.add(Box.createRigidArea(new Dimension(0,5)));
+			listPane.add(noRobotsBox);
+			listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
+			//Lay out the buttons from left to right.
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+			buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+			buttonPane.add(Box.createHorizontalGlue());
+			buttonPane.add(continueBtn);
+
+
+			container.add(listPane, BorderLayout.CENTER);
+			container.add(buttonPane, BorderLayout.PAGE_END);
+			this.add(container);
 		}
 
 		public void buildMainPanel() {
-			
+
 		}
 
 	}
