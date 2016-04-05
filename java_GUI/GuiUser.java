@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.table.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 /** 
 	A class responsible for holding user data and listening to specific events
 */
@@ -77,6 +79,8 @@ public class GuiUser implements Listener{
   	}
 
   	private class GUI extends JFrame{
+  		
+  		private static final long serialVersionUID = 1L;
 
 		public GUI() {
 			super("Treasure Hunt");
@@ -125,8 +129,11 @@ public class GuiUser implements Listener{
 			listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
 			//Lay out the buttons from left to right.
+			
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+
+
 			buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 			buttonPane.add(Box.createHorizontalGlue());
 			buttonPane.add(continueBtn);
@@ -147,11 +154,11 @@ public class GuiUser implements Listener{
 			JPanel topLabelPanel = new JPanel(new BorderLayout());
 			//topLabelPanel.setBackground(Color.BLACK);
 			JPanel mapPanel = new JPanel();
-			mapPanel.setBackground(Color.BLUE);
+			//mapPanel.setBackground(Color.BLUE);
 			JPanel robotList = new JPanel();
-			robotList.setBackground(Color.GREEN);
+			//robotList.setBackground(Color.GREEN);
 			JPanel roomOptionList = new JPanel();
-			roomOptionList.setBackground(Color.WHITE);
+			//roomOptionList.setBackground(Color.WHITE);
 			JPanel middlePanel = new JPanel();
 			JPanel bottomPanel = new JPanel();
 
@@ -171,12 +178,18 @@ public class GuiUser implements Listener{
     		table.setDefaultRenderer(Object.class, new RobotRenderer());
     		table.setTableHeader(null);
     		table.setRowHeight(90);
+    		table.changeSelection(0, 0, false, false);
     		robotList.setLayout(new BorderLayout());  
     		robotList.add(new JScrollPane(table));   
 
 			//Fill out the top panel
 			topLabelPanel.add(new JLabel("Objectives can be found below"));
 			topLabelPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+
+
+			//Fill out the first basic map.
+			JLabel map = getImageLabel("maps/map1.png");
+			mapPanel.add(map);
 
 			//Fill out the middle panel
 			middlePanel.setLayout(new BorderLayout());
@@ -186,9 +199,19 @@ public class GuiUser implements Listener{
 			//Fill out the bottom panel
 			bottomPanel.setLayout(new BorderLayout());
 			bottomPanel.add(Box.createRigidArea(new Dimension(0,5)), BorderLayout.NORTH);
-			bottomPanel.add(new JLabel("Please select a room to go to"), BorderLayout.NORTH);
+			bottomPanel.add(new JLabel("Please select a room to go to: "), BorderLayout.NORTH);
+			
+			//Populate room buttons
+			roomOptionList.setLayout(new FlowLayout());
+			int noRooms = 8;
+			JButton[] rooms = new JButton[noRooms];
+			for(int i = 0; i<noRooms; i++) {
+				rooms[i] = new JButton("" + (i+1));
+				rooms[i].setPreferredSize(new Dimension(60,60));
+				// rooms[i].setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+				roomOptionList.add(rooms[i]);
+			}
 			bottomPanel.add(roomOptionList, BorderLayout.CENTER);
-
 			//Fill out the main container
 			container.setLayout(new BorderLayout());
 			container.add(topLabelPanel, BorderLayout.NORTH);
@@ -201,6 +224,17 @@ public class GuiUser implements Listener{
 			this.validate();
 			this.pack();
 			this.repaint();
+		}
+
+		public JLabel getImageLabel(String path) {
+			try{ 
+				BufferedImage myPicture = ImageIO.read(new File(path));
+				JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+				return picLabel;
+			} catch(IOException e){
+				System.out.println("Image not loaded");
+				return null;
+			}
 		}
 
 	}

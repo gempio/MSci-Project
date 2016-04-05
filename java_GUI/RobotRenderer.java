@@ -64,7 +64,7 @@ class RobotRenderer implements TableCellRenderer
         subPanel.add(energy, BorderLayout.NORTH);
         subPanel.add(energyLevel, BorderLayout.SOUTH);
         panel.add(subPanel, BorderLayout.SOUTH);
-        panel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         return panel;
     }
 }
