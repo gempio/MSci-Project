@@ -8,12 +8,12 @@ public class CommandObject implements Observable{
   public void remove(Listener listener) {listeners.remove(listener);}
 
   // a sample field
-  private int field;
-  public int getField() {return field;}
-  public int setField(int value) {
+  private String field;
+  public String getField() {return field;}
+  public String setField(String value) {
     field = value;
-    fire("field"); 
-    return value;       
+    fire(value); 
+    return value;   
   }
 
   // notification code

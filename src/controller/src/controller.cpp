@@ -88,7 +88,7 @@ void *send_goal_2(void*) {
   ac.waitForResult();
   if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) { 
     ROS_INFO("Robot 2 Success");
-    tempo = "%%send SimR TabUI \"Robot 2 managed\"";
+    tempo = "%%error SimR TabUI \"Robot 2 managed\"";
     robotSuccess = true;
   } else
     ROS_INFO("The base 2 failed to move forward 1 meter for some reason");

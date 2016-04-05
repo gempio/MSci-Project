@@ -2,15 +2,19 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.io.*;
 
-public class GuiHider {
+public class GuiHider implements Listener{
 
-	static HashMap<Integer,String[]> treasures;
-	static LinkedBlockingQueue<String> commands;
-
+	HashMap<Integer,String[]> treasures;
+	CommandObject command;
+	Connector r;
 	public static void main(String[] args) {
+		new GuiHider();
+	}
 
+	public GuiHider() {
+		command = new CommandObject();
+		register(this.command);
 		treasures = new HashMap<Integer,String[]>();
-		commands = new LinkedBlockingQueue<String>();
 		treasures.put(0, setTreasure("Red","Ball"));
 		treasures.put(1, setTreasure("Blue","Hat"));
 		treasures.put(2, setTreasure("Red", "Square"));
@@ -21,24 +25,17 @@ public class GuiHider {
 		treasures.put(7, setTreasure("Violet", "Square"));
 
 
-		Connector r = new Connector("127.0.1.1", 6009, commands);
+		r = new Connector("127.0.1.1", 6009, this.command);
 		Thread r2 = new Thread(r);
 		r2.start();
 		
 		waitForServer(r);//Wait for the server to start up before continuing.
 
 		r.setId("Hider");
-		try {
-			System.out.println(commands.take());
-	
-		} catch(InterruptedException e) {
-			System.out.println("Intterrupted Exception");
-		}
-		
 	}
 
 	//An empty blocking method that ensures that server has time to set up before continuing running asynchrously.
-	public static void waitForServer(Connector r) {
+	public void waitForServer(Connector r) {
 		while(!(r.isRunning())){
 			System.out.print("");
 		} //Wait for the server to start up before continuing.
@@ -46,12 +43,24 @@ public class GuiHider {
 
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
-	public static void sendRobot(Connector r, int robot, int room) {
-		r.sendMessage("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
+	public void sendTresureFirstProperty(Connector r, int room) {
+		r.sendMessage("%%found Hider TabUI " + room + " " + room + " \"(colour " + treasures.get(room) + ")\"");
 	}
 	//A method that returns an array of two property treasure.
-	public static String[] setTreasure(String colour, String shape) {
+	public String[] setTreasure(String colour, String shape) {
 		String[] temp = {colour,shape};
 		return temp;
 	}
+
+	public void register(Observable observable) {observable.add(this);}
+  	public void unregister(Observable observable) {observable.remove(this);}
+
+  	public void fieldChanged(Object source, String attribute) {
+  		if(attribute.contains("error")) {
+  			String[] temp = attribute.split("\"");
+  			int room = Integer.parseInt(temp[1]);
+  			sendTresureFirstProperty(r, room);
+  		}
+    	System.out.println("Hider GUI: " + attribute); // this has to be implemented
+  	}
 }

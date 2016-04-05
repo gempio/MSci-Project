@@ -16,9 +16,9 @@ public class Connector implements Runnable{
 	boolean isAble;
 	boolean sendMessage;
 	String fromUser;
-	LinkedBlockingQueue<String> commands;
+	CommandObject commands;
 
-	public Connector(String hostName, int portNumber, LinkedBlockingQueue<String> commands) {
+	public Connector(String hostName, int portNumber, CommandObject commands) {
 		this.hostName = hostName;
 		this.portNumber = portNumber;
 		this.isAble = false;
@@ -58,7 +58,7 @@ public class Connector implements Runnable{
             while ((fromServer = in.readLine()) != null) {
                 System.out.println("Server: " + fromServer);
                 if (fromServer.contains("ping")) out.println("%%pong");
-                else if (fromServer.contains("Robot")) commands.put(fromServer);
+                else if (fromServer.contains("error") || fromServer.contains("found")) commands.setField(fromServer);
                 else if (fromServer.contains("ack")) System.out.println("ackowledged");
             }
         } catch (UnknownHostException e) {
@@ -68,13 +68,10 @@ public class Connector implements Runnable{
             System.err.println("Couldn't get I/O for the connection to " +
                 hostName);
             System.exit(1);
-        } catch(InterruptedException e) {
-        	System.err.println("InterruptedException");
-        	System.exit(1);
         }
 
 	}
 
 
-
+	
 }
