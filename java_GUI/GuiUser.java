@@ -62,8 +62,11 @@ public class GuiUser implements Listener{
 
   	public void fieldChanged(Object source, String attribute) {
     	System.out.println("User GUI: " + attribute); 
-    	if(attribute.contains("Robot")) {
-    		askForTreasure(3);
+    	if(attribute.contains("error")) {
+    		String[] temp = attribute.split("\"");
+    		temp = temp[1].split(";");
+    		System.out.println("Robot: " + (temp[0]+1) + " Room: " + (temp[1]+1));
+    		askForTreasure(Integer.parseInt(temp[1]));
     	}// this has to be implemented
     	if(attribute.contains("found")) System.out.println("Hider Message about the treasure");
   	}

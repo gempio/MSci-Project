@@ -44,7 +44,7 @@ public class GuiHider implements Listener{
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
 	public void sendTresureFirstProperty(Connector r, int room) {
-		r.sendMessage("%%found Hider TabUI " + room + " " + room + " \"(colour " + treasures.get(room) + ")\"");
+		r.sendMessage("%%found Hider TabUI " + room + " " + room + " \"(colour " + treasures.get(room)[0] + ")\"");
 	}
 	//A method that returns an array of two property treasure.
 	public String[] setTreasure(String colour, String shape) {
