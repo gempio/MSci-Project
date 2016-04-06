@@ -1,6 +1,6 @@
 <launch>
   
- <node pkg="amcl" type="amcl" name="amcl" output="screen">
+ <node pkg="amcl" type="amcl" name="amcl">
 
   <param name="base_frame" value = "base_link"/>
   <param name="fixed_frame" value = "map"/>
@@ -57,7 +57,7 @@
     <param name="fixed_frame" type="string" value="base_link" />
   </node>
 
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base">
     <rosparam file="$(find robot1)/costmap_common_params.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find robot1)/costmap_common_params.yaml" command="load" ns="local_costmap" />
     <rosparam file="$(find robot1)/local_costmap_params.yaml" command="load" />

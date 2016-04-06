@@ -20,12 +20,15 @@ public class GuiUser implements Listener{
 	JButton[] rooms;
 	int selectedRobot;
 	JTable table;
+	GUI gui;
+	JPanel mapPanel;
+	JLabel map;
+
 	public static void main(String[] args) {
 		new GuiUser();
 	}
 
 	public GuiUser() {
-		boolean one_run = true;
 		command = new CommandObject();
 		addListener(command);
 		this.r = new Connector("127.0.1.1", 6009,command);
@@ -33,8 +36,8 @@ public class GuiUser implements Listener{
 		r2.start();
 		waitForServer(r);
 		r.setId("TabUI");
-		new GUI();
-		askQuestions(this.r);
+		gui = new GUI();
+		//askQuestions(this.r);
 		
 	}
 
@@ -81,6 +84,12 @@ public class GuiUser implements Listener{
     		temp = temp[1].split(";");
     		System.out.println("Robot: " + (temp[0]+1) + " Room: " + (temp[1]+1));
     		askForTreasure(Integer.parseInt(temp[1]));
+    		int robotId = Integer.parseInt(temp[0]);
+    		robots[robotId].location = temp[1];
+    		robots[robotId].traveling = false;
+    		robots[robotId].energyLeft -= 20;
+    		if(selectedRobot == robotId) gui.updateMap(Integer.parseInt(robots[robotId].location)+2);
+
     	}// this has to be implemented
     	if(attribute.contains("found")) System.out.println("Hider Message about the treasure");
   	}
@@ -104,7 +113,6 @@ public class GuiUser implements Listener{
 		}
 
 		public void buildRobotAskingPanel() {
-			System.out.println("Robot Number Panel Called");
 			JPanel container = new JPanel();
 			container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 			JButton continueBtn = new JButton("Continue");
@@ -160,13 +168,13 @@ public class GuiUser implements Listener{
 			
 			//Let's start the robots off.
 			for(int i=0; i<robots.length; i++) {
-				robots[i] = new Robot("Robot " + (i+1), 0, 100, "1");
+				robots[i] = new Robot("Robot " + (i+1), i, 100, "-1");
 			}
 
 			//Introduce the main panels.
 			JPanel topLabelPanel = new JPanel(new BorderLayout());
 			//topLabelPanel.setBackground(Color.BLACK);
-			JPanel mapPanel = new JPanel();
+			mapPanel = new JPanel();
 			//mapPanel.setBackground(Color.BLUE);
 			JPanel robotList = new JPanel();
 			//robotList.setBackground(Color.GREEN);
@@ -193,8 +201,10 @@ public class GuiUser implements Listener{
     			public void valueChanged(ListSelectionEvent e) {
     				if (e.getValueIsAdjusting()) return; 
     				int temp = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
+    				selectedRobot = temp;
     				System.out.println(temp);
     				updateButtons(robots[temp]);
+    				updateMap(Integer.parseInt(robots[temp].location)+2);
     			}
     		};
 
@@ -210,7 +220,7 @@ public class GuiUser implements Listener{
 
 
 			//Fill out the first basic map.
-			JLabel map = getImageLabel("maps/mapR1.png");
+			map = getImageLabel("maps/mapR1.png");
 			mapPanel.add(map);
 
 			//Fill out the middle panel
@@ -237,7 +247,7 @@ public class GuiUser implements Listener{
 		                //Execute when button is pressed
 		                String command = ((JButton) e.getSource()).getActionCommand();
 		            	System.out.println(command);
-		            	sendRobot(r, selectedRobot,Integer.parseInt(command));
+		            	sendRobot(r, selectedRobot,Integer.parseInt(command)-1);
 
 		            	robots[selectedRobot].traveling = true;
 		            	robots[selectedRobot].location = "Travelling";
@@ -273,6 +283,21 @@ public class GuiUser implements Listener{
 				System.out.println("Image not loaded");
 				return null;
 			}
+		}
+
+		public void updateMap(int roomId) {
+			System.out.println(roomId);
+			System.out.println("maps/mapR"+(roomId+1)+".png");
+			
+
+			try{ 
+				BufferedImage myPicture = ImageIO.read(new File("maps/mapR"+(roomId)+".png"));
+				map.setIcon(new ImageIcon(myPicture));
+			} catch(IOException e){
+				System.out.println("Image not loaded");
+			}
+
+			mapPanel.repaint();
 		}
 
 		public void blockButtons() {

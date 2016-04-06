@@ -55,10 +55,9 @@ void *send_goal_1(void*) {
 
   if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
     std::stringstream sstm;
-    robot[0] = numberInput;
     sstm << "%%error SimR TabUI \"" << 0 << ";" << robot[0] << "\"";
     tempo = sstm.str();
-    ROS_INFO(tempo.c_str());
+    //ROS_INFO(tempo.c_str());
     robotSuccess = true;
   } else
     ROS_INFO("The base 1 failed to move forward 1 meter for some reason");
@@ -92,10 +91,9 @@ void *send_goal_2(void*) {
   ac.waitForResult();
   if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) { 
     std::stringstream sstm;
-    robot[1] = numberInput;
     sstm << "%%error SimR TabUI \"" << 1 << ";" << robot[1] << "\"";
     tempo = sstm.str();
-    ROS_INFO(tempo.c_str());
+    //ROS_INFO(tempo.c_str());
     robotSuccess = true;
   } else
     ROS_INFO("The base 2 failed to move forward 1 meter for some reason");
