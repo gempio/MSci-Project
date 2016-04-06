@@ -6,6 +6,7 @@ import java.awt.*;
 import javax.swing.table.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
+import javax.swing.event.*;
 /** 
 	A class responsible for holding user data and listening to specific events
 */
@@ -13,6 +14,12 @@ public class GuiUser implements Listener{
 	//Just a starter method for GUI with basic CLI.
 	CommandObject command;
 	Connector r;
+	Robot[] robots;
+	JComboBox<String> noRobotsBox;
+	int i;
+	JButton[] rooms;
+	int selectedRobot;
+	JTable table;
 	public static void main(String[] args) {
 		new GuiUser();
 	}
@@ -101,22 +108,25 @@ public class GuiUser implements Listener{
 			JPanel container = new JPanel();
 			container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
 			JButton continueBtn = new JButton("Continue");
+			String[] noRobots = { "1","2"};
+
+			noRobotsBox = new JComboBox<String>(noRobots);
+			noRobotsBox.setSelectedIndex(0);
+
+
 			continueBtn.addActionListener(new ActionListener(){
 
 				public void actionPerformed(ActionEvent e)
 	            {
 	                //Execute when button is pressed
+	            	String temp = String.valueOf(noRobotsBox.getSelectedItem());
+	            	robots = new Robot[Integer.parseInt(temp)];
 	                buildMainPanel();
 	            }
 
 
 			});
-			String[] noRobots = { "1","2"};
-
-			//Create the combo box, select item at index 4.
-			//Indices start at 0, so 4 specifies the pig.
-			JComboBox<String> noRobotsBox = new JComboBox<String>(noRobots);
-			noRobotsBox.setSelectedIndex(0);
+			
 
 			//Code to EDDDITTTTTTTTTTTTTTTTTTTTTT
 			//Lay out the label and scroll pane from top to bottom.
@@ -148,7 +158,10 @@ public class GuiUser implements Listener{
 			//Create a new container
 			JPanel container = new JPanel();
 			
-			//Fill out the new container
+			//Let's start the robots off.
+			for(int i=0; i<robots.length; i++) {
+				robots[i] = new Robot("Robot " + (i+1), 0, 100, "1");
+			}
 
 			//Introduce the main panels.
 			JPanel topLabelPanel = new JPanel(new BorderLayout());
@@ -169,16 +182,25 @@ public class GuiUser implements Listener{
 			roomOptionList.setPreferredSize(new Dimension(800,100));
 
 			DefaultTableModel tmodel = new DefaultTableModel();
-			tmodel.addColumn("NoHeader",new Object[] { new Robot("Robot 1",0,100,"Corridor"),
-      		new Robot("Robot 2",2,100, "Corridor")});
+			tmodel.addColumn("NoHeader", robots);
 			//Fill out the robotList
-			JTable table = new JTable(tmodel) {
+			table = new JTable(tmodel) {
+				 private static final long serialVersionUID = 2L;
 				 public boolean isCellEditable(int row, int column) {return false;}
 			};
     		table.setDefaultRenderer(Object.class, new RobotRenderer());
+    		ListSelectionListener cellsChange = new ListSelectionListener() {
+    			public void valueChanged(ListSelectionEvent e) {
+    				if (e.getValueIsAdjusting()) return; 
+    				int temp = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
+    				System.out.println(temp);
+    				updateButtons(robots[temp]);
+    			}
+    		};
+
+    		table.getSelectionModel().addListSelectionListener(cellsChange);
     		table.setTableHeader(null);
     		table.setRowHeight(90);
-    		table.changeSelection(0, 0, false, false);
     		robotList.setLayout(new BorderLayout());  
     		robotList.add(new JScrollPane(table));   
 
@@ -188,7 +210,7 @@ public class GuiUser implements Listener{
 
 
 			//Fill out the first basic map.
-			JLabel map = getImageLabel("maps/map1.png");
+			JLabel map = getImageLabel("maps/mapR1.png");
 			mapPanel.add(map);
 
 			//Fill out the middle panel
@@ -204,13 +226,28 @@ public class GuiUser implements Listener{
 			//Populate room buttons
 			roomOptionList.setLayout(new FlowLayout());
 			int noRooms = 8;
-			JButton[] rooms = new JButton[noRooms];
-			for(int i = 0; i<noRooms; i++) {
+			rooms = new JButton[noRooms];
+			for(i = 0; i<noRooms; i++) {
 				rooms[i] = new JButton("" + (i+1));
 				rooms[i].setPreferredSize(new Dimension(60,60));
-				// rooms[i].setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+				rooms[i].addActionListener(new ActionListener(){
+
+					public void actionPerformed(ActionEvent e)
+	            	{
+		                //Execute when button is pressed
+		                String command = ((JButton) e.getSource()).getActionCommand();
+		            	System.out.println(command);
+		            	sendRobot(r, selectedRobot,Integer.parseInt(command));
+
+		            	robots[selectedRobot].traveling = true;
+		            	robots[selectedRobot].location = "Travelling";
+		            	blockButtons();
+	            	}
+
+				});
 				roomOptionList.add(rooms[i]);
 			}
+
 			bottomPanel.add(roomOptionList, BorderLayout.CENTER);
 			//Fill out the main container
 			container.setLayout(new BorderLayout());
@@ -220,6 +257,7 @@ public class GuiUser implements Listener{
 
 
 			//Set the new container and repaint.
+			table.changeSelection(0, 0, false, false);
 			this.setContentPane(container);
 			this.validate();
 			this.pack();
@@ -235,6 +273,26 @@ public class GuiUser implements Listener{
 				System.out.println("Image not loaded");
 				return null;
 			}
+		}
+
+		public void blockButtons() {
+			for(i=0; i<rooms.length; i++) {
+				rooms[i].setEnabled(false);
+			}
+		}
+
+		public void updateButtons(Robot robot) {
+
+			if(robot.traveling) {
+				for(i=0; i<rooms.length; i++) {
+					rooms[i].setEnabled(false);
+				}
+			} else {
+				for(i=0; i<rooms.length; i++) {
+					rooms[i].setEnabled(true);
+				}
+			}
+
 		}
 
 	}

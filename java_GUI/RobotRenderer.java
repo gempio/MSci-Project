@@ -58,11 +58,11 @@ class RobotRenderer implements TableCellRenderer
         energyLevel.setValue(enrg);
         energyLevel.setStringPainted(true);
         energy.setText("Energy Left: ");
-
         panel.add(robotName, BorderLayout.NORTH);
         panel.add(robotAt, BorderLayout.CENTER);
         subPanel.add(energy, BorderLayout.NORTH);
         subPanel.add(energyLevel, BorderLayout.SOUTH);
+        subPanel.setBackground(panel.getBackground());
         panel.add(subPanel, BorderLayout.SOUTH);
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         return panel;
