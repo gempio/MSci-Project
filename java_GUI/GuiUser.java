@@ -19,16 +19,20 @@ public class GuiUser implements Listener{
 	int i;
 	JButton[] rooms;
 	int selectedRobot;
+	int firstSelection;
 	JTable table;
 	GUI gui;
 	JPanel mapPanel;
 	JLabel map;
+	DefaultTableModel tmodel;
+
 
 	public static void main(String[] args) {
 		new GuiUser();
 	}
 
 	public GuiUser() {
+		firstSelection = 0;
 		command = new CommandObject();
 		addListener(command);
 		this.r = new Connector("127.0.1.1", 6009,command);
@@ -89,9 +93,18 @@ public class GuiUser implements Listener{
     		robots[robotId].traveling = false;
     		robots[robotId].energyLeft -= 20;
     		if(selectedRobot == robotId) gui.updateMap(Integer.parseInt(robots[robotId].location)+2);
-
+    		tmodel.fireTableDataChanged();
+    		System.out.println("Selected Robot: " + selectedRobot);
+    		//table.changeSelection(selectedRobot, 0, false, false);
     	}// this has to be implemented
-    	if(attribute.contains("found")) System.out.println("Hider Message about the treasure");
+    	else if(attribute.contains("found")) {
+    		final JOptionPane optionPane = new JOptionPane("The only way to close this dialog is by\n"+ "pressing one of the following buttons.\n"+ "Do you understand?",
+    				JOptionPane.QUESTION_MESSAGE,
+    				JOptionPane.YES_NO_OPTION);
+    		table.changeSelection(selectedRobot, 0, false, false);
+    		optionPane.setVisible(true);
+    		System.out.println("Hider Message about the treasure");
+    	}
   	}
 
   	private class GUI extends JFrame{
@@ -189,7 +202,7 @@ public class GuiUser implements Listener{
 			robotList.setPreferredSize(new Dimension(180,600));
 			roomOptionList.setPreferredSize(new Dimension(800,100));
 
-			DefaultTableModel tmodel = new DefaultTableModel();
+			tmodel = new DefaultTableModel();
 			tmodel.addColumn("NoHeader", robots);
 			//Fill out the robotList
 			table = new JTable(tmodel) {
@@ -199,12 +212,18 @@ public class GuiUser implements Listener{
     		table.setDefaultRenderer(Object.class, new RobotRenderer());
     		ListSelectionListener cellsChange = new ListSelectionListener() {
     			public void valueChanged(ListSelectionEvent e) {
+    				System.out.println("listSelectionListener event.");
     				if (e.getValueIsAdjusting()) return; 
     				int temp = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
-    				selectedRobot = temp;
-    				System.out.println(temp);
-    				updateButtons(robots[temp]);
-    				updateMap(Integer.parseInt(robots[temp].location)+2);
+    				if(temp != -1) {
+    					selectedRobot = temp;
+    					firstSelection = temp;
+    				}
+    				else selectedRobot = firstSelection;
+    				System.out.println("Value changed: " + temp);
+    				System.out.println("Value changed: " + selectedRobot);
+    				updateButtons(robots[selectedRobot]);
+    				updateMap(Integer.parseInt(robots[selectedRobot].location)+2);
     			}
     		};
 
@@ -250,7 +269,6 @@ public class GuiUser implements Listener{
 		            	sendRobot(r, selectedRobot,Integer.parseInt(command)-1);
 
 		            	robots[selectedRobot].traveling = true;
-		            	robots[selectedRobot].location = "Travelling";
 		            	blockButtons();
 	            	}
 
@@ -289,7 +307,6 @@ public class GuiUser implements Listener{
 			System.out.println(roomId);
 			System.out.println("maps/mapR"+(roomId+1)+".png");
 			
-
 			try{ 
 				BufferedImage myPicture = ImageIO.read(new File("maps/mapR"+(roomId)+".png"));
 				map.setIcon(new ImageIcon(myPicture));
