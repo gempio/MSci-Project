@@ -1,14 +1,22 @@
 #include <ros/ros.h>
-
+#include <typeinfo>
 #include <sensor_msgs/LaserScan.h>
 
+std::string getName(std::string temp, char **args) {
+    std::string y("/robot");
+    y += args[1];
+    y += temp;
+    y += +args[1];
+    return y;
+}
+
 int main(int argc, char** argv){
+ 
+ 
 
- ros::init(argc, argv, "robot2/laser_scan_publisher2");
-
+ ros::init(argc, argv, getName("/laser_scan_publisher",argv));
  ros::NodeHandle n;
-
- ros::Publisher scan_pub = n.advertise<sensor_msgs::LaserScan>("robot2/scan2", 50);
+ ros::Publisher scan_pub = n.advertise<sensor_msgs::LaserScan>(getName("/scan",argv), 50);
 
  unsigned int num_readings = 100;
 
@@ -42,7 +50,7 @@ int main(int argc, char** argv){
 
     scan.header.stamp = scan_time;
 
-    scan.header.frame_id = "robot2/base_link2";
+    scan.header.frame_id = getName("/baseLink",argv);
 
     scan.angle_min = -1.57;
 

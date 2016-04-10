@@ -9,6 +9,8 @@
 /home/maciejm/catkin_ws/src/robot2_tf/src/my_sensor2.cpp
 ros/ros.h
 -
+typeinfo
+-
 sensor_msgs/LaserScan.h
 -
 

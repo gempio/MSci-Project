@@ -101,8 +101,24 @@ public class GuiUser implements Listener{
     		final JOptionPane optionPane = new JOptionPane("The only way to close this dialog is by\n"+ "pressing one of the following buttons.\n"+ "Do you understand?",
     				JOptionPane.QUESTION_MESSAGE,
     				JOptionPane.YES_NO_OPTION);
+
+    		final JDialog dialog = new JDialog((JFrame) gui,
+                                                 "Click a button",
+                                                 true);
+                    dialog.setContentPane(optionPane);
+                    dialog.setDefaultCloseOperation(
+                        JDialog.DO_NOTHING_ON_CLOSE);
+
+
     		table.changeSelection(selectedRobot, 0, false, false);
+    		dialog.setContentPane(optionPane);
+    		dialog.setSize(new Dimension(300, 150));
+            dialog.setLocationRelativeTo(gui);
+            dialog.setVisible(true);
+
+
     		optionPane.setVisible(true);
+
     		System.out.println("Hider Message about the treasure");
     	}
   	}
