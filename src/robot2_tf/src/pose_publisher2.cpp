@@ -29,8 +29,16 @@
 #include <tf/transform_listener.h>
 #include <geometry_msgs/PoseStamped.h>
 
+std::string getName(std::string temp, char **args,bool addLastNumber) {
+    std::string y("/robot");
+    y += args[1];
+    y += temp;
+    if(addLastNumber)y += +args[1];
+    return y;
+}
+
 int main(int argc, char **argv) {
-  ros::init(argc, argv, "pose_publisher2");
+  ros::init(argc, argv, getName("/pose_publisher",argv,true));
   ros::NodeHandle nh;
   ros::NodeHandle private_nh("~");
   
@@ -39,10 +47,10 @@ int main(int argc, char **argv) {
   ros::Publisher pose_publisher;
   
   private_nh.param<double>("publish_frequency", publish_frequency, 50);
-  private_nh.param<std::string>("robot2/map_frame", map_frame, "robot2/map");
-  private_nh.param<std::string>("robot2/base_frame2", base_frame, "robot2/base_link2");
+  private_nh.param<std::string>(getName("/map_frame",argv,false), map_frame, getName("/map",argv,false));
+  private_nh.param<std::string>(getName("/base_frame",argv,true), base_frame, getName("/base_link",argv,true));
   
-  pose_publisher = nh.advertise<geometry_msgs::PoseStamped>("pose", 50);
+  pose_publisher = nh.advertise<geometry_msgs::PoseStamped>(getName("/pose",argv,false), 50);
   
   tf::TransformListener listener;
   std::string tf_prefix = tf::getPrefixParam(private_nh);

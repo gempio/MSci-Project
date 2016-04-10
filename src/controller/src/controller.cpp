@@ -21,12 +21,14 @@ int numberInput;
 int numberInput2;
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 pthread_t threads[2];
-
+bool robotSuccess;
+std::string tempo;
+int robot[2];
 void *send_goal_1(void*) {
 
   float x []= {-2.67080068588, -2.735394945468, -2.8692850494, 3.11004161835, 2.61151981354, 8.74360466003, 9.0023651123, 9.08391475677};
   float y []= {4.69156122208, 1.44183540344, -2.96959543228, 4.85724782944, -2.75757598877, 5.43985700607, 1.45707416534, -2.5175409317};
-
+  
   //tell the action client that we want to spin a thread by default
   MoveBaseClient ac("move_base", true);
   //wait for the action server to come up
@@ -41,6 +43,7 @@ void *send_goal_1(void*) {
   goal.target_pose.header.stamp = ros::Time::now();
   float x_cord = x[numberInput];
   float y_cord = y[numberInput];
+  robot[0] = numberInput;
   goal.target_pose.pose.position.x = x_cord;
   goal.target_pose.pose.position.y = y_cord;
   goal.target_pose.pose.orientation.w = 1.0;
@@ -50,16 +53,20 @@ void *send_goal_1(void*) {
 
   ac.waitForResult();
 
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-    ROS_INFO("Robot 1 Success");
-  else
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+    std::stringstream sstm;
+    sstm << "%%error SimR TabUI \"" << 0 << ";" << robot[0] << "\"";
+    tempo = sstm.str();
+    //ROS_INFO(tempo.c_str());
+    robotSuccess = true;
+  } else
     ROS_INFO("The base 1 failed to move forward 1 meter for some reason");
 }
 
 void *send_goal_2(void*) {
   float x []= {-2.67080068588, -2.735394945468, -2.8692850494, 3.11004161835, 2.61151981354, 8.74360466003, 9.0023651123, 9.08391475677};
   float y []= {4.69156122208, 1.44183540344, -2.96959543228, 4.85724782944, -2.75757598877, 5.43985700607, 1.45707416534, -2.5175409317};
-
+  robot[1] = numberInput;
   MoveBaseClient ac("/robot2/move_base", true);
 
   while(!ac.waitForServer(ros::Duration(5.0))){
@@ -82,9 +89,13 @@ void *send_goal_2(void*) {
 
 
   ac.waitForResult();
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-    ROS_INFO("Robot 2 Success");
-  else
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) { 
+    std::stringstream sstm;
+    sstm << "%%error SimR TabUI \"" << 1 << ";" << robot[1] << "\"";
+    tempo = sstm.str();
+    //ROS_INFO(tempo.c_str());
+    robotSuccess = true;
+  } else
     ROS_INFO("The base 2 failed to move forward 1 meter for some reason");
 }
 
@@ -195,9 +206,32 @@ int main(int argc, char **argv)
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
-
-
+  tempo = "";
+  robot[0] = 0;
+  robot[1] = 0;
+  robotSuccess = false;
   ros::Subscriber sub = n.subscribe("sendRobots", 50, processCommand);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("success", 50);
+  ros::Rate loop_rate(10);
+  while (ros::ok())
+    {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+         */
+        if(robotSuccess) {
+            std_msgs::String msg;
+            
+            msg.data = tempo;
+            chatter_pub.publish(msg);
+
+            ROS_INFO("%s", msg.data.c_str());
+            robotSuccess = !robotSuccess;
+            
+        }
+        ros::spinOnce();
+
+        loop_rate.sleep();
+    }
 
   ros::spin();
   

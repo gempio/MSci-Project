@@ -49,31 +49,41 @@ void poseAdjustment(const geometry_msgs::Twist & velocity) {
 
 }
 
+std::string getName(std::string temp, char **args,bool addLastNumber) {
+    std::string y("/robot");
+    y += args[1];
+    y += temp;
+    if(addLastNumber)y += +args[1];
+    return y;
+}
+
+
+
 int main(int argc, char** argv) {
 
-  ros::init(argc, argv, "state_publisher");
+  ros::init(argc, argv, getName("state_publisher", argv, true));
   ros::NodeHandle n;
-  odom_pub = n.advertise<nav_msgs::Odometry>("/robot2/odom2", 50);
+  odom_pub = n.advertise<nav_msgs::Odometry>(getName("/odom",argv,true), 50);
   
   int32_t publish_rate_ = 50;
   tf::TransformBroadcaster tf_br_;
   tf::StampedTransform tf_map_to_odom_;
 
   // set up parent and child frames
-  tf_map_to_odom_.frame_id_ = std::string("/robot2/map");
-  tf_map_to_odom_.child_frame_id_ = std::string("/robot2/odom2");
+  tf_map_to_odom_.frame_id_ = std::string(getName("/map",argv,false));
+  tf_map_to_odom_.child_frame_id_ = std::string(getName("/odom",argv,true));
 
   tf::StampedTransform tf_footprint_to_base_;
 
   // set up parent and child frames
-  tf_footprint_to_base_.frame_id_ = std::string("/robot2/base_footprint2");
-  tf_footprint_to_base_.child_frame_id_ = std::string("/robot2/base_link2");
+  tf_footprint_to_base_.frame_id_ = std::string(getName("/base_footprint",argv,true));
+  tf_footprint_to_base_.child_frame_id_ = std::string(getName("/base_link",argv,true));
 
   tf::StampedTransform tf_laser_to_frame_;
 
   // set up parent and child frames
-  tf_laser_to_frame_.frame_id_ = std::string("/robot2/base_laser2");
-  tf_laser_to_frame_.child_frame_id_ = std::string("/robot2/laser_frame2");
+  tf_laser_to_frame_.frame_id_ = std::string(getName("/base_laser", argv, true));
+  tf_laser_to_frame_.child_frame_id_ = std::string(getName("/laser_frame",argv,true));
 
   //publishing the first position
   publish_transform = true;
@@ -100,11 +110,11 @@ int main(int argc, char** argv) {
 
   // message declarations
   geometry_msgs::TransformStamped odom_trans;
-  odom_trans.header.frame_id = "/robot2/odom2";
-  odom_trans.child_frame_id = "/robot2/base_footprint2";
+  odom_trans.header.frame_id = getName("/odom", argv, true);
+  odom_trans.child_frame_id = getName("/base_footprint", argv, true);
 
-  ros::Subscriber sub = n.subscribe("/robot2/initialpose", 50, poseCallBack);
-  ros::Subscriber sub2 = n.subscribe("/robot2/cmd_vel", 50, poseAdjustment);
+  ros::Subscriber sub = n.subscribe(getName("/initialpose",argv,false), 50, poseCallBack);
+  ros::Subscriber sub2 = n.subscribe(getName("/cmd_vel",argv,false), 50, poseAdjustment);
   while (ros::ok()) {
 
     // time stamp
@@ -140,8 +150,6 @@ int main(int argc, char** argv) {
     // broadcast transform
     tf_br_.sendTransform(tf_laser_to_frame_);
 
-
-
     current_time = ros::Time::now(); 
 
     double dt = (current_time - last_time).toSec();
@@ -166,8 +174,8 @@ int main(int argc, char** argv) {
     //filling the odometry
     nav_msgs::Odometry odom;
     odom.header.stamp = current_time;
-    odom.header.frame_id = "robot2/odom2";
-    odom.child_frame_id = "robot2/base_footprint2";
+    odom.header.frame_id = getName("/odom", argv, true);
+    odom.child_frame_id = getName("/base_footprint",argv,true);
 
     // position
     odom.pose.pose.position.x = x;

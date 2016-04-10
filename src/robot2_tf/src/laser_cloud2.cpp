@@ -1,11 +1,20 @@
 #include <ros/ros.h>
 #include <sensor_msgs/PointCloud.h>
 
+
+std::string getName(std::string temp, char **args,bool addLastNumber) {
+    std::string y("/robot");
+    y += args[1];
+    y += temp;
+    if(addLastNumber)y += +args[1];
+    return y;
+}
+
 int main(int argc, char** argv){
-  ros::init(argc, argv, "point_cloud_publisher2");
+  ros::init(argc, argv, getName("/point_cloud_publisher",argv,true));
 
   ros::NodeHandle n;
-  ros::Publisher cloud_pub = n.advertise<sensor_msgs::PointCloud>("cloud2", 50);
+  ros::Publisher cloud_pub = n.advertise<sensor_msgs::PointCloud>(getName("/cloud",argv,true), 50);
 
   unsigned int num_points = 100;
 
@@ -14,7 +23,7 @@ int main(int argc, char** argv){
   while(n.ok()){
     sensor_msgs::PointCloud cloud;
     cloud.header.stamp = ros::Time::now();
-    cloud.header.frame_id = "robot2/base_link2";
+    cloud.header.frame_id = getName("/base_link",argv,true);
 
     cloud.points.resize(num_points);
 

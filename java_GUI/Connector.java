@@ -1,7 +1,12 @@
-
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.LinkedBlockingQueue;
 
+/*
+	Connector class is responsible for running the server. Listening to basic information coming in to the classes that
+	use it and moving forward.
+
+*/
 public class Connector implements Runnable{
 	Socket kkSocket;
 	PrintWriter out;
@@ -11,25 +16,23 @@ public class Connector implements Runnable{
 	boolean isAble;
 	boolean sendMessage;
 	String fromUser;
+	CommandObject commands;
 
-	public Connector(String hostName, int portNumber) {
+	public Connector(String hostName, int portNumber, CommandObject commands) {
 		this.hostName = hostName;
 		this.portNumber = portNumber;
-		isAble = false;
-		fromUser = "";
-		sendMessage = false;
+		this.isAble = false;
+		this.fromUser = "";
+		this.sendMessage = false;
+		this.commands = commands;
 	}
 
-	public void sendRobot(int robot, int room) {
-		System.out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
-		out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
-		sendMessage = true;
+	public void sendMessage(String message) {
+		out.println(message);
 	}
 
 	public void setId(String id) {
-
 		out.println("%%setid " + id);
-
 	}
 
 	public boolean isRunning() {
@@ -52,19 +55,11 @@ public class Connector implements Runnable{
             
  			makeOutPublic(out);
  			isAble = true;
-            while ((fromServer = in.readLine()) != null || sendMessage) {
+            while ((fromServer = in.readLine()) != null) {
                 System.out.println("Server: " + fromServer);
-                if (fromServer.contains("ping"))
-                    out.println("%%pong");
-                else if (fromServer.contains("ack")) {
-                    System.out.println("ackowledged");
-                }
-
-                if(sendMessage) {
-                	System.out.println("Sending Message");
-                	out.println(fromUser);
-                	sendMessage = false;
-                }
+                if (fromServer.contains("ping")) out.println("%%pong");
+                else if (fromServer.contains("error") || fromServer.contains("found")) commands.setField(fromServer);
+                else if (fromServer.contains("ack")) System.out.println("ackowledged");
             }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);
@@ -78,5 +73,5 @@ public class Connector implements Runnable{
 	}
 
 
-
+	
 }

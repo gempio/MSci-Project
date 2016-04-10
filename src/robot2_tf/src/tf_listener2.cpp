@@ -2,10 +2,20 @@
 #include <geometry_msgs/PointStamped.h>
 #include <tf/transform_listener.h>
 
+char **args;
+
+std::string getName(std::string temp, char **args,bool addLastNumber) {
+    std::string y("/robot");
+    y += args[1];
+    y += temp;
+    if(addLastNumber)y += +args[1];
+    return y;
+}
+
 void transformPoint(const tf::TransformListener& listener){
   //we'll create a point in the base_laser frame that we'd like to transform to the base_link frame
   geometry_msgs::PointStamped laser_point;
-  laser_point.header.frame_id = "robot2/base_laser";
+  laser_point.header.frame_id = getName("/base_laser",args,true);
 
   //we'll just use the most recent transform available for our simple example
   laser_point.header.stamp = ros::Time();
@@ -17,7 +27,7 @@ void transformPoint(const tf::TransformListener& listener){
 
   try{
     geometry_msgs::PointStamped base_point;
-    listener.transformPoint("robot2/base_link2", laser_point, base_point);
+    listener.transformPoint(getName("/base_link",args,true), laser_point, base_point);
 
     //ROS_INFO("base_laser: (%.2f, %.2f. %.2f) -----> base_link: (%.2f, %.2f, %.2f) at time %.2f",
         //laser_point.point.x, laser_point.point.y, laser_point.point.z,
@@ -29,7 +39,8 @@ void transformPoint(const tf::TransformListener& listener){
 }
 
 int main(int argc, char** argv){
-  ros::init(argc, argv, "robot_tf_listener");
+  args = argv;
+  ros::init(argc, argv, getName("/robot_tf_listener",argv,true));
   ros::NodeHandle n;
 
   tf::TransformListener listener(ros::Duration(10));
