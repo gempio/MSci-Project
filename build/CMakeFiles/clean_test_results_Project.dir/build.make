@@ -46,7 +46,7 @@ CMAKE_BINARY_DIR = /home/maciejm/catkin_ws/build
 include CMakeFiles/clean_test_results_Project.dir/progress.make
 
 CMakeFiles/clean_test_results_Project:
-	/usr/bin/python /opt/ros/jade/share/catkin/cmake/test/remove_test_results.py /home/maciejm/catkin_ws/build/test_results/Project
+	/usr/bin/python /opt/ros/indigo/share/catkin/cmake/test/remove_test_results.py /home/maciejm/catkin_ws/build/test_results/Project
 
 clean_test_results_Project: CMakeFiles/clean_test_results_Project
 clean_test_results_Project: CMakeFiles/clean_test_results_Project.dir/build.make

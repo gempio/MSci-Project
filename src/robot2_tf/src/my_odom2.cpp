@@ -4,25 +4,33 @@
 #include <tf/transform_broadcaster.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <nav_msgs/Odometry.h>
+#include <nav_msgs/GridCells.h>
 #include "std_msgs/String.h"
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
+#include <costmap_2d/costmap_2d_ros.h>
 
 
+
+// LayeredCostmap* layered_costmap_;
 double x;
 double y;
 double th;
-
 double linear_x;
 double linear_y;
 double linear_z;
-
 double angular_x;
 double angular_y;
 double angular_z;
 
 bool publish_transform;
 ros::Publisher odom_pub;
+char **args;
+
+void updateCostCostMap() {
+  
+
+}
 void poseCallBack(const geometry_msgs::PoseWithCovarianceStamped & pose )
   {
     //ROS_INFO("I Heard some shit: [%.2f, %.2f. %.2f]",pose.pose.pose.position.x,pose.pose.pose.position.y,pose.pose.pose.position.z);
@@ -57,20 +65,18 @@ std::string getName(std::string temp, char **args,bool addLastNumber) {
     return y;
 }
 
-
-
 int main(int argc, char** argv) {
 
   ros::init(argc, argv, getName("state_publisher", argv, true));
   ros::NodeHandle n;
   odom_pub = n.advertise<nav_msgs::Odometry>(getName("/odom",argv,true), 50);
-  
+  args = argv;
   int32_t publish_rate_ = 50;
   tf::TransformBroadcaster tf_br_;
   tf::StampedTransform tf_map_to_odom_;
 
   // set up parent and child frames
-  tf_map_to_odom_.frame_id_ = std::string(getName("/map",argv,false));
+  tf_map_to_odom_.frame_id_ = std::string("/map");
   tf_map_to_odom_.child_frame_id_ = std::string(getName("/odom",argv,true));
 
   tf::StampedTransform tf_footprint_to_base_;

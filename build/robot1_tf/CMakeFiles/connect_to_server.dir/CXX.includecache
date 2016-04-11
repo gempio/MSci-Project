@@ -6,21 +6,3 @@
 
 #IncludeRegexTransform: 
 
-/home/maciejm/catkin_ws/src/robot1_tf/src/connect_to_server.cpp
-iostream
--
-stdio.h
--
-string.h
--
-string
--
-sys/socket.h
--
-arpa/inet.h
--
-netdb.h
--
-stdlib.h
--
-

@@ -1,7 +1,9 @@
 <launch>
-  <group ns="robot1">
-    <param name="tf_prefix" value="robot1"/>
+  
     <node name="map_server" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
+  <group ns="robot1">
+  <node name="map_server" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
+    <param name="tf_prefix" value="robot1"/>
     <node pkg="amcl" type="amcl" name="amcl1" output="screen">
 
       <param name="base_frame" value = "base_link"/>
@@ -14,6 +16,7 @@
       <param name="use_imu" value="false"/>
       <param name="use_alpha_beta" value="true"/>
       <param name="max_iterations" value="10"/>
+
     </node>
 
   <node pkg="robot2_tf" type="my_sensor2" name="my_sensor1"  args="1" output="screen">

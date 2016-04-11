@@ -122,6 +122,7 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   INCLUDE("/home/maciejm/catkin_ws/build/robot2_tf/cmake_install.cmake")
   INCLUDE("/home/maciejm/catkin_ws/build/Robot1/cmake_install.cmake")
   INCLUDE("/home/maciejm/catkin_ws/build/Robot2/cmake_install.cmake")
+  INCLUDE("/home/maciejm/catkin_ws/build/simple_layers/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
 

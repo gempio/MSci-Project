@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC    -shared -Wl,-soname,librobotPosition.so -o /home/maciejm/catkin_ws/devel/lib/librobotPosition.so CMakeFiles/robotPosition.dir/src/robotPosition.cpp.o 

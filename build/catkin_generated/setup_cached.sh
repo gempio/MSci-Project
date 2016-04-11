@@ -7,12 +7,7 @@
 # new environment variables
 
 # modified environment variables
-export CMAKE_PREFIX_PATH="/home/maciejm/catkin_ws/devel:$CMAKE_PREFIX_PATH"
-export CPATH="/home/maciejm/catkin_ws/devel/include:$CPATH"
-export LD_LIBRARY_PATH="/home/maciejm/catkin_ws/devel/lib:/home/maciejm/catkin_ws/devel/lib/x86_64-linux-gnu:/opt/ros/jade/lib/x86_64-linux-gnu:/opt/ros/jade/lib"
-export PATH="/home/maciejm/catkin_ws/devel/bin:$PATH"
-export PKG_CONFIG_PATH="/home/maciejm/catkin_ws/devel/lib/pkgconfig:/home/maciejm/catkin_ws/devel/lib/x86_64-linux-gnu/pkgconfig:/opt/ros/jade/lib/x86_64-linux-gnu/pkgconfig:/opt/ros/jade/lib/pkgconfig"
+export LD_LIBRARY_PATH="/home/maciejm/catkin_ws/devel/lib/x86_64-linux-gnu:/home/maciejm/Documents/catkin_ws/devel/lib/x86_64-linux-gnu:/opt/ros/indigo/lib/x86_64-linux-gnu:/home/maciejm/catkin_ws/devel/lib:/home/maciejm/Documents/catkin_ws/devel/lib:/opt/ros/indigo/lib"
+export PATH="/home/maciejm/catkin_ws/devel/bin:/home/maciejm/Documents/catkin_ws/devel/bin:/opt/ros/indigo/bin:/home/maciejm/.composer/vendor/bin:/usr/local/heroku/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PKG_CONFIG_PATH="/home/maciejm/catkin_ws/devel/lib/x86_64-linux-gnu/pkgconfig:/home/maciejm/Documents/catkin_ws/devel/lib/x86_64-linux-gnu/pkgconfig:/opt/ros/indigo/lib/x86_64-linux-gnu/pkgconfig:/home/maciejm/catkin_ws/devel/lib/pkgconfig:/home/maciejm/Documents/catkin_ws/devel/lib/pkgconfig:/opt/ros/indigo/lib/pkgconfig"
 export PWD="/home/maciejm/catkin_ws/build"
-export PYTHONPATH="/home/maciejm/catkin_ws/devel/lib/python2.7/dist-packages:$PYTHONPATH"
-export ROSLISP_PACKAGE_DIRECTORIES="/home/maciejm/catkin_ws/devel/share/common-lisp"
-export ROS_PACKAGE_PATH="/home/maciejm/catkin_ws/src:$ROS_PACKAGE_PATH"

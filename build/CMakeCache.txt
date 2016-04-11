@@ -270,10 +270,10 @@ _CATKIN_GTEST_INCLUDE:FILEPATH=/usr/include/gtest/gtest.h
 _CATKIN_GTEST_SRC:FILEPATH=/usr/src/gtest/src/gtest.cc
 
 //The directory containing a CMake configuration file for actionlib.
-actionlib_DIR:PATH=/opt/ros/jade/share/actionlib/cmake
+actionlib_DIR:PATH=/opt/ros/indigo/share/actionlib/cmake
 
 //The directory containing a CMake configuration file for actionlib_msgs.
-actionlib_msgs_DIR:PATH=/opt/ros/jade/share/actionlib_msgs/cmake
+actionlib_msgs_DIR:PATH=/opt/ros/indigo/share/actionlib_msgs/cmake
 
 //Value Computed by CMake
 beginner_tutorials_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/beginner_tutorials
@@ -281,8 +281,17 @@ beginner_tutorials_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/beginner_tuto
 //Value Computed by CMake
 beginner_tutorials_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/beginner_tutorials
 
+//The directory containing a CMake configuration file for bond.
+bond_DIR:PATH=/opt/ros/indigo/share/bond/cmake
+
+//The directory containing a CMake configuration file for bondcpp.
+bondcpp_DIR:PATH=/opt/ros/indigo/share/bondcpp/cmake
+
 //The directory containing a CMake configuration file for catkin.
-catkin_DIR:PATH=/opt/ros/jade/share/catkin/cmake
+catkin_DIR:PATH=/opt/ros/indigo/share/catkin/cmake
+
+//The directory containing a CMake configuration file for class_loader.
+class_loader_DIR:PATH=/opt/ros/indigo/share/class_loader/cmake
 
 //Value Computed by CMake
 controller_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/controller
@@ -290,11 +299,14 @@ controller_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/controller
 //Value Computed by CMake
 controller_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/controller
 
+//The directory containing a CMake configuration file for costmap_2d.
+costmap_2d_DIR:PATH=/opt/ros/indigo/share/costmap_2d/cmake
+
 //The directory containing a CMake configuration file for cpp.
 cpp_DIR:PATH=cpp_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for cpp_common.
-cpp_common_DIR:PATH=/opt/ros/jade/share/cpp_common/cmake
+cpp_common_DIR:PATH=/opt/ros/indigo/share/cpp_common/cmake
 
 //The directory containing a CMake configuration file for dynamic_reconfigure.
 dynamic_reconfigure_DIR:PATH=/opt/ros/indigo/share/dynamic_reconfigure/cmake
@@ -303,22 +315,25 @@ dynamic_reconfigure_DIR:PATH=/opt/ros/indigo/share/dynamic_reconfigure/cmake
 erratic_player_DIR:PATH=erratic_player_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for gencpp.
-gencpp_DIR:PATH=/opt/ros/jade/share/gencpp/cmake
+gencpp_DIR:PATH=/opt/ros/indigo/share/gencpp/cmake
 
 //The directory containing a CMake configuration file for geneus.
 geneus_DIR:PATH=/opt/ros/jade/share/geneus/cmake
 
 //The directory containing a CMake configuration file for genlisp.
-genlisp_DIR:PATH=/opt/ros/jade/share/genlisp/cmake
+genlisp_DIR:PATH=/opt/ros/indigo/share/genlisp/cmake
 
 //The directory containing a CMake configuration file for genmsg.
-genmsg_DIR:PATH=/opt/ros/jade/share/genmsg/cmake
+genmsg_DIR:PATH=/opt/ros/indigo/share/genmsg/cmake
 
 //The directory containing a CMake configuration file for genpy.
-genpy_DIR:PATH=/opt/ros/jade/share/genpy/cmake
+genpy_DIR:PATH=/opt/ros/indigo/share/genpy/cmake
 
 //The directory containing a CMake configuration file for geometry_msgs.
-geometry_msgs_DIR:PATH=/opt/ros/jade/share/geometry_msgs/cmake
+geometry_msgs_DIR:PATH=/opt/ros/indigo/share/geometry_msgs/cmake
+
+//Dependencies for target
+grid_layer_LIB_DEPENDS:STATIC=
 
 //Value Computed by CMake
 gtest_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/gtest
@@ -345,20 +360,26 @@ gtest_force_shared_crt:BOOL=OFF
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;-lpthread;general;gtest;
 
+//The directory containing a CMake configuration file for laser_geometry.
+laser_geometry_DIR:PATH=/opt/ros/indigo/share/laser_geometry/cmake
+
 //Path to a library.
-lib:FILEPATH=/opt/ros/indigo/lib/libdynamic_reconfigure_config_init_mutex.so
+lib:FILEPATH=/opt/ros/indigo/lib/libvoxel_grid.so
+
+//The directory containing a CMake configuration file for map_msgs.
+map_msgs_DIR:PATH=/opt/ros/indigo/share/map_msgs/cmake
 
 //The directory containing a CMake configuration file for message_filters.
-message_filters_DIR:PATH=/opt/ros/jade/share/message_filters/cmake
+message_filters_DIR:PATH=/opt/ros/indigo/share/message_filters/cmake
 
 //The directory containing a CMake configuration file for message_generation.
-message_generation_DIR:PATH=/opt/ros/jade/share/message_generation/cmake
+message_generation_DIR:PATH=/opt/ros/indigo/share/message_generation/cmake
 
 //The directory containing a CMake configuration file for message_runtime.
-message_runtime_DIR:PATH=/opt/ros/jade/share/message_runtime/cmake
+message_runtime_DIR:PATH=/opt/ros/indigo/share/message_runtime/cmake
 
 //The directory containing a CMake configuration file for move_base.
-move_base_DIR:PATH=/opt/ros/jade/share/move_base/cmake
+move_base_DIR:PATH=/opt/ros/indigo/share/move_base/cmake
 
 //Value Computed by CMake
 msciProject_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/msciProject
@@ -401,6 +422,21 @@ my_sensor_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/my_sensor
 //The directory containing a CMake configuration file for nav_msgs.
 nav_msgs_DIR:PATH=/opt/ros/indigo/share/nav_msgs/cmake
 
+//The directory containing a CMake configuration file for nodelet.
+nodelet_DIR:PATH=/opt/ros/indigo/share/nodelet/cmake
+
+//The directory containing a CMake configuration file for pcl_conversions.
+pcl_conversions_DIR:PATH=/opt/ros/indigo/share/pcl_conversions/cmake
+
+//The directory containing a CMake configuration file for pcl_msgs.
+pcl_msgs_DIR:PATH=/opt/ros/indigo/share/pcl_msgs/cmake
+
+//The directory containing a CMake configuration file for pcl_ros.
+pcl_ros_DIR:PATH=/opt/ros/indigo/share/pcl_ros/cmake
+
+//The directory containing a CMake configuration file for pluginlib.
+pluginlib_DIR:PATH=/opt/ros/indigo/share/pluginlib/cmake
+
 //Value Computed by CMake
 robot1_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/Robot1
 
@@ -431,6 +467,9 @@ robot2_tf_DIR:PATH=/home/maciejm/catkin_ws/devel/share/robot2_tf/cmake
 //Value Computed by CMake
 robot2_tf_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/robot2_tf
 
+//Dependencies for target
+robotPosition_LIB_DEPENDS:STATIC=
+
 //Value Computed by CMake
 robot_setup_tf_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/robot_setup_tf
 
@@ -440,53 +479,85 @@ robot_setup_tf_DIR:PATH=/home/maciejm/catkin_ws/devel/share/robot_setup_tf/cmake
 //Value Computed by CMake
 robot_setup_tf_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/robot_setup_tf
 
+//The directory containing a CMake configuration file for rosbag.
+rosbag_DIR:PATH=/opt/ros/indigo/share/rosbag/cmake
+
+//The directory containing a CMake configuration file for rosbag_storage.
+rosbag_storage_DIR:PATH=/opt/ros/indigo/share/rosbag_storage/cmake
+
 //The directory containing a CMake configuration file for rosconsole.
-rosconsole_DIR:PATH=/opt/ros/jade/share/rosconsole/cmake
+rosconsole_DIR:PATH=/opt/ros/indigo/share/rosconsole/cmake
 
 //The directory containing a CMake configuration file for roscpp.
-roscpp_DIR:PATH=/opt/ros/jade/share/roscpp/cmake
+roscpp_DIR:PATH=/opt/ros/indigo/share/roscpp/cmake
 
 //The directory containing a CMake configuration file for roscpp_serialization.
-roscpp_serialization_DIR:PATH=/opt/ros/jade/share/roscpp_serialization/cmake
+roscpp_serialization_DIR:PATH=/opt/ros/indigo/share/roscpp_serialization/cmake
 
 //The directory containing a CMake configuration file for roscpp_traits.
-roscpp_traits_DIR:PATH=/opt/ros/jade/share/roscpp_traits/cmake
+roscpp_traits_DIR:PATH=/opt/ros/indigo/share/roscpp_traits/cmake
 
 //The directory containing a CMake configuration file for rosgraph.
-rosgraph_DIR:PATH=/opt/ros/jade/share/rosgraph/cmake
+rosgraph_DIR:PATH=/opt/ros/indigo/share/rosgraph/cmake
 
 //The directory containing a CMake configuration file for rosgraph_msgs.
-rosgraph_msgs_DIR:PATH=/opt/ros/jade/share/rosgraph_msgs/cmake
+rosgraph_msgs_DIR:PATH=/opt/ros/indigo/share/rosgraph_msgs/cmake
+
+//The directory containing a CMake configuration file for roslib.
+roslib_DIR:PATH=/opt/ros/indigo/share/roslib/cmake
+
+//The directory containing a CMake configuration file for roslz4.
+roslz4_DIR:PATH=/opt/ros/indigo/share/roslz4/cmake
 
 //The directory containing a CMake configuration file for rospy.
-rospy_DIR:PATH=/opt/ros/jade/share/rospy/cmake
+rospy_DIR:PATH=/opt/ros/indigo/share/rospy/cmake
 
 //The directory containing a CMake configuration file for rostime.
-rostime_DIR:PATH=/opt/ros/jade/share/rostime/cmake
+rostime_DIR:PATH=/opt/ros/indigo/share/rostime/cmake
 
 //The directory containing a CMake configuration file for sensor_msgs.
-sensor_msgs_DIR:PATH=/opt/ros/jade/share/sensor_msgs/cmake
+sensor_msgs_DIR:PATH=/opt/ros/indigo/share/sensor_msgs/cmake
+
+//Dependencies for target
+simple_layer_LIB_DEPENDS:STATIC=
+
+//Value Computed by CMake
+simple_layers_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/simple_layers
+
+simple_layers_DIR:PATH=
+
+//Value Computed by CMake
+simple_layers_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/simple_layers
+
+//The directory containing a CMake configuration file for smclib.
+smclib_DIR:PATH=/opt/ros/indigo/share/smclib/cmake
 
 //The directory containing a CMake configuration file for std_msgs.
-std_msgs_DIR:PATH=/opt/ros/jade/share/std_msgs/cmake
+std_msgs_DIR:PATH=/opt/ros/indigo/share/std_msgs/cmake
 
 //The directory containing a CMake configuration file for tf2.
-tf2_DIR:PATH=/opt/ros/jade/share/tf2/cmake
+tf2_DIR:PATH=/opt/ros/indigo/share/tf2/cmake
 
 //The directory containing a CMake configuration file for tf2_msgs.
-tf2_msgs_DIR:PATH=/opt/ros/jade/share/tf2_msgs/cmake
+tf2_msgs_DIR:PATH=/opt/ros/indigo/share/tf2_msgs/cmake
 
 //The directory containing a CMake configuration file for tf2_py.
-tf2_py_DIR:PATH=/opt/ros/jade/share/tf2_py/cmake
+tf2_py_DIR:PATH=/opt/ros/indigo/share/tf2_py/cmake
 
 //The directory containing a CMake configuration file for tf2_ros.
-tf2_ros_DIR:PATH=/opt/ros/jade/share/tf2_ros/cmake
+tf2_ros_DIR:PATH=/opt/ros/indigo/share/tf2_ros/cmake
 
 //The directory containing a CMake configuration file for tf.
-tf_DIR:PATH=/opt/ros/jade/share/tf/cmake
+tf_DIR:PATH=/opt/ros/indigo/share/tf/cmake
+
+//The directory containing a CMake configuration file for topic_tools.
+topic_tools_DIR:PATH=/opt/ros/indigo/share/topic_tools/cmake
+
+//The directory containing a CMake configuration file for voxel_grid.
+voxel_grid_DIR:PATH=/opt/ros/indigo/share/voxel_grid/cmake
 
 //The directory containing a CMake configuration file for xmlrpcpp.
-xmlrpcpp_DIR:PATH=/opt/ros/jade/share/xmlrpcpp/cmake
+xmlrpcpp_DIR:PATH=/opt/ros/indigo/share/xmlrpcpp/cmake
 
 
 ########################
@@ -590,7 +661,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=7
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=8
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

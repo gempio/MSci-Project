@@ -9,6 +9,7 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   tf
   std_msgs
+  simple_layers
 )
 
 ## System dependencies are found with CMake's conventions
@@ -116,6 +117,8 @@ catkin_package(
 # include_directories(include)
 include_directories(
   ${catkin_INCLUDE_DIRS}
+  ${Boost_INCLUDE_DIRS}
+  ${merlin_messages_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
