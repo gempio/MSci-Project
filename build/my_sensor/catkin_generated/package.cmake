@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "my_sensor")
-set(my_sensor_MAINTAINER "maciejm <maciejm@todo.todo>")
-set(my_sensor_DEPRECATED "")
-set(my_sensor_VERSION "0.0.0")
-set(my_sensor_BUILD_DEPENDS "LaserScan")
-set(my_sensor_RUN_DEPENDS "LaserScan")
-set(my_sensor_BUILDTOOL_DEPENDS "catkin")

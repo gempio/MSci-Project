@@ -150,62 +150,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-Robot1/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 Robot1/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-.PHONY : Robot1/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_gencfg: Robot1/CMakeFiles/dynamic_reconfigure_gencfg.dir/rule
-.PHONY : dynamic_reconfigure_gencfg
-
-# fast build rule for target.
-dynamic_reconfigure_gencfg/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f Robot1/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make Robot1/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
-.PHONY : dynamic_reconfigure_gencfg/fast
-
-# Convenience name for target.
-Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-.PHONY : Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_cpp: Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/rule
-.PHONY : dynamic_reconfigure_generate_messages_cpp
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_cpp/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_cpp/fast
-
-# Convenience name for target.
-Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-.PHONY : Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_lisp: Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/rule
-.PHONY : dynamic_reconfigure_generate_messages_lisp
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_lisp/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_lisp/fast
-
-# Convenience name for target.
-Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-.PHONY : Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-
-# Convenience name for target.
-dynamic_reconfigure_generate_messages_py: Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/rule
-.PHONY : dynamic_reconfigure_generate_messages_py
-
-# fast build rule for target.
-dynamic_reconfigure_generate_messages_py/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make Robot1/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
-.PHONY : dynamic_reconfigure_generate_messages_py/fast
-
-# Convenience name for target.
 Robot1/CMakeFiles/move_base_gencfg.dir/rule:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 Robot1/CMakeFiles/move_base_gencfg.dir/rule
 .PHONY : Robot1/CMakeFiles/move_base_gencfg.dir/rule
@@ -225,10 +169,6 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... dynamic_reconfigure_gencfg"
-	@echo "... dynamic_reconfigure_generate_messages_cpp"
-	@echo "... dynamic_reconfigure_generate_messages_lisp"
-	@echo "... dynamic_reconfigure_generate_messages_py"
 	@echo "... edit_cache"
 	@echo "... install"
 	@echo "... install/local"

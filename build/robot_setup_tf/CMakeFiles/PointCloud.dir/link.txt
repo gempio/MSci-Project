@@ -1,1 +1,0 @@
-/usr/bin/c++       CMakeFiles/PointCloud.dir/src/LaserCloud.cpp.o  -o /home/maciejm/catkin_ws/devel/lib/robot_setup_tf/PointCloud -rdynamic 

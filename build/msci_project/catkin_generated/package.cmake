@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "msci_project")
-set(msci_project_MAINTAINER "maciejm <maciejm@todo.todo>")
-set(msci_project_DEPRECATED "")
-set(msci_project_VERSION "0.0.0")
-set(msci_project_BUILD_DEPENDS "roscpp" "rospy" "std_msgs" "message_generation")
-set(msci_project_RUN_DEPENDS "message_runtime" "roscpp" "rospy" "std_msgs")
-set(msci_project_BUILDTOOL_DEPENDS "catkin")

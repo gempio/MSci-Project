@@ -9,7 +9,8 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   tf
   std_msgs
-  simple_layers
+  costmap_2d 
+  dynamic_reconfigure 
 )
 
 ## System dependencies are found with CMake's conventions
@@ -190,6 +191,12 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+#include_directories(${catkin_INCLUDE_DIRS} include)
+
+#add_library(simple_layer src/simple_layer.cpp)
+#add_library(grid_layer src/grid_layer.cpp)
+#add_library(robotPosition src/robotPosition.cpp)
+
 add_executable(tf_broadcaster2 src/tf_broadcaster2.cpp)
 add_executable(tf_listener2 src/tf_listener2.cpp)
 add_executable(laser_scan2 src/laser_scan2.cpp)

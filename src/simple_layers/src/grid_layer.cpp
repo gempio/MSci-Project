@@ -1,5 +1,7 @@
 #include <simple_layers/grid_layer.h>
 #include <pluginlib/class_list_macros.h>
+#include "ros/ros.h"
+#include "std_msgs/String.h"
 
 PLUGINLIB_EXPORT_CLASS(simple_layer_namespace::GridLayer, costmap_2d::Layer)
 
@@ -8,10 +10,38 @@ using costmap_2d::NO_INFORMATION;
 
 namespace simple_layer_namespace
 {
+  void chatterCallback(const std_msgs::String::ConstPtr& msg)
+{
+  ROS_INFO("Callback");
+  ROS_INFO("I heard: [%s]", msg->data.c_str());
+}
+
+void *chatter(void*) {
+  ros::NodeHandle nh_s("~/asd");
+  ros::Subscriber sub = nh_s.subscribe("map", 1000, chatterCallback);
+  while(ros::ok) {
+    ros::spinOnce();
+  }
+}
+
+void runThread() {
+    int rc;
+    int i;
+    pthread_t threads[1];
+    rc = pthread_create(&threads[0], NULL, 
+                            chatter, NULL); 
+    if (rc){
+       std::cout << "Error:unable to create thread," << rc << std::endl;
+       exit(-1);
+    }
+    return;
+  }
 
 GridLayer::GridLayer() {
-
+  runThread();
 }
+
+
 
 void GridLayer::onInitialize()
 {
@@ -24,6 +54,7 @@ void GridLayer::onInitialize()
   dynamic_reconfigure::Server<costmap_2d::GenericPluginConfig>::CallbackType cb = boost::bind(
       &GridLayer::reconfigureCB, this, _1, _2);
   dsrv_->setCallback(cb);
+  
 }
 
 
@@ -75,5 +106,7 @@ void GridLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int m
     }
   }
 }
+
+
 
 } // end namespace

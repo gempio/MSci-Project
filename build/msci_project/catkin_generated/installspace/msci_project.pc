@@ -1,8 +1,0 @@
-prefix=/home/maciejm/catkin_ws/install
-
-Name: msci_project
-Description: Description of msci_project
-Version: 0.0.0
-Cflags: -I/home/maciejm/catkin_ws/install/include
-Libs: -L/home/maciejm/catkin_ws/install/lib 
-Requires: message_runtime

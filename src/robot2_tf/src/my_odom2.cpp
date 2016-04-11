@@ -10,8 +10,6 @@
 #include <actionlib/client/simple_action_client.h>
 #include <costmap_2d/costmap_2d_ros.h>
 
-
-
 // LayeredCostmap* layered_costmap_;
 double x;
 double y;
@@ -27,10 +25,10 @@ bool publish_transform;
 ros::Publisher odom_pub;
 char **args;
 
-void updateCostCostMap() {
-  
+// void updateCostCostMap() {
+//   costmap_2d::getCostmap();
 
-}
+// }
 void poseCallBack(const geometry_msgs::PoseWithCovarianceStamped & pose )
   {
     //ROS_INFO("I Heard some shit: [%.2f, %.2f. %.2f]",pose.pose.pose.position.x,pose.pose.pose.position.y,pose.pose.pose.position.z);

@@ -104,6 +104,7 @@ simple_layers/CMakeFiles/grid_layer.dir/src/grid_layer.cpp.o: /opt/ros/indigo/in
 simple_layers/CMakeFiles/grid_layer.dir/src/grid_layer.cpp.o: /opt/ros/indigo/include/sensor_msgs/PointCloud.h
 simple_layers/CMakeFiles/grid_layer.dir/src/grid_layer.cpp.o: /opt/ros/indigo/include/std_msgs/Empty.h
 simple_layers/CMakeFiles/grid_layer.dir/src/grid_layer.cpp.o: /opt/ros/indigo/include/std_msgs/Header.h
+simple_layers/CMakeFiles/grid_layer.dir/src/grid_layer.cpp.o: /opt/ros/indigo/include/std_msgs/String.h
 simple_layers/CMakeFiles/grid_layer.dir/src/grid_layer.cpp.o: /opt/ros/indigo/include/tf/FrameGraph.h
 simple_layers/CMakeFiles/grid_layer.dir/src/grid_layer.cpp.o: /opt/ros/indigo/include/tf/FrameGraphRequest.h
 simple_layers/CMakeFiles/grid_layer.dir/src/grid_layer.cpp.o: /opt/ros/indigo/include/tf/FrameGraphResponse.h

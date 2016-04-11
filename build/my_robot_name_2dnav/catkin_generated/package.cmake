@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "my_robot_name_2dnav")
-set(my_robot_name_2dnav_MAINTAINER "maciejm <maciejm@todo.todo>")
-set(my_robot_name_2dnav_DEPRECATED "")
-set(my_robot_name_2dnav_VERSION "0.0.0")
-set(my_robot_name_2dnav_BUILD_DEPENDS "move_base" "my_odom" "my_sensor" "robot_setup_tf")
-set(my_robot_name_2dnav_RUN_DEPENDS "move_base" "my_odom" "my_sensor" "robot_setup_tf")
-set(my_robot_name_2dnav_BUILDTOOL_DEPENDS "catkin")
