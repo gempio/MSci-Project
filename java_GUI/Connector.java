@@ -28,6 +28,7 @@ public class Connector implements Runnable{
 	}
 
 	public void sendMessage(String message) {
+		System.out.println("Message Sending: " + message);
 		out.println(message);
 	}
 

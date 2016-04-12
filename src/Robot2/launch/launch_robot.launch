@@ -134,7 +134,7 @@
     <param name="rviz" value="param_value" />
   </node>
 
-  <!--<node pkg="controller" type="serverToController" name="sTc" />
-  <node pkg="controller" type="controller" name="cntrl" />-->
+  <node pkg="controller" type="serverToController" name="sTc" />
+  <node pkg="controller" type="controller" name="cntrl" />
   
 </launch>

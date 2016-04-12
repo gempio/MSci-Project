@@ -39,8 +39,8 @@ void GridLayer::matchSize()
 }
 void GridLayer::setXY(double x, double y) {
   ROS_INFO("I've Been Callhlhlhlgled");
-  GridLayer::x_coord = x;
-  GridLayer::y_coord = y;
+  //GridLayer::x_coord = x;
+  //GridLayer::y_coord = y;
   //unsigned int robotX;
   //unsigned int robotY;
   //worldToMap (x_coord, y_coord, robotX, robotY);
@@ -65,12 +65,12 @@ void GridLayer::updateBounds(double robot_x, double robot_y, double robot_yaw, d
   unsigned int robotX;
   unsigned int robotY;
   if(worldToMap(mark_x, mark_y, mx, my)){
-    setCost(mx, my, LETHAL_OBSTACLE);
-    std::cout << GridLayer::x_coord << "," << GridLayer::y_coord << "\n";
-    worldToMap (GridLayer::x_coord, GridLayer::y_coord, robotX, robotY);
-    setCost(robotX, robotY, LETHAL_OBSTACLE);
-    x_coord += 0.1;
-    y_coord += 0.1;
+    //setCost(mx, my, LETHAL_OBSTACLE);
+    //std::cout << GridLayer::x_coord << "," << GridLayer::y_coord << "\n";
+    //worldToMap (GridLayer::x_coord, GridLayer::y_coord, robotX, robotY);
+    //setCost(robotX, robotY, LETHAL_OBSTACLE);
+    //x_coord += 0.1;
+    //y_coord += 0.1;
   }
   
   *min_x = std::min(*min_x, mark_x);
@@ -91,11 +91,11 @@ void GridLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int m
       int index = getIndex(i, j);
       if (costmap_[index] == NO_INFORMATION)
         continue;
-      master_grid.setCost(i, j, costmap_[index]); 
+      //master_grid.setCost(i, j, costmap_[index]); 
       unsigned int robotX;
       unsigned int robotY;
-      worldToMap (GridLayer::x_coord, GridLayer::y_coord, robotX, robotY);
-    setCost(robotX, robotY, LETHAL_OBSTACLE);
+      //worldToMap (GridLayer::x_coord, GridLayer::y_coord, robotX, robotY);
+    //setCost(robotX, robotY, LETHAL_OBSTACLE);
     }
   }
 }

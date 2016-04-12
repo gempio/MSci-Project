@@ -50,7 +50,7 @@ void GridLayer::updateBounds(double robot_x, double robot_y, double robot_yaw, d
   unsigned int mx;
   unsigned int my;
   if(worldToMap(mark_x, mark_y, mx, my)){
-    setCost(mx, my, LETHAL_OBSTACLE);
+    //setCost(mx, my, LETHAL_OBSTACLE);
   }
   
   *min_x = std::min(*min_x, mark_x);
@@ -71,7 +71,7 @@ void GridLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int m
       int index = getIndex(i, j);
       if (costmap_[index] == NO_INFORMATION)
         continue;
-      master_grid.setCost(i, j, costmap_[index]); 
+      //master_grid.setCost(i, j, costmap_[index]); 
     }
   }
 }

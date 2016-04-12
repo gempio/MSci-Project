@@ -30,7 +30,7 @@ void *send_goal_1(void*) {
   float y []= {4.69156122208, 1.44183540344, -2.96959543228, 4.85724782944, -2.75757598877, 5.43985700607, 1.45707416534, -2.5175409317};
   
   //tell the action client that we want to spin a thread by default
-  MoveBaseClient ac("move_base", true);
+  MoveBaseClient ac("robot1/move_base", true);
   //wait for the action server to come up
   while(!ac.waitForServer(ros::Duration(5.0))){
     ROS_INFO("Waiting for the move_base action server to come up");
@@ -38,7 +38,7 @@ void *send_goal_1(void*) {
 
   move_base_msgs::MoveBaseGoal goal;
 
-  //we'll send a goal to the robot to move 1 meter forward
+  //we'll send a goal to the robot.
   goal.target_pose.header.frame_id = "map";
   goal.target_pose.header.stamp = ros::Time::now();
   float x_cord = x[numberInput];
@@ -76,7 +76,7 @@ void *send_goal_2(void*) {
   move_base_msgs::MoveBaseGoal goal;
 
   //we'll send a goal to the robot to move 1 meter forward
-  goal.target_pose.header.frame_id = "/robot2/map";
+  goal.target_pose.header.frame_id = "map";
   goal.target_pose.header.stamp = ros::Time::now();
   float x_cord = x[numberInput];
   float y_cord = y[numberInput];

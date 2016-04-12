@@ -7,6 +7,7 @@ import javax.swing.table.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.event.*;
+import java.beans.*;
 /** 
 	A class responsible for holding user data and listening to specific events
 */
@@ -71,6 +72,7 @@ public class GuiUser implements Listener{
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
 	public static void sendRobot(Connector r, int robot, int room) {
+		System.out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 		r.sendMessage("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 	}
 
@@ -97,28 +99,8 @@ public class GuiUser implements Listener{
     		System.out.println("Selected Robot: " + selectedRobot);
     		//table.changeSelection(selectedRobot, 0, false, false);
     	}// this has to be implemented
-    	else if(attribute.contains("found")) {
-    		final JOptionPane optionPane = new JOptionPane("The only way to close this dialog is by\n"+ "pressing one of the following buttons.\n"+ "Do you understand?",
-    				JOptionPane.QUESTION_MESSAGE,
-    				JOptionPane.YES_NO_OPTION);
-
-    		final JDialog dialog = new JDialog((JFrame) gui,
-                                                 "Click a button",
-                                                 true);
-                    dialog.setContentPane(optionPane);
-                    dialog.setDefaultCloseOperation(
-                        JDialog.DO_NOTHING_ON_CLOSE);
-
-
-    		table.changeSelection(selectedRobot, 0, false, false);
-    		dialog.setContentPane(optionPane);
-    		dialog.setSize(new Dimension(300, 150));
-            dialog.setLocationRelativeTo(gui);
-            dialog.setVisible(true);
-
-
-    		optionPane.setVisible(true);
-
+    	if(attribute.contains("found")) {
+    		gui.createDialogs(attribute);
     		System.out.println("Hider Message about the treasure");
     	}
   	}
@@ -333,6 +315,89 @@ public class GuiUser implements Listener{
 			mapPanel.repaint();
 		}
 
+		public void createDialogs(String attributes) {
+			//Function for later.
+			if(attributes.contains("Nothing")){}
+			String[] temp = attributes.split("\\(");
+			attributes = temp[1] + " " + temp[2];
+			String[] optionsForTreasure= {"Take Picture", "Grab Treasure", "Continue"};
+			final JOptionPane optionPane = new JOptionPane(
+                                    attributes,
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    JOptionPane.YES_NO_CANCEL_OPTION);
+
+			optionPane.setOptions(optionsForTreasure);
+            final JDialog dialog = new JDialog(this,
+                                         "Identified a shape",
+                                         true);
+            dialog.setContentPane(optionPane);
+            dialog.setDefaultCloseOperation(
+                JDialog.DO_NOTHING_ON_CLOSE);
+            dialog.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent we) {
+                    System.out.println("Thwarted user attempt to close window.");
+                }
+            });
+            optionPane.addPropertyChangeListener(
+                new PropertyChangeListener() {
+                    public void propertyChange(PropertyChangeEvent e) {
+                        String prop = e.getPropertyName();
+
+                        if (dialog.isVisible()
+                         && (e.getSource() == optionPane)
+                         && (JOptionPane.VALUE_PROPERTY.equals(prop))) {
+                            dialog.setVisible(false);
+                        }
+                    }
+                });
+            dialog.pack();
+            dialog.setLocationRelativeTo(this);
+            dialog.setVisible(true);
+
+            String value = (String) optionPane.getValue();
+            if (value.equals("Take Picture")) {
+                takePicture(attributes);
+            } else if (value.equals("Grab Treasure")) {
+                System.out.println("Try using the window decorations "
+                         + "to close the non-auto-closing dialog. "
+                         + "You can't!");
+            } else {
+                
+            }
+		}
+
+		public void takePicture(String attributes) {
+			//Pretty much creating the same type of dialog as in asking to take picture but setting text Icon to the corresponding image
+			 try
+                {
+
+                	final JOptionPane optionPane = new JOptionPane(
+                                    attributes,
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    JOptionPane.YES_NO_OPTION);
+
+
+                    JDialog dialog = new JDialog();
+                    dialog.add(optionPane);
+                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    dialog.setTitle("Image Loading Demo");
+
+                    dialog.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("rooms/BlackHalfcircle.jpg")))));
+
+                    dialog.pack();
+                    dialog.setLocationByPlatform(true);
+                    dialog.setVisible(true);
+                } 
+                catch (IOException e) 
+                {
+                    e.printStackTrace();
+                }
+
+		}
+
+		public void grabTreasure() {
+
+		}
 		public void blockButtons() {
 			for(i=0; i<rooms.length; i++) {
 				rooms[i].setEnabled(false);
@@ -356,4 +421,3 @@ public class GuiUser implements Listener{
 	}
 
 }
-

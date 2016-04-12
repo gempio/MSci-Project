@@ -15,14 +15,14 @@ public class GuiHider implements Listener{
 		command = new CommandObject();
 		register(this.command);
 		treasures = new HashMap<Integer,String[]>();
-		treasures.put(0, setTreasure("Red","Ball"));
-		treasures.put(1, setTreasure("Blue","Hat"));
-		treasures.put(2, setTreasure("Red", "Square"));
+		treasures.put(0, setTreasure("Black","Halfcircle"));
+		treasures.put(1, setTreasure("Green","Square"));
+		treasures.put(2, setTreasure("Black", "Halfcircle"));
 		treasures.put(3, setTreasure("Green", "Hat"));
-		treasures.put(4, setTreasure("Yellow","Bottle"));
-		treasures.put(5, setTreasure("Orange", "Bottle"));
-		treasures.put(6, setTreasure("Pink", "Hat"));
-		treasures.put(7, setTreasure("Violet", "Square"));
+		treasures.put(4, setTreasure("Black","Halfcircle"));
+		treasures.put(5, setTreasure("Green", "Bottle"));
+		treasures.put(6, setTreasure("Black", "Halfcircle"));
+		treasures.put(7, setTreasure("Green", "Square"));
 
 
 		r = new Connector("127.0.1.1", 6009, this.command);
@@ -44,7 +44,7 @@ public class GuiHider implements Listener{
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
 	public void sendTresureFirstProperty(Connector r, int room) {
-		r.sendMessage("%%found Hider TabUI " + room + " " + room + " \"(colour " + treasures.get(room)[0] + ")\"");
+		r.sendMessage("%%found Hider TabUI " + room + " " + room + " \"(colour " + treasures.get(room)[0] + ") (shape " + treasures.get(room)[1] + ")\"");
 	}
 	//A method that returns an array of two property treasure.
 	public String[] setTreasure(String colour, String shape) {
