@@ -3016,7 +3016,7 @@ clean: simple_layers/CMakeFiles/grid_layer.dir/clean
 # Target rules for target simple_layers/CMakeFiles/robotPosition.dir
 
 # All Build rule for target.
-simple_layers/CMakeFiles/robotPosition.dir/all:
+simple_layers/CMakeFiles/robotPosition.dir/all: simple_layers/CMakeFiles/grid_layer.dir/all
 	$(MAKE) -f simple_layers/CMakeFiles/robotPosition.dir/build.make simple_layers/CMakeFiles/robotPosition.dir/depend
 	$(MAKE) -f simple_layers/CMakeFiles/robotPosition.dir/build.make simple_layers/CMakeFiles/robotPosition.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  21
@@ -3029,7 +3029,7 @@ all: simple_layers/CMakeFiles/robotPosition.dir/all
 
 # Build rule for subdir invocation for target.
 simple_layers/CMakeFiles/robotPosition.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 2
 	$(MAKE) -f CMakeFiles/Makefile2 simple_layers/CMakeFiles/robotPosition.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 0
 .PHONY : simple_layers/CMakeFiles/robotPosition.dir/rule

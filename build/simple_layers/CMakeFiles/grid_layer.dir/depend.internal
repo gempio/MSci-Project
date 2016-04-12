@@ -3,6 +3,7 @@
 
 simple_layers/CMakeFiles/grid_layer.dir/src/grid_layer.cpp.o
  /home/maciejm/catkin_ws/src/simple_layers/include/simple_layers/grid_layer.h
+ /home/maciejm/catkin_ws/src/simple_layers/include/simple_layers/robotPosition.h
  /home/maciejm/catkin_ws/src/simple_layers/src/grid_layer.cpp
  /opt/ros/indigo/include/XmlRpcDecl.h
  /opt/ros/indigo/include/XmlRpcValue.h

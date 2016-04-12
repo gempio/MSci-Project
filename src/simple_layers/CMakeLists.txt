@@ -9,6 +9,8 @@ find_package(catkin REQUIRED COMPONENTS
   dynamic_reconfigure
   roscpp
   simple_layers
+  robot2_tf
+  robot1_tf
 )
 
 ## System dependencies are found with CMake's conventions
@@ -192,3 +194,7 @@ include_directories(${catkin_INCLUDE_DIRS} include)
 add_library(simple_layer src/simple_layer.cpp)
 add_library(grid_layer src/grid_layer.cpp)
 add_library(robotPosition src/robotPosition.cpp)
+target_link_libraries(simple_layer ${catkin_LIBRARIES})
+target_link_libraries(robotPosition grid_layer)
+target_link_libraries(robotPosition ${catkin_LIBRARIES})
+target_link_libraries(grid_layer ${catkin_LIBRARIES})

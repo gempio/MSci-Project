@@ -2,7 +2,7 @@
 #include <pluginlib/class_list_macros.h>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-
+#include "simple_layers/robotPosition.h"
 PLUGINLIB_EXPORT_CLASS(simple_layer_namespace::GridLayer, costmap_2d::Layer)
 
 using costmap_2d::LETHAL_OBSTACLE;
@@ -10,41 +10,14 @@ using costmap_2d::NO_INFORMATION;
 
 namespace simple_layer_namespace
 {
-  void chatterCallback(const std_msgs::String::ConstPtr& msg)
-{
-  ROS_INFO("Callback");
-  ROS_INFO("I heard: [%s]", msg->data.c_str());
-}
-
-void *chatter(void*) {
-  ros::NodeHandle nh_s("~/asd");
-  ros::Subscriber sub = nh_s.subscribe("map", 1000, chatterCallback);
-  while(ros::ok) {
-    ros::spinOnce();
+  double GridLayer::x_coord = -4.5;
+  double GridLayer::y_coord = -4.5;
+  GridLayer::GridLayer() {
+    // robotPosition robot;
+    //robot.set_GridLayer(*this);
   }
-}
-
-void runThread() {
-    int rc;
-    int i;
-    pthread_t threads[1];
-    rc = pthread_create(&threads[0], NULL, 
-                            chatter, NULL); 
-    if (rc){
-       std::cout << "Error:unable to create thread," << rc << std::endl;
-       exit(-1);
-    }
-    return;
-  }
-
-GridLayer::GridLayer() {
-  runThread();
-}
-
-
-
-void GridLayer::onInitialize()
-{
+  void GridLayer::onInitialize()
+  {
   ros::NodeHandle nh("~/" + name_);
   current_ = true;
   default_value_ = NO_INFORMATION;
@@ -55,7 +28,7 @@ void GridLayer::onInitialize()
       &GridLayer::reconfigureCB, this, _1, _2);
   dsrv_->setCallback(cb);
   
-}
+  }
 
 
 void GridLayer::matchSize()
@@ -63,6 +36,15 @@ void GridLayer::matchSize()
   Costmap2D* master = layered_costmap_->getCostmap();
   resizeMap(master->getSizeInCellsX(), master->getSizeInCellsY(), master->getResolution(),
             master->getOriginX(), master->getOriginY());
+}
+void GridLayer::setXY(double x, double y) {
+  ROS_INFO("I've Been Callhlhlhlgled");
+  GridLayer::x_coord = x;
+  GridLayer::y_coord = y;
+  //unsigned int robotX;
+  //unsigned int robotY;
+  //worldToMap (x_coord, y_coord, robotX, robotY);
+  //setCost(robotX, robotY, LETHAL_OBSTACLE);
 }
 
 
@@ -80,8 +62,15 @@ void GridLayer::updateBounds(double robot_x, double robot_y, double robot_yaw, d
   double mark_x = robot_x + cos(robot_yaw), mark_y = robot_y + sin(robot_yaw);
   unsigned int mx;
   unsigned int my;
+  unsigned int robotX;
+  unsigned int robotY;
   if(worldToMap(mark_x, mark_y, mx, my)){
     setCost(mx, my, LETHAL_OBSTACLE);
+    std::cout << GridLayer::x_coord << "," << GridLayer::y_coord << "\n";
+    worldToMap (GridLayer::x_coord, GridLayer::y_coord, robotX, robotY);
+    setCost(robotX, robotY, LETHAL_OBSTACLE);
+    x_coord += 0.1;
+    y_coord += 0.1;
   }
   
   *min_x = std::min(*min_x, mark_x);
@@ -103,6 +92,10 @@ void GridLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int m
       if (costmap_[index] == NO_INFORMATION)
         continue;
       master_grid.setCost(i, j, costmap_[index]); 
+      unsigned int robotX;
+      unsigned int robotY;
+      worldToMap (GridLayer::x_coord, GridLayer::y_coord, robotX, robotY);
+    setCost(robotX, robotY, LETHAL_OBSTACLE);
     }
   }
 }

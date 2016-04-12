@@ -12,8 +12,9 @@ namespace simple_layer_namespace
 class GridLayer : public costmap_2d::Layer, public costmap_2d::Costmap2D
 {
 public:
+  static double x_coord;
+  static double y_coord;
   GridLayer();
-
   virtual void onInitialize();
   virtual void updateBounds(double robot_x, double robot_y, double robot_yaw, double* min_x, double* min_y, double* max_x,
                              double* max_y);
@@ -24,6 +25,7 @@ public:
   }
 
   virtual void matchSize();
+  static void setXY(double x, double y);
 
 private:
   void reconfigureCB(costmap_2d::GenericPluginConfig &config, uint32_t level);

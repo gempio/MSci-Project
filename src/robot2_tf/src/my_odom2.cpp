@@ -111,7 +111,7 @@ int main(int argc, char** argv) {
   ros::Rate loop_rate(50);
 
   const double degree = M_PI/180;
-
+  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 50);
   // message declarations
   geometry_msgs::TransformStamped odom_trans;
   odom_trans.header.frame_id = getName("/odom", argv, true);
@@ -119,6 +119,7 @@ int main(int argc, char** argv) {
 
   ros::Subscriber sub = n.subscribe(getName("/initialpose",argv,false), 50, poseCallBack);
   ros::Subscriber sub2 = n.subscribe(getName("/cmd_vel",argv,false), 50, poseAdjustment);
+  int count = 0;
   while (ros::ok()) {
 
     // time stamp
@@ -203,6 +204,14 @@ int main(int argc, char** argv) {
       
     }
     
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "hello world " << count;
+    msg.data = ss.str();
+    chatter_pub.publish(msg);
+
+    ++count;
     //publish_transform = false;
     broadcaster.sendTransform(odom_trans);
     ros::spinOnce();

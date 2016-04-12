@@ -18,6 +18,30 @@ costmap_2d/GenericPluginConfig.h
 dynamic_reconfigure/server.h
 -
 
+/home/maciejm/catkin_ws/src/simple_layers/include/simple_layers/robotPosition.h
+iostream
+-
+stdio.h
+-
+string.h
+-
+string
+-
+sys/socket.h
+-
+arpa/inet.h
+-
+netdb.h
+-
+stdlib.h
+-
+ros/ros.h
+/home/maciejm/catkin_ws/src/simple_layers/include/simple_layers/ros/ros.h
+std_msgs/String.h
+/home/maciejm/catkin_ws/src/simple_layers/include/simple_layers/std_msgs/String.h
+simple_layers/grid_layer.h
+-
+
 /home/maciejm/catkin_ws/src/simple_layers/src/grid_layer.cpp
 simple_layers/grid_layer.h
 -
@@ -27,6 +51,8 @@ ros/ros.h
 /home/maciejm/catkin_ws/src/simple_layers/src/ros/ros.h
 std_msgs/String.h
 /home/maciejm/catkin_ws/src/simple_layers/src/std_msgs/String.h
+simple_layers/robotPosition.h
+/home/maciejm/catkin_ws/src/simple_layers/src/simple_layers/robotPosition.h
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
