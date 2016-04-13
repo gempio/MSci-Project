@@ -1,0 +1,182 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  11 FEB 2016 02:43
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**project.tex
+(./project.tex
+LaTeX2e <2011/06/27>
+Babel <3.9h> and hyphenation patterns for 2 languages loaded.
+(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size10.clo
+File: size10.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@chapter=\count80
+\c@section=\count81
+\c@subsection=\count82
+\c@subsubsection=\count83
+\c@paragraph=\count84
+\c@subparagraph=\count85
+\c@figure=\count86
+\c@table=\count87
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+) (./project.aux)
+\openout1 = `project.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 2.
+LaTeX Font Info:    ... okay on input line 2.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 6.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 6.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 6.
+
+[1
+
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./project.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 3.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 3.
+ [1
+
+])
+\tf@toc=\write3
+\openout3 = `project.toc'.
+
+
+[2]
+Chapter 1.
+[3
+
+]
+Chapter 2.
+[4
+
+]
+Overfull \hbox (15.53462pt too wide) in paragraph at lines 49--49
+[]\OT1/cmr/bx/n/14.4 Researching pos-si-ble im-ple-men-ta-tions of robot
+ []
+
+[5]
+Overfull \hbox (2.81294pt too wide) in paragraph at lines 53--53
+[]\OT1/cmr/bx/n/14.4 Formative test-ing - Fin-ished by end of March 
+ []
+
+[6]
+Chapter 3.
+[7
+
+] [8]
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ˜ in font cmr10!
+ [9] [10] [11] [12]
+Chapter 4.
+[13
+
+] [14] [15]
+Chapter 5.
+[16
+
+]
+Chapter 6.
+[17
+
+]
+Chapter 7.
+[18
+
+]
+Chapter 8.
+[19
+
+]
+Chapter 9.
+[20
+
+]
+Chapter 10.
+[21
+
+]
+Chapter 11.
+[22
+
+]
+Overfull \hbox (66.75424pt too wide) in paragraph at lines 214--216
+[]\OT1/cmr/m/n/10 Helping with set-ting up yaml files, \OT1/cmr/m/it/10 http://
+answers.ros.org/questions/query:yaml%20gazebo/\OT1/cmr/m/n/10 . 
+ []
+
+
+Overfull \hbox (28.55162pt too wide) in paragraph at lines 218--220
+[]\OT1/cmr/m/n/10 Gazebo YouTube pre-sen-ta-tion, \OT1/cmr/m/it/10 https://www.
+youtube.com/watch?v=0uifKcF0TRU\OT1/cmr/m/n/10 . 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 231--233
+[]\OT1/cmr/m/n/10 My user ac-count used for help in de-vel-op-ment,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 235--237
+[]\OT1/cmr/m/n/10 Setting up robot for nav-i-ga-tion stack,
+ []
+
+
+Underfull \hbox (badness 2142) in paragraph at lines 239--241
+[]\OT1/cmr/m/n/10 Video demon-strat-ing nav-i-ga-tion stack with Rviz work-ing 
+to-gether,
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 243--245
+[]\OT1/cmr/m/n/10 A ques-tion hold-ing an ex-ten-sive foot-print de-scrip-tion,
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 251--253
+[]\OT1/cmr/m/n/10 A tu-to-rial hold-ing in-ad-e-quate Laser-Scan code,
+ []
+
+[23
+
+] (./project.aux) ) 
+Here is how much of TeX's memory you used:
+ 276 strings out of 495028
+ 2980 string characters out of 6181496
+ 52242 words of memory out of 5000000
+ 3557 multiletter control sequences out of 15000+600000
+ 9453 words of font info for 33 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 23i,6n,18p,1111b,179s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
+12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
+Output written on project.pdf (24 pages, 142510 bytes).
+PDF statistics:
+ 109 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
