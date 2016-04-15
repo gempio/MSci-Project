@@ -1,59 +1,47 @@
 \documentclass{report} 
   \begin{document}
   
-  \title{Multi-robot to Human Communication}
+  \title{Multi-Robot Human Communication}
   \author{Maciej Musialek}
   \maketitle
 
   \tableofcontents
-  \chapter{What has been finished}
-    I have already finished working on the Robot environment with single robot point on click. Next steps are:
-      \begin{itemize}
-        \item Start work on the GUI to allow one robot to be directed from outside the environment \textbf{This is done for two robots atm}
-        \item Restructure the code to start spawning robots and allow the GUI to move different robots around the plane  \textbf{This is currently done for one and two robots. The problem is spawning is only at the start}
-        \item Add energy levels so that the robot stops moving after its energy is depleted \textbf{Done partially. The robot will still move after energy depletion}
-        \item Add picture taking simulation to allow treasure retrieval from specific rooms \textbf{Not done yet}
-        \item Sync the GUI with the ROS environment that will provide constant updates to the robot.
-
-        \item Add code that will allow robots to allow them to move by themselves and give them the power to take independent action rather than asking users.\textbf{Not done yet}
-        \item Start testing and evaluation
-      \end{itemize}
-
-    Through this weekend I will work on the first two points on the agenda this weekend and try to get this to work by Monday. I have dedicated this whole weekend for that sole purpose. I will try to send progress report on Monday/Tuesday and by Friday try to add energy levels for moving robots.
-
-    Adding picture simulation and robot independent action I will try to focus on the next weekend to make sure that I can finally start working on testing and writing down the evaluation.
 
   \chapter{Introduction}
-    Communication has been a subject of research for a long time now. With the development of computers and robotics a new area was opened regarding communication between humans and robots. With the addition of job automation allowing robots to perform tasks on their own and take instructions, the communication started playing an even bigger part in job distribution. Humans handle the job distribution and robots would perform tasks carried onto them.(NOTE: Attach references here)
+    Communication has been a subject of research for a long time now. With the development of computers and robotics a new area was opened regarding communication between humans and robots. With the addition of job automation allowing robots to perform tasks on their own and take instructions, the communication started playing an even bigger part in job distribution. Humans handle the job distribution and robots would perform tasks carried onto them.
 
-    A lot of research has and is still being carried out about how to handle the communication with majority of it focusing on turn-taking communication.(NOTE: Elaborate more here with papers)
+    This project will also focus on turn-taking communication for energy limited robots with an addition of trying to give some decision power to robots, like proposing potential moves rather than list all of them. It focuses on creating a robot platform with a user interface that will allow testing how single human interaction can improve multi robot collaboration. This will be done by comparing different levels of freedom to robots from no control to complete control over the environment and their choices. This was largely motivated by a paper done by Elizabeth I. Sklar and M. Q. Azhar \cite{Elizabeth} in their paper on Argumentation-Based Dialogue Games for Shared Control in Human-Robot Systems.
 
-    This project will also focus on turn-taking communication for energy limited robots with an addition of trying to give some decision power to robots, like proposing potential moves rather than list all of them. It focuses on creating a robot platform with a user interface that will allow testing how single human interaction can improve multi robot collaboration. This will be done by comparing different levels of freedom to robots from no control to complete control over the environment and their choices.(Is this not too brief? Tried to make it brief since its only the introduction.)
+    The aim of their project was a proposition of human-robot dialogue that would give an outline to how such communication could be implemented. With this a proposition of such communication was given with different layers of communication taken into account that describe the communication. In further research using their system, the researchers found that humans trust robots more with their decisions when such dialogue is implemented.
 
-    A simple setting will be set up for a treasure hunt game and robots will be directed to various rooms with an intent to gather necessary treasures for the player at minimum possible expense of energy. Considerations will also be taken about how to device the most efficient GUI for multi-robot task allocation.(Again maybe too brief?)
+    This leads to the main motivation of the report, which is to develop a real-time version of the dialogue system where robots interact with a human team to give even a better picture of how this dialogue can affect decisions made by humans. Such an environment could shed more light in argumentation research where in certain scenarios trusting the robot more in the environment could be of key to maximizing results. Such situations could involve search-and-rescue missions where quick correct decisions need to be made in order to maximize the number of victims saved and such argumentation from robots could pose an ideal scenario for when humans give in to the pressure and machines can still do the calculations.
 
-  \chapter{Background \textbf{PLEASE FOCUS HERE}}
+    One last motivating factor for the project is that robotics is a growing field of technology that is getting more accurate every year. Robots are beginning to recognize objects, with recognition that could soon approach human perception and later on go beyond it. In such a situation, having strong research done in human robot communication could pave the way for quick implementations of systems where situations might require a more focused approach. This can range anywhere from search and rescue to self-aware cleaning robots at homes that propose which rooms are the dirtiest by a quick glance of each of them.
+
+    This leads to a conclusion that a framework needs to be developed for real-time simulation of robot environments with dialogue plugins being inserted to suit the researchers needs. For this project, a stack of software will be created ranging from back end Robot Operating System simulation software to a Graphical User Interface that tells the user where each robot is and allow commands to be given for specific robots. Such an environment is going to focus on allowing maximum freedom to the researchers to ensure that their dialogue research is only limited by what kind of dialogue system they would like to set up. The next sections of the report will focus on giving a concrete description of how this system was developed and how researchers can use it to help their work.
+
+  \chapter{Background}
     Before setting off to outline what has been finished in the project and how certain choices were made in comparison to others, the report will be discussing the current situation of the robotics community and the human-robot collaboration in general for how the robots communicate with each other. 
 
-    With this in mind, it is important to outline what ideas are currently looked at and how they influence the field of robotics and more importantly, what they bring to the project. In the following subsections, an outline of two main subsections of research will be evaluated with for human-robot collaboration and research that was focused around the ROS environment.
+    With this in mind, it is important to outline what ideas are currently looked at and how they influence the field of robotics and more importantly, what they bring to the project. In the following sections, an outline of two main areas of research will be evaluated with for human-robot collaboration and research that was focused around the ROS environment.
 
     \section{Related work in Human-Robot collaboration}
       Currently research is greatly focused on human-robot collaboration for humans and robots in the same environment, working simultaneously on a task together. This in turn makes the current problem more unique. The problem we consider in this paper works on the assumption that humans and robots are in separate environments, and with that the robot can potentially have a lot of control over the environment. The following subsections give a more precise background in research of human-robot collaboration.
 
-      \subsection{Same space collaboration}
-        In their papers Chang Liu et al.\cite{ChangLiu} and Vijay Govindarajan et al.\cite{Vijay} discuss collaboration in same space. 
+      \subsubsection{Same space collaboration}
+        In their papers Liu et al.\cite{ChangLiu} and Govindarajan et al.\cite{Vijay} discuss collaboration in same space. 
 
         In the first paper\cite{ChangLiu} the collaboration is outlined by robot working together with the human. The setup of the experiment was to give each human-robot team a group of tasks that either required one agent to complete or a joint task for both of them. The aim was to finish a list of tasks as quickly as possible. The measurement parameters were mainly the fluency of collaboration outlined by Hoffman's metrics. Their results found many conclusions; one of which was that humans preferred working with robots that could infer plans based on human movement. This gives an implication to the project that ultimately guides the project to try and develop a robot that could propose movements as to giving the human full power over the environment and the process. In that way it can be considered good practice to let an idle robot move based on its own path planner to the closest room if it was neglected. This of course, is subject to human preference but allowing such functionality could be considered.
 
-        In Vijay Govindarajan et al's\cite{Vijay} paper the main focus of research was search and rescue actions where robots infer different paths from where the human is headed thus maximizing the search space of a room. To develop an algorithm that would handle the robots, the researchers used the ROS platform. In their results they have found that using complementary homotopy classes for intelligent path finding increased the performance of robots helping them make more intelligent decisions. While not particularly useful for robots that search different rooms, using homotopy classes for finding out which robot should potentially reach specific rooms could be useful when making plans that revolve around finding maximum number of rooms helping robots achieve more efficient paths. Additionally another area of research would be with large amount of robots. In that research the robots would use homotopy classes to make decisions based on first movements of robots to try and predict which would be the next rooms that the current robot would choose. With that, the robots would move away from that area that will potentially be visited anyway to start exploring other areas.
+        In Govindarajan et al's\cite{Vijay} paper the main focus of research was search and rescue actions where robots infer different paths from where the human is headed thus maximizing the search space of a room. To develop an algorithm that would handle the robots, the researchers used the ROS platform. In their results they have found that using complementary homotopy classes for intelligent path finding increased the performance of robots helping them make more intelligent decisions. While not particularly useful for robots that search different rooms, using homotopy classes for finding out which robot should potentially reach specific rooms could be useful when making plans that revolve around finding maximum number of rooms helping robots achieve more efficient paths. Additionally another area of research would be with large amount of robots. In that research the robots would use homotopy classes to make decisions based on first movements of robots to try and predict which would be the next rooms that the current robot would choose. With that, the robots would move away from that area that will potentially be visited anyway to start exploring other areas.
 
-      \subsection{Spatial recognition}
-        Hiraki Goto et al.'s\cite{Hiraki} paper work on maximizing fluency in human-robot collaboration and identifying challenges posed by robots when it comes to recognizing parts that would be required for assembly of parts. To achieve this they focused on a finite state machine approach for robots to help with table assembly. This can be considered a more limited approach in terms of robot intelligence since robots are limited in the amount of states they will be in. In their results they managed to see limitations with the robot both recognizing the human action and with the scalability of the software due to most of it being hand made beforehand. The paper mainly focused on being able to achieve the task in comparison to achieving the task efficiently or effectively. With that in mind it poses considerations that need to be taken when looking at robot design one of the most important being a challenge being the robot understanding what it sees and how limited they can be when it comes to object recognition.
+      \subsubsection{Spatial recognition}
+        Goto et al.'s\cite{Hiraki} paper work on maximizing fluency in human-robot collaboration and identifying challenges posed by robots when it comes to recognizing parts that would be required for assembly of parts. To achieve this they focused on a finite state machine approach for robots to help with table assembly. This can be considered a more limited approach in terms of robot intelligence since robots are limited in the amount of states they will be in. In their results they managed to see limitations with the robot both recognizing the human action and with the scalability of the software due to most of it being hand made beforehand. The paper mainly focused on being able to achieve the task in comparison to achieving the task efficiently or effectively. With that in mind it poses considerations that need to be taken when looking at robot design one of the most important being a challenge being the robot understanding what it sees and how limited they can be when it comes to object recognition.
 
-      \subsection{Modalities of human preference}
-        While in their paper Michelangelo Fiore et al.\cite{Fiore} did not use the robot operating system, they embarked on a task that would prove that robots are capable of completing collaborative tasks based on human supervision. In this sense, their paper is very related to research outlined in this paper. Michelangelo Fiore et al. Propose a complex system that is built on sophisticated software for intention inference, path planning, task execution and communication. In their results they have proved that the system is capable of: handling joint goals and actions, handling users preferences, handling agent beliefs and monitoring human actions. With that in mind, a multitude of research has been proposed in creating human-robot collaboration and proving that the tasks are in fact possible complete.
+      \subsubsection{Modalities of human preference}
+        While in their paper Fiore et al.\cite{Fiore} did not use the robot operating system, they embarked on a task that would prove that robots are capable of completing collaborative tasks based on human supervision. In this sense, their paper is very related to research outlined in this paper. Fiore et al. Propose a complex system that is built on sophisticated software for intention inference, path planning, task execution and communication. In their results they have proved that the system is capable of: handling joint goals and actions, handling users preferences, handling agent beliefs and monitoring human actions. With that in mind, a multitude of research has been proposed in creating human-robot collaboration and proving that the tasks are in fact possible complete.
 
-      \subsection{Conclusion}
+      \subsubsection{Conclusion}
         It seems that a lot of current research has put a great focus on proving that human robot collaboration is indeed possible with a huge variation of approaches between each paper. While quite a new area, it is important to note that currently, there doesn't seem to be a greater standard in how research is carried out with researchers assembling software based on their research preference. It does not dispute the fact that every research paper proposes new considerations in human-robot collaboration and that possible improvements are drawn based on their approaches.
 
         This leads to a conclusion that Human-Robot collaboration is a very undeveloped field and will start presenting more exciting opportunities in the future for researchers to look at. Currently it seems that a great deal of effort is in ensuring that fluency between agents is maximized making the experience faster and more enjoyable for the participant in the study and potential agents for developed systems in the future.
@@ -61,15 +49,15 @@
     \section{Research in ROS environment}
         In comparison to previous research that focused on proving various possibilities of robotics systems, research that focuses on using ROS environment is mostly aimed towards developing various frameworks to ease the use of the environment to achieve certain results. As such, it can be compared to human-robot collaboration research as focusing more on solving problems than proving. Following sections outline various works that used the ROS environment to achieve their goals.
 
-      \subsection{Frameworks}
-        In their two papers Chien-Liang Fok et al.\cite{ChienLiang} and Liang S Ng et al.\cite{Liang} focus on creating two separate networks that provide an interface for grabbing robots and control for complex whole body robots with multiple parts. In both of the papers, ROS was being used which stands to justify just how powerful ROS can be in manipulating various environments. In fact, the paper on creating a hardware and software problem for intelligent applications, is very similar to the approach this report is focused on. The simulation platform is in fact exact with the only difference being controlling single robots forwards and backwards rather than using path planning for the problem. From these findings, given time, the report can be further studied to include complex body robots that can be controlled over the cloud with hand held devices. This only signifies the availability of technology for implementing complex robot systems using ROS.
+      \subsubsection{Frameworks}
+        In their two papers Fok et al.\cite{ChienLiang} and Liang S Ng et al.\cite{Liang} focus on creating two separate networks that provide an interface for grabbing robots and control for complex whole body robots with multiple parts. In both of the papers, ROS was being used which stands to justify just how powerful ROS can be in manipulating various environments. In fact, the paper on creating a hardware and software problem for intelligent applications, is very similar to the approach this report is focused on. The simulation platform is in fact exact with the only difference being controlling single robots forwards and backwards rather than using path planning for the problem. From these findings, given time, the report can be further studied to include complex body robots that can be controlled over the cloud with hand held devices. This only signifies the availability of technology for implementing complex robot systems using ROS.
 
-      \subsection{Domain specific research}
-        Pedro Deusdado et al.'s\cite{Pedro} research focused on creating an aerial-ground teams in ROS for systematic soil and biota in estaurine sampling. Mario Vieira et al.'s research further focused on creating applications for monitoring human daily activity and risk situations in robot-assisted living. Both of these papers can be considered extremely centered around the areas that they focus on and show the variety of scenarios that ROS can be used for. Both teams achieved great success in their plan to centralize use of ROS for their respective goals and showed how useful they can be in further research. The first paper gives us an idea of how ROS can be used to implement robot teams, giving us ideas about how to space out cloud platforms to further enrich the environment while the second, allows us to see how to use robot sensors to view activity of humans. 
+      \subsubsection{Domain specific research}
+        Deusdado et al.'s\cite{Pedro} research focused on creating an aerial-ground teams in ROS for systematic soil and biota in estaurine sampling. Mario Vieira et al.'s research further focused on creating applications for monitoring human daily activity and risk situations in robot-assisted living. Both of these papers can be considered extremely centered around the areas that they focus on and show the variety of scenarios that ROS can be used for. Both teams achieved great success in their plan to centralize use of ROS for their respective goals and showed how useful they can be in further research. The first paper gives us an idea of how ROS can be used to implement robot teams, giving us ideas about how to space out cloud platforms to further enrich the environment while the second, allows us to see how to use robot sensors to view activity of humans. 
 
         This knowledge, can in fact be extrapolated to the project in future works to give a richer environment. One where each robot is directly responsive to actions of the other through the use of sensors rather than shared goal reaching creating a more human like collaboration not only between the robot and the human but throughout the whole team. It is important to note that while right now the robots focus is to reach desired destinations and share data to produce better maps. An alternative of proposed research above shows us that using a more intuitive approach can be just as useful.
 
-      \subsection{Conclusion on ROS research}
+      \subsubsection{Conclusion on ROS research}
         It is very easy to see that ROS research and implementations revolves around creating better frameworks and centralized domain problem solving. It is a very young field that so far didn't set standards towards what would be the best approach so that researchers could start tackling these issues and start improving on standard solutions. This in turn, emphasizes that the field is going to expand creating more elaborate solutions and frameworks for specific domain problems. At the time this report was written, most papers presented here are papers that came out in 2016th to ensure that the image of current affairs is as accurate as possible. With this information, as presented above ideas can be drawn about possible improvements to the implementation that could in turn create an environment where the collaboration is as fluent as possible with robots taking same type of initiative that normal humans would.
 
       \section{ROS challenges posed by its creators and community}
@@ -169,15 +157,15 @@
     \section{Use Case Testing}
       Testing the full implementation when switched on the application correctly and seeing if at any point the program crashes. Do these about 5-10 times in a row and see how many times there is a problem with software(if there is any). With these results elaborate on what could be causing issues if such present and include it in future works.
     \section{Known problems}
-      \subsection{GridLayer}
+      \subsubsection{GridLayer}
         Talk about how the environment doesn't let robots update the costmap but are rather reliant on the static map which means that at current stage they are rather reliant on the environment being unchanging. They can also overlap in their travels.
-      \subsection{Environment mostly simulated}
+      \subsubsection{Environment mostly simulated}
         A lot of the work to create the game is simulated like energy levels and taking pictures. Elaborate on how this might pose difficulties in the future.
-      \subsection{ROS package stack}
+      \subsubsection{ROS package stack}
         Talk about how libraries and executables are very rarely properly working together and how inclusion of external classes can lead to errors. An example of this can be integrating GridLayer using robotPosition class to set new obstacles.
-      \subsection{System currently made to run in an uninterrupted environment}
+      \subsubsection{System currently made to run in an uninterrupted environment}
         As of right now closing either of the applications could cause an error forcing the user not to notice any error until sufficient time has passed to realize there is a fault in the system. \textbf{Will try to fix this to ping everyone occasionally or make a note that Server could notify all other nodes of one node disabling to halt all actions and ask for a restart.}
-      \subsection{A very strict Server}
+      \subsubsection{A very strict Server}
         This actually ensures that no impostors attack the server however more frequent pings could be specified for certain applications where if the application is switched off, the user will not have to wait until the server cleans out the old GUI before a new one can be switched on.
   \chapter{Evaluation (Finish along different modes for testing)}
     \section{Project Progress Evaluation at the time of report}
@@ -217,12 +205,16 @@
         ROS currently lacks the support for 3D path planning. This is not to say that 3D control, that is actually available but in the future, plans might extend to ros being able to support 3D path planning and then another world of opportunity will open up in Deep sea exploration. The current project allows for communication between ROS and whatever GUI is presented so its not difficult to see how inputting the right packages for such implementations could be extremely useful. Already a lot of research has been going into node deployments in deep sea and how to use these to tackle communication however, map building of deep sea ocean and understanding more about what's beneath us is an area of research that could benefit from the framework suggested in this project where robots are given coordinates through a server allowing for a customizable GUI on the side of developers for such projects.
 
       \subsubsection{Search-And-Rescue Scouting}
-        This is actually an extension to the paper by Vijay Govindarajan\cite{Vijay} where robots would assist a person to minimize time spent in a single room during search and rescue missions. This project could be an extension to that but much rather use robots for pre-made environments that suffered some kind of trauma to weight risks of assisting certain people and search for survivors in places that have the best chance of making it out. Building maps of risky environments could give rescuers chances of creating robust plans that would maximize the number of people saved in such harsh and difficult times.
+        This is actually an extension to the paper by Govindarajan\cite{Vijay} where robots would assist a person to minimize time spent in a single room during search and rescue missions. This project could be an extension to that but much rather use robots for pre-made environments that suffered some kind of trauma to weight risks of assisting certain people and search for survivors in places that have the best chance of making it out. Building maps of risky environments could give rescuers chances of creating robust plans that would maximize the number of people saved in such harsh and difficult times.
 
   \chapter{Conclusion (Finish this by end of April for submission and rewriting code.)}
 
 
   \begin{thebibliography}{9}
+
+    \bibitem{Elizabeth}
+      Elizabeth I. Sklar and M. Q. Azhar, Argumentation-Based Dialogue Games for Shared Control in Human-Robot Systems,
+      \emph{Journal of Human-Robot Interaction, Vol. 1, No. 1, 2012, Pages 78-95. DOI 10.5898/JHRI.1.1.Tanaka}.
 
     \bibitem{ChangLiu}
       Chang Liu et al. Goal Inference Improves Objective and Perceived Performance in Human-Robot Collaboration, 
@@ -230,18 +222,18 @@
 
     \bibitem{Vijay}
       Vijay Govindarajan et al. Human-Robot Collaborative Topological Exploration for Search and Rescue Applications,
-      \emph{Distributed Autonomous Robotic Systems Volume 112 of the series Springer Tracts in Advanced Robotics pp 17-32}.
+      \emph{Distributed Autonomous Robotic Systems Volume 112 of the series Springer Tracts in Advanced Robotics pp 17-32 15 Jan 2016}.
 
     \bibitem{Hiraki}
       Hiraki Goto et al. Human-Robot Collaborative Assembly by On-line Human Action Recognition Based on an FSM Task Mode,
       \emph{Proc. HRI-2013 Workshop on collaborative Manipulation: New challenges for robotics and HRI, Mar. 3 2013}.
 
     \bibitem{Fiore}
-      Michelangelo Fiore, Aurelie Clodic, Rachid Alami.On Planning and Task achievement Modalities for Human-Robot Collaboration. \emph{International Symposium on Experimental Robotics (ISER 2014), Jun 2014, Marrakech, Morocco. 15p. <hal-01149109>}.
+      Michelangelo Fiore, Aurelie Clodic, Rachid Alami.On Planning and Task achievement Modalities for Human-Robot Collaboration. \emph{International Symposium on Experimental Robotics (ISER 2014), Jun 2014, Marrakech, Morocco. 15p. <hal-01149109> 13 November 2015}.
 
     \bibitem{ChienLiang}
       Chien-Liang Fok et al. Integration and Usage of a ROS-Based Whole Body Control Software Framework
-      \emph{Robot Operating System (ROS)Volume 625 of the series Studies in Computational Intelligence pp 535-563}.
+      \emph{Robot Operating System (ROS)Volume 625 of the series Studies in Computational Intelligence pp 535-563 10 February 2016}.
 
     \bibitem{Liang}
       Liang S Ng et al. Open source hardware and software platform for robotics and artificial intelligence applications
