@@ -1,4 +1,5 @@
 \documentclass{report} 
+  \usepackage{graphicx}
   \begin{document}
   
   \title{Multi-Robot Human Communication}
@@ -10,20 +11,44 @@
   \chapter{Introduction}
     Communication has been a subject of research for a long time now. With the development of computers and robotics a new area was opened regarding communication between humans and robots. With the addition of job automation allowing robots to perform tasks on their own and take instructions, the communication started playing an even bigger part in job distribution. Humans handle the job distribution and robots would perform tasks carried onto them.
 
-    This project will also focus on turn-taking communication for energy limited robots with an addition of trying to give some decision power to robots, like proposing potential moves rather than list all of them. It focuses on creating a robot platform with a user interface that will allow testing how single human interaction can improve multi robot collaboration. This will be done by comparing different levels of freedom to robots from no control to complete control over the environment and their choices. This was largely motivated by a paper done by Elizabeth I. Sklar and M. Q. Azhar \cite{Elizabeth} in their paper on Argumentation-Based Dialogue Games for Shared Control in Human-Robot Systems.
+    This project focuses on turn-taking communication for energy limited robots with an addition of trying to give some decision power to robots, like proposing potential moves rather than list all of them. It focuses on creating a robot platform with a user interface that will allow testing how single human interaction can improve multi robot collaboration. This will be done by comparing different levels of freedom to robots from no control to complete control over the environment and their choices. This was largely motivated by a paper done by Sklar and Azhar\cite{Elizabeth} in their paper on Argumentation-Based Dialogue Games for Shared Control in Human-Robot Systems.
 
-    The aim of their project was a proposition of human-robot dialogue that would give an outline to how such communication could be implemented. With this a proposition of such communication was given with different layers of communication taken into account that describe the communication. In further research using their system, the researchers found that humans trust robots more with their decisions when such dialogue is implemented.
+    The aim of their project was a proposition of human-robot dialogue that would give an outline to how such communication could be implemented. With this a proposition of such communication was given with different layers of communication taken into account that describe the dialogue. In further research using their system, the researchers found that humans trust robots more with their decisions when such dialogue is implemented.
 
-    This leads to the main motivation of the report, which is to develop a real-time version of the dialogue system where robots interact with a human team to give even a better picture of how this dialogue can affect decisions made by humans. Such an environment could shed more light in argumentation research where in certain scenarios trusting the robot more in the environment could be of key to maximizing results. Such situations could involve search-and-rescue missions where quick correct decisions need to be made in order to maximize the number of victims saved and such argumentation from robots could pose an ideal scenario for when humans give in to the pressure and machines can still do the calculations.
+    This leads to the main motivation of the report, which is to develop a real time version of the dialogue system where robots interact with a human team to give even a better picture of how this dialogue can affect decisions made by humans. Such an environment could shed more light in argumentation research where in certain scenarios trusting the robot more in the environment could be of key to maximizing results. Such situations could involve search-and-rescue missions where quick correct decisions need to be made in order to maximize the number of victims saved and argumentation from robots could pose an ideal scenario for when humans give in to the pressure and machines can still do the calculations.
 
     One last motivating factor for the project is that robotics is a growing field of technology that is getting more accurate every year. Robots are beginning to recognize objects, with recognition that could soon approach human perception and later on go beyond it. In such a situation, having strong research done in human robot communication could pave the way for quick implementations of systems where situations might require a more focused approach. This can range anywhere from search and rescue to self-aware cleaning robots at homes that propose which rooms are the dirtiest by a quick glance of each of them.
 
-    This leads to a conclusion that a framework needs to be developed for real-time simulation of robot environments with dialogue plugins being inserted to suit the researchers needs. For this project, a stack of software will be created ranging from back end Robot Operating System simulation software to a Graphical User Interface that tells the user where each robot is and allow commands to be given for specific robots. Such an environment is going to focus on allowing maximum freedom to the researchers to ensure that their dialogue research is only limited by what kind of dialogue system they would like to set up. The next sections of the report will focus on giving a concrete description of how this system was developed and how researchers can use it to help their work.
+    This leads to a conclusion that a framework needs to be developed for real time simulation of robot environments with dialogue plugins being inserted to suit the researchers needs. For this project, a stack of software will be created ranging from back end Robot Operating System simulation software to a Graphical User Interface that tells the user where each robot is and allow commands to be given for specific robots. Such an environment is going to focus on allowing maximum freedom to the researchers to ensure that their dialogue research is only limited by what kind of dialogue system they would like to set up.
+
+    The main challenges with creating such a diverse system is in creating an environment where a variety of dialogues can be ran and tested. To achieve this, a modular system of classes needs to be developed to allow researchers to swap in and out different models of communication they would like to test on their users. It does not however suffice to simply create a dialogue class. To save time in future research, a unified environment has to be created to save time in reinventing a wheel for creating various scenarios to be tested. In this project, an environment based on Sklar and Azhar’s treasure hunt game will be implemented and ran along a modular communication class that will be fully editable by the user to ensure various models of communication are allowed. This will pose an additional challenge of creating a platform that holds the simulation software as well as the Graphical User Interface that are both in their essence modular inside the system. For this purpose, Robot Operating System(ROS) has been used to create a simulation platform and the main challenge with this is creating an environment that is also scalable based on the needs of research.
+
+    The next sections of the report will focus on giving a concrete description of how this system was developed and how researchers can use it to help their work.
 
   \chapter{Background}
-    Before setting off to outline what has been finished in the project and how certain choices were made in comparison to others, the report will be discussing the current situation of the robotics community and the human-robot collaboration in general for how the robots communicate with each other. 
+    Before setting off to outline what has been finished in the project and how certain choices were made in comparison to others, the report will be discussing the current situation of the robotics community and the human-robot collaboration in general for how the robots communicate with each other. Also a more detailed outline onto the treasure hunt game will be given to give a better image of why this research was chosen over others.
 
-    With this in mind, it is important to outline what ideas are currently looked at and how they influence the field of robotics and more importantly, what they bring to the project. In the following sections, an outline of two main areas of research will be evaluated with for human-robot collaboration and research that was focused around the ROS environment.
+    With this in mind, it is important to outline what ideas are currently looked at and how they influence the field of robotics and more importantly, what they bring to the project. In the following sections, an outline of the treasure hunt game along with two main areas of research in robotics that are relevant to this report will be given. These evaluations will be concerning human-robot collaboration and research that was focused around the ROS environment.
+
+    \section{Treasure Hunt Game}
+      Following the introduction that said that this report will focus on creating a treasure hunt game, it is important to understand the concepts behind the game. The games aim is not to create a competitive game where users will interact. The main goal is to test the communication between various robots. With that said the following explanation will give an outline to how the game works and this explanation is directly inspired by Sklar and Azhar’s paper on ArgumentationBased Dialogue Games for Shared Control in Human-Robot Systems.
+
+      The game works by using a simulation environment between a robot and a human. In this environment there is a map with hidden treasures, a robot that explores it as well as a human suggesting where the robot should go. The person that controls the robot gives commands as to which room the robot should visit first along with an option to ask the robot for its opinion on the matter. This gives room to possibilities of dialogue communication between two parties and as such give a robot the chance to persuade the user towards a better option.
+
+      There are numerous possibilities for the treasures and their identification is important to yield different results as well as to use as little energy as possible to get a maximum score. This score can then be evaluated to see how the robot influenced the user and how the communication influenced the experience for the human as well as the score. This then can be used to decide the best strategy for dialogues. The possibilities for treasures can be demonstrated by a figure taken from Sklar and Azhar’s paper[1] which can be found below for ease of access.
+
+        \begin{figure}[!ht]
+          
+          \centering
+            \includegraphics[width=1.02\textwidth]{figures/treasures.png}
+            \caption{Example of Treasures in the game.}
+        \end{figure}
+
+      With these treasures it is easy to see how users might make errors between treasures that carry high ambiguity but also shows how it is unnecessary to use up energy for taking pictures of treasures that have very unique qualities and with that, can be simply grabbed for increasing the score. This could be developed in the environment to ensure that the robot makes sure that the user is certain of taking pictures of treasures that are implicitly unique.
+
+      The game also makes the robot energy a precious resource with robot losing energy for practically every action that it takes apart from communicating with the user.
+
+      This leads to the motivation in this report of creating this environment with customizability of Dialogues as well as ensuring that a multi robot environment is allowed to further see how increasing the number of robots affect the dialogue experience in Human-Robot communication.
 
     \section{Related work in Human-Robot collaboration}
       Currently research is greatly focused on human-robot collaboration for humans and robots in the same environment, working simultaneously on a task together. This in turn makes the current problem more unique. The problem we consider in this paper works on the assumption that humans and robots are in separate environments, and with that the robot can potentially have a lot of control over the environment. The following subsections give a more precise background in research of human-robot collaboration.
@@ -47,6 +72,8 @@
         This leads to a conclusion that Human-Robot collaboration is a very undeveloped field and will start presenting more exciting opportunities in the future for researchers to look at. Currently it seems that a great deal of effort is in ensuring that fluency between agents is maximized making the experience faster and more enjoyable for the participant in the study and potential agents for developed systems in the future.
     
     \section{Research in ROS environment}
+        The reason for choosing to research ROS in greater detail is that it will be the main platform that runs the robotics simulations in this Project. In essence, it will be the backbone of the system and a lot of work will be determined by the success of its implementation. To achieve this, a solid background on how it was used in the past and what it has been used for is considered to ensure that the wheel has not been reinvented as well as to see potential uses of ROS to later on expand the system when it is developed.
+
         In comparison to previous research that focused on proving various possibilities of robotics systems, research that focuses on using ROS environment is mostly aimed towards developing various frameworks to ease the use of the environment to achieve certain results. As such, it can be compared to human-robot collaboration research as focusing more on solving problems than proving. Following sections outline various works that used the ROS environment to achieve their goals.
 
       \subsubsection{Frameworks}
@@ -73,57 +100,197 @@
       With the previous section, it is clear that there will be challenges in this project that might in fact not get fulfilled simply due to lack of resources that will be able to acquire and through that, a careful consideration will be taken to ensure that the goals are realistic and not reaching outside the scope of the possibilities.
 
   \chapter{Specification for the report}
-    Many projects are constantly being conducted in order to give insight into how Human-Robot interaction should be conducted and its effects on the efficiency of the collaboration. This requires that each report needs to give a solid specification of how the environment is set. This in turn provides basis on which future research can judge the results and compare them against others fairly. The project will be split into three parts each of which is defined below:
+    To ensure a good outline of the project is given specification needs to be provided for various parts of the system to later on lead the design, implementation and testing of the environment. The following sections break down the system into its biggest parts and give a set of requirements as guidelines.
 
-    \textbf{The Robot environment:}
+    \section{The simulation environment}
       The robot environment will be the center of emulating the environment. It will be responsible for housing the Robot Operating System server with maps, odometry for robots and mapping the robots inside a map so that they will be able to move around and accept commands from outside sources i.e. the GUI and transfer these commands into robot movement and task allocation. Below is the outlined specification for the environment.
-      \begin{itemize}
-        \item An environment that allows simulation of a robot on a 2-D plane with the map received from project supervisor
-        \item Accepting commands that set a goal for specific robots for them to reach goals
-        \item Each robot having their distinct levels of energy based on how much they moved
-        \item An ability for the robot to realize which rooms are closest to it
-        \item Robot not being able to tell if the treasure is useful but asking the user whether or not to retrieve it.
-        \item Robot is able to take pictures(Which costs energy) to the user so that the user can decide treasure retrieval
-        \item Allow spawning more robots in the environment.
 
+      \begin{itemize}
+        \item \textbf{SE1}: ROS based simulation environment.
+        \item \textbf{SE2}: An environment that allows simulation of a robot on a 2-D plane with the map received from project supervisor.
+        \item \textbf{SE3}: Accepting commands from outside sources that guide the robot e.g. Go to room 1.
+        \item \textbf{SE4}: Responding to commands about robots position and whether it reached its goal.
+        \item \textbf{SE5}: An ability for the robot to realize which rooms are closest to it.
+        \item \textbf{SE6}: Robot is able to find its own way inside the map to the goal.
+        \item \textbf{SE7}: Allow for more than one robot in a single simulation.
+        \item \textbf{SE8}: Robot is fully aware of another robots presence.
+        \item \textbf{SE9}: Robot is able to avoid collisions with other robots.
+        \item \textbf{SE10}: The environment can accept various maps and robots can adapt to these.
+        \item \textbf{SE11}:  (Optional) Simulation minimizes the use of system resources.
       \end{itemize}
 
-    \textbf{Graphical user interface:}
+    \section{Graphical User Interface}
       The Graphical User Interface is a crucial aspect to how the task distribution will be managed. Whether it is click and go or hot keyed commands is a question that will be crucial here. The human factor needs to be taken into account as basis for testing but having a user interface that doesn't allow comfortable work will only result in slowing down the human factor and making the results biased towards the robots working by themselves. Below is the outlined specification for the GUI.
-      \begin{itemize}
-        \item The interface should be able to contact the server with current location of the robots
-        \item Provide results at the end of the simulation
-        \item Should suggest the most efficient way for the robot to reach its goal.
-      \end{itemize}
+      
+        \begin{itemize}
+          \item \textbf{UI1}: Interface should provide an approximated view of the simulation.
+          \item \textbf{UI2}: Interface provides options for users to select rooms that robots go to.
+          \item \textbf{UI3}: Users are able to select robots that they want to send goals for.
+          \item \textbf{UI4}: User has the option of grabbing the treasure, taking the picture and moving on.
+          \item \textbf{UI5}: Upon receiving the picture user has the option to take the treasure.
+          \item \textbf{UI6}: Interface contains the map with an outline of rooms.
+          \item \textbf{UI7}: Interface updates robots positions on the map based on where they are in the simulation.
+          \item \textbf{UI8}: Interface accepts various Dialogues when a command is executed to show to the user.
+          \item \textbf{UI9}: (Optional) Keyboard shortcuts implemented to smooth out the job as opposed to point and click where a mouse has to move all the time.
+        \end{itemize}
+    \section{Dialogue Interface}
+      Testing the environment that was developed to the specification is the main focus of this project. It is however important to ensure that various models of communication are allowed to be ran to make the system usable and fulfill its purpose as research assistance and possibly assistance in the future for developing systems. Below are some main requirements for the dialogue interface.
 
+        \begin{itemize}
+          \item \textbf{DI1}: Hold necessary dialogues for different scenarios(Select room, Take a picture, Take treasure)
+          \item \textbf{DI2}: Cater to different amounts of responses.
+          \item \textbf{DI3}: Be outside of the GUI to ensure modularity.
+          \item \textbf{DI4}: (Optional) Allow an array of responses for a given action(Two different sentences for the same action).
+          \item \textbf{DI5}: Dialogue possibilities held on an external file.
+        \end{itemize}
 
-    \textbf{Modes for testing collaboration}
-      Testing the environment that was developed to the specification is the main focus of this project. The tests of this project will focus on how the human factor influences robot collaboration in different settings as well as see how robots will behave by themselves in different contexts be it going to random rooms or rooms in closest proximity. It is also important to note that contextual situations are what will make the human factor more important. These situations could involve: Treasures only available as spread resources or resource grouping where robots with closest proximity algorithms would only be able to retrieve the same kinds of treasures which might not be an objective here. Below are the outlined tests for the environment to see how human factor will influence robots and how numbers of robots will factor into the equation.
-      \begin{itemize}
-        \item First Test - Testing how robots move on their own in the environment and how efficient they are.
-        \item Second Test - Adding human interaction so that the person can decide on where the robots will proceed.
-        \item Third Test - Test how a number of robots influences the usefulness of adding the human factor into the equation.
-      \end{itemize}
-  
   \chapter{Design}
+
+    The systems goal is to simulate a robot environment with multiple possible robots on the platform. It also has to provide researchers with the chance to edit the dialogue environment freely with different modes of communication. To achieve this, the system needs to have back end simulation software which in this case is going to be implemented in ROS environment. Following that, the ROS operating system will need to be able to connect to a server so that it can accept external commands and finally, it needs to boast an easy to use GUI that connects to the server and needs to be able to send and receive commands to and from the server. The server code is implemented by the supervisor of this project Sklar and does not need to be a part of the design but will need to be included as consideration when designing the system.
+
+    The following sections outline the main modules of the system and consider different alternatives for the design.
     \section{Protocol for communication}
-      This section will ideally outline how the Server Java class works with considerations taken into commands that the environment will embrace to ensure communication. Based on that, figures will be created to ensure that the message about message passing is clear. Then a more thorough explanation will be given about how communication is handled in ROS and how this project is taking advantage of it... This will include: Publishers and Subscribers in ROS as well as talking about how C++ servlet will have to be created and separated from ROS codebase to ensure that each side can be adequately changed without affecting the other. Also quickly discuss that such implementation will not be possible in Java as advertising and publishing is not as possible however a quick workaround using Observer design patterns can be implemented and with that, a similar approach can be taken.
+      It is important to outline the protocol for the communication. The system boasts a complex approach where different components connect to each other and with that, setting the communication protocol from the start will ease the design considerations in the future.
+
+      The center of this implementation is the server that handles the traffic in the environment. It allows communication between various nodes and specifies the name convention for various parts of the system. This naming convention allows anyone troubleshooting the server to be able to see where the fault is. This naming convention suggests various for the system which are(For further explanation refer to the technical review provided in \cite{technical}):
+        \begin{itemize}
+          \item \textbf{SimR}: The simulation environment on which the robots operate.
+          \item \textbf{TabUI}: The interface on the user side that controls the simulation environment.
+          \item \textbf{Hider}: Class responsible for hiding and presenting treasure information.
+          \item \textbf{Server}: The center of the application that passes messages through and ensures connections are valid. 
+        \end{itemize}
+
+      The main communication will revolve around the Server node and as such following design for communication is proposed which is very closely related to the one outlined in the technical preview\cite{technical}:
+
+        \begin{figure}[!ht]  
+          \centering
+            \includegraphics[width=0.7\textwidth]{figures/mainCommunication.png}
+            \caption{Outline of the top level of communication.}
+        \end{figure}
+
+      With this main outline of communication done, it is also important to show how communication will be handled before it reaches a server. To do this the next two sections will talk about how communication is done in and out of ROS as well as how communication works in and out of the GUI.
+
+      \subsubsection{Robot Operating system communication}
+        ROS uses a published/subscriber mode of communication for its transfer of information. This means that while it is extremely simple to communicate between inside nodes, a new node will have to be developed that keeps communications to ROS to be switched on from outside sources. This can be viewed in the following figure:
+
+          \begin{figure}[!ht]  
+            \centering
+              \includegraphics[width=0.8\textwidth]{figures/RosCommunication.png}
+              \caption{Outline of the top level of communication.}
+          \end{figure}
+
+        The graph above presents a figure that shows that the communication starts at ROS Environment Stack. This has to be switched on for further channels that make sense. Then a robot controller node has to be created to ensure that sending goals is feasible when a command comes in but it shouldn't have direct connection to the server. The report has taken advantage of publisher/subscriber mode of communication and makes the server controller and robot controller contact in that exact manner. This actually allows for modularity between nodes as neither has to be switched on first and they can be changed and modified freely per users need. Considering that ROS codebase is done either in C++ or Python, with C++ proposing a better API in ROS environment, both nodes will be created using C++ and ran inside the same package that the simulation environment runs in to ensure maximum compatibility. This gives a good of idea of how the communication will be handled inside ROS. The next section will discuss how this communication is handled inside the Graphical User Interface environment.
+
+      \subsubsection{Graphical User Interface/Hider Communication}
+        In the Graphical User Interface, we can't take advantage of the Publisher/Subscriber approach that ROS loves to use. This means that while we can easily create both the user interface and the client that connects to the server. We need to think about how communication between the two will work to ensure that both writing and listening to the server is allowed and fires events based on responses. The same can be said for the Hider interface. This Hider interface could be implemented on the ROS environment stack alongside everything else but for the sake of modularity, the report will keep it outside. To develop this environment the following proposition is made for the environment:
+
+        \begin{figure}[!ht]  
+            \centering
+              \includegraphics[width=0.8\textwidth]{figures/GUICommunication.png}
+              \caption{Outline of communication inside GUI.}
+          \end{figure}
+
+        The Graphical user interface will implement an Observer design pattern to synchronize the communication between the GUI and the connector when a message comes in. The connector receives a command, changes the CommandObject and because the CommandObject was changes, the GUI as a listener will be fired and update the map. On the other side when the GUI wants to send a command, since it implements the Connector as a connection class, it should simply be able to pass the parameters directly into a command inside the Connector leaving the CommandObject strictly to the GUI to be fired when changed. With this, the report now has the design for the main protocol of communication and the next sections discuss the choices for design inside the ROS environment and GUI for the user.
 
     \section{ROS Environment}
-      Discuss the ROS environment with how there are two options for the simulation design(Gazebo or Rviz) and Navigation stack that could potentially reduce the need to hard-code solutions. Discuss then that navigation stack is a better option considering flexibility when the environment is eventually to be physical and as such flexibility on the ROS environment is key. Also discuss that Gazebo poses limitations that require to be switched on which could potentially be resource expensive as Rviz can be switched off and will only be there for testing stages when setting up the navigation stack. 
+      The most important consideration in design is scalability with which the simulations can run. In ROS we have two options for running the simulations one of which is Gazebo and the other Rviz for simulation preview. This is important to understand how the environment works and also if it actually works properly in terms of multi-robot environment.
+
+      Each environment provides a certain ease of use inside the project with Gazebo allowing to build packages for robots making it a nice candidate for quick setup but also requires to constantly run Gazebo in the background which doesn't make it an ideal candidate for saving resources and performance which in the future might affect scalability. To avoid this issue, a better option would be to run Navigation Stack which is what will simulate the topics and the robot environment and to run Rviz for debugging purposes.
+
+        \begin{figure}[!ht]  
+          \centering
+            \includegraphics[width=0.6\textwidth]{figures/RVIZ.png}
+            \caption{Example of Rviz running.}
+        \end{figure}
+
+      From current research, Rviz does not provide functionality in terms of displaying multiple robots but running it is optional in terms of environment so in that choice, Rviz is chosen to be the main simulation display in the first stages of the project. It will be used that when goals are set by the controller, the robot walks towards a certain path as well as ensure that the multiple layer design that ROS needs to implement in the navigation stack is chosen.
+
+      To actually create multiple robot environment is a question of implementation and trial and error in the environment rather than design as the ROS navigation stack at this point is generally very unfamiliar however using answers provided in \cite{wiki1} we can imply that the design of the robot architecture will be as follows:
+
+        \begin{figure}[!ht]  
+          \centering
+            \includegraphics[width=1\textwidth]{figures/ROSPlan.png}
+            \caption{Ideally how multi robot is going to work.}
+        \end{figure}
+
+      Figure above shows how two robots are mapped to the same map. The main challenge with this will be figuring out how to implement this in the Navigation stack without using gazebo for the backbone to avoid the need to consume extra resources through gazebo.
+
+      It is important to note that originally the implementation will try to set up an environment with one robot that runs and allows to set up the GUI first. If however this doesn't pose too many issues, a two robot environment will be developed before the GUI is taken into consideration.
 
     \section{GUI for User and Hider}
-      Present with diagrams the idea behind the GUI and then discuss possible implementation environments that could be there to use it. These can in fact be done in various programming languages. The multitude of environments can be brought down to: C++, Java, Python, JavaScript all of which propose something to the table. C++ is great for memory management and performance management, if the server was also in C++, then this would probably be the language of choice. Java offers built in GUI and it's communication protocol agrees with the server so disconnections on socket dumping is actually very possible and a very sought after feature. Discuss that the GUI however is limiting unless using external libraries such as JavaFX that implements web languages such as JavaScript inside. This could be a great idea but adding extra libraries to learn more about the project is beyond the scope of the project for the time frame of the project. When it comes to JavaScript, there is an AJAX functionality built in but this is a RESTful approach that the server does not at the time of the project implement, hence API calls are currently not supported and additional platforms for socket implementation would have to be created. Also, to run JavaScript in such a manner would require to use node.js which would increase the project stack. We can lastly consider Python that has great support for 2D game implementation as can be seen in the book of Python for beginners where a library for creating sprites dynamically is greatly explained. Python also has great support for running off the go on UNIX based systems, this however is not of such importance as only ROS needs to be on a Ubuntu Linux machine in comparison to the GUI that should ideally run on any machine. Most machines have Java but not many have support Python considering that majority of systems run on Windows. With that conclusion a Java implementation seems to be the best decision.
+      The GUI is the front of what the user sees and experiences through the use of application. This will be the main product that researchers will show to the users to later enquire about the dialogue model. It is therefore essential to ensure that the design is as simplistic and as intuitive as possible. After all the user should not feel like the design of the interface is in any way overwhelming. This could lead to not paying attention to the dialogue systems as well as bring on an experience that would otherwise compromise the flow of actions that lead the user from beginning to the end.
+
+      While the previous section included an explanation of how the environment communicates with the server it did very little in explaining how the GUI is going to look or what programming language is going to be implemented to ensure both a pleasant experience for the user but also maximize compatibility with the Java Server that runs in the background and allows communication to the ROS environment. Both of these are discussed in the following sections.
+
+      \subsubsection{The looks of the design}
+        The application boasts quite a lot of information that the user needs to take in. The short list below summarizes most of the information that the user will see:
+        \begin{itemize}
+          \item The map and robots location on the map.
+          \item List of possible robots that the user can select from
+          \item Objectives of the game
+          \item List of rooms that the robot can go to.
+          \item Information about energy levels of various robots; each different.
+          \item Dialogue windows popping up to start communication between robot and human.
+        \end{itemize}
+
+        With this list, a design can definitely start forming into shape with the last point being one of the most important ones. That the dialogues pop up rather than be placed in a sidebar or a top bar or anywhere else. The user should have a strong level of interaction with the robot as well as be able to make note of the communication that occurs. Once a robot gets a command it should communicate with the Human and notify them of possibilities or try to persuade them to do other things like go to another room or pickup a treasure that is distinct enough to others that it will be better to grab it rather than take a picture of the item if the user decides to take a picture of a distinct object.
+
+          \begin{figure}[!ht]  
+            \centering
+              \includegraphics[width=1\textwidth]{figures/GUIDesign.png}
+              \caption{Basic idea of the GUI design for the user.}
+          \end{figure}
+
+        This design largely represents the work flow of the application with the Dialogue window popping up requesting user input right in the middle of the frame to ensure that the user gives input to the robot and maximize the efficiency of the application.
+
+        With regards to the hider GUI, it could be implemented as a GUI but creating a simple code that holds variables would make more sense as it will actually be faster to edit those than to do so through the use of GUI. It will keep external files to the minimum not requiring to run separate external files along with that .jar compiled file and with that rationale. At this point in the project it will suffice to have the Hider work at source code and change the variables inside it, compile and run accordingly.
+
+      \subsubsection{Programming language choice}
+        To develop the GUI itself, there are numerous options to choose from. Different languages offer different options and a list of possible programming languages taken under consideration in this report is:
+        
+          \begin{itemize}
+            \item C++
+            \item JavaScript
+            \item Python
+            \item Java
+          \end{itemize}
+
+        Each of these languages would be a good choice but to outline the main differences, each following chapter will discuss their positives and negatives.
+
+        C++ is a great programming language for memory management and as such maximizing efficiency of the software through the use of pointers and memory dumping whenever any information is not necessary. With that, a graphical user interface could be set up in such a way that the user could execute a program and run it very easily. It does however bring a need to compile to specific operating systems like Linux, Windows or Mac depending on the platform that the software runs on\cite{cplus}. Also C++ has commands that are specific to each operating system meaning that while creating a C++ could potentially bring out the best performance, it would also create platform dependent binaries or even so, make code that is platform dependent and with that, it could potentially minimize the target audience for the project. Keeping the project as open platform as possible so that any user could run the GUI is also a very important aspect of the project.
+
+        With JavaScript, the GUI would experience a very good boost in terms of GUI looks. Combining JavaScript with HTML could produce a very neat looking design that could update itself based on server output however the big issue with JavaScript is that it doesn't really support connecting to the server unless external platforms like socket.io\cite{socketio} are brought in. Otherwise JavaScript is AJAX dependent which means that it would either require an additional library importing and learning a new platform or, expanding the server to allow API calls but these kinds of implementations fall outside of the scope of possibility for this project.
+
+        Python offers great ease of use, is a relatively fast language in comparison to the previously mentioned languages. It also works great with sprites and drawing GUI’s which could prove extremely useful in this project. This can be witnessed in books that teach Python programming and use sprite and GUI design as their main chapters\cite{python}. With python however, there is still an issue that was present with C++. While Python is an interpreted language, it works only if the interpreter is installed on the computer. With Linux based systems that is not an issue at all because Linux runs a lot of its software using Python so the interpreter is always pre-installed but when it comes to Windows, this interpreter is not installed as Windows tends to keep to its .exe file system and that again, would limit the scope for the audience.
+
+        Java is the language that the Server was developed in. It is a language that has pre-built GUI libraries called Swing and AWT which allows for a fast GUI prototype implementation and is even use for general development in bigger corporations. These two are definitely favorable when it comes to the GUI created in this project. Java is also present on most PC’s because while systems don't use it as a pre-requisite, a lot of software is implemented using Java and there is a very high chance that any computer visited will have Java working on it. This provides a rationale for choosing Java for the implementation of the GUI.
 
     \section{Testing design}
-      This generally will talk about various algorithms and where they should be stored inside the ROS network when the implementation time comes for Robots to start moving on their own. Discuss where this feature should be stored taking into consideration how the ROS stack operates and whether it would be more comfortable to do this in a ROS class that is similar to ROS 
+      This project will taken upon itself a test driven development sprint where a set of criteria outlined in the specification will guide the way towards a successful implementation of the product. It is however important to outline some criteria other than the simplistic ones that are given in the specification for clarity purposes.
 
+      One of these is to outline a use case for when the users are using the GUI to give an outline of what a successful implementation should do. With this user case, testing will later be carried out to ensure that the application has successfully undergone implementation purposes. Figure 4.7 demonstrates the basic use case that outlines the what the user should be able to do inside the application.
+
+        \begin{figure}[!ht]  
+          \centering
+            \includegraphics[width=1\textwidth]{figures/GuiUseCase2.png}
+            \caption{Use Case for GUI.}
+        \end{figure}
+
+      With this we can see all the commands that are available to the user all of which should run successfully and without any issues.For a better explanation of the stages through which the application should go, a flow chart needs to be constructed. Such a flowchart will provide a better explanation of how the system works and in which areas lies logic that needs to be tested. Diagram presented in Figure 4.8 demonstrates the extent to which each logic function will need to be tested.
+
+        \begin{figure}[!ht]  
+          \centering
+            \includegraphics[width=1.1\textwidth]{figures/flowChart.png}
+            \caption{Flow chart for GUI use.}
+        \end{figure}
+
+      It can be then implied that for the test driven implemented in this project, the application will need to teach the terminate state while ensuring that each decision in the use case has been tested. This will provide enough information to say that the product was fully finished along with the information provided in the specification.
 
 
   \chapter{Implementation}
-    The fully implemented product has been derived by the guidelines received from Elizabeth Sklar, King's College London who guided the project and provided a Server package that in turn is now the main communicator of information of the finished product. This product can be broken down into several components these being(For a better explanation please refer to figure 1):
+    The fully implemented product has been derived by the guidelines received from Elizabeth Sklar, King's College London who guided the implementation of the report and provided a Server package that in turn is now the main communicator of information of the finished product. This product can be broken down into several components these being(For a better explanation please refer to figure 1):
     \begin{itemize}
-      \item Simulation ROS stack - A package composed of: Server Control, Robot Control and Robot Simulation.
+      \item Simulation Environment - A composition of packages composed of: Server Control, Robot Control and Robot Simulation.
       \item Server - A package composed of communication protocol classes.
       \item Hider - Composed of classes responsible for server connection and Hiding the treasures.
       \item User - Composed of classes responsible for UI, server connection and Remote Robot Control.
@@ -131,8 +298,32 @@
 
     In following sections of this report, a more broken down structure to provide insight into how each of these is achieved.
 
-    \section{Simulation ROS Stack}
-      This chapter will outline ROS and how it works with information for the user that will ensure they can use ROS and reducing the time needed for reproducing results.
+    \section{Simulation Environment}
+      As stated before, the ROS stack is a combination of three packages. The Server control, Robot control and robot simulation. They interact with each other in exactly the way that was stated in the design with Server control connecting to the robot control that then sends commands to the robot simulation however a more precise definition will be given in the next sections.
+
+      The implementation also makes use of launch files to reduce the number of terminals that have to run during the execution of the simulation environment. This is due to the fact that with just the launch files given in the ROS tutorials, the amount of windows that have to be open for executing the environment can increase quite exponentially with the number of robots and is in no way automatic.
+
+      This launch file further lists the important packages that implement the simulation and exposes user to the outline of how the ROS environment operates with further explanation of packages outlined in next sections of the implementation chapter.
+
+      \subsection{The Server Control}
+        The Server control implementation is based around creating a serverToController package outside of the ROS simulation. This is done to ensure that a modular approach was taken and the server can be extracted and replaced if such a need occurs. It also takes advantage of publisher/subscriber method to implement a workaround Observer Design Pattern that allows two classes to work together using callback functions rather than the Observer fire() events and implementing extra interfaces. This in turn, creates a much simpler to work with environment where the communication between two classes is transparent and callback methods are limited in their simplicity. It also implements C++ threads to allow socket connectivity through clients thus allowing a C++ server to connect using TCP client to the Java Sever running on currently a local host machine.
+
+        The server control also ensures that no commands that are irrelevant to the Robot controller are sent through. This includes commands like \%\%ack or \%\%ping that only need to be answered by the server control. This in turn creates a sieve for commands from the server with only useful ones going through.
+
+      \subsection{The Robot Controller}
+        The robot controller is inside the same package that the Server control is based in. This is mostly to ensure that while modularity is kept, the classes aren't spread out so far inside an environment that it would make it difficult to troubleshoot. Also since these two nodes have a ROS topic that is dedicated only to themselves, it makes sense that they would be stored inside the same environment.
+
+        The controller is used inside the ROS environment to communicate between the server commands and the robots themselves that are simulated and switched on along the server control and the controller. This controller send information to robot\/move\_base\/goal to send the robot a goal command that they need to reached. It has pre-programmed room numbers in a form of two separate array for x and y coordinates with the array positions representing room numbers for simplicity. This means that to access room 0, the program will look values up from x[0] and y[0]. A separate class could have been created to hold various rooms however creating and referencing objects in ROS can be quite tricky. It requires editing the CMake files and linking libraries for ROS automatic compiler that sometimes can get a bit buggy with ROS only allowing a handful of commands from the original C++ compiler.
+
+        This can be very well seen when in the server control package as well as in the robot controller where the thread development was done through pThread class that C++ implements. There were other options online that allowed the same type of thread creation however a limited number of allowed C++ classes in the ROS stack has made it very difficult throughout the project to search for the ones that are allowed.
+
+        Robot controller uses threads to ensure that when the goal is sent, the variables inside the thread are kept and unchanged(like which room was selected or which robot is it as identifiers would have to be broken down causing higher resource usage) during the robot reaching its goal. Since the method has to wait until a single robot comes back with a command that says that the goal has been reached, a thread was the perfect choice for this approach. This approach allows scalability and publishing to tf prefix topics was chosen to ensure that as many robots as possible can be controlled through this package.
+
+        Once the robot has reached its goal that the thread was waiting for, a command is issued that published to a topic shared by the controller and serverToController that the package picks up using subscribe, calls back a method and later on sends it to the server. With this approach, the environment is never blocked concurrency wise but also makes the controller responsible for only the task that is controlling the robots.
+
+        Finally, it is important to mention that currently the GUI does not allow altering the goals. This can be done, however it is important to note that when two subsequent threads are created for the same robot, the previous thread will get canceled and a message regarding reaching goal failure will occur. This actually makes sense because the changed goal means that previous goal is not reached however if a GUI is created that takes into account failure of reaching goals and allows altering them midway, it could pose issues for the developer that decides to create their own UI. Whenever a goal is altered then, a developer will need to be aware that they will receive a goal failed message and the previous node will die out to preserve resources.
+
+      \subsection{The Simulation Environment}
 
     \section{Server}
       Here I will focus on outlining the structure for the server. I will try to make it quite brief as that server package was not my implementation but I will go into some detail about possibilities it provides and the protocol it follows.
@@ -243,6 +434,18 @@
       Pedro Deusdado et al. An Aerial-Ground Robotic Team for Systematic Soil and Biota Sampling in Estuarine Mudflats
       \emph{Robot 2015: Second Iberian Robotics Conference Volume 418 of the series Advances in Intelligent Systems and Computing pp 15-26}.
 
+    \bibitem{technical}
+      Elizabeth I. Sklar and Simon Parsons (2015). HRT2: System Architecture Overview, version 2.1. Technical Report, Dept of Computer Science, University of Liverpool, 2015.
+
+    \bibitem{wiki1}
+      Multiple robots simulation and navigation, \emph{http://answers.ros.org/question/41433/multiple-robots-simulation-andnavigation/}.
+
+    \bibitem{cplus}
+      Discussion on C++ being platform dependent. \emph{http://stackoverflow.com/questions/11810484/why-is-c-platformdependent}.
+    \bibitem{socketio}
+      Socket IO website for reference. \emph{http://socket.io/}.
+    \bibitem{python}
+       Book: Python Programming for the Absolute Beginner, Michael Dawson, 1 Jan 2010
 
 
 

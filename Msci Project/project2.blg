@@ -3,9 +3,9 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: project2.aux
 I found no \bibdata command---while reading file project2.aux
 I found no \bibstyle command---while reading file project2.aux
-You've used 8 entries,
+You've used 10 entries,
             0 wiz_defined-function locations,
-            99 strings with 596 characters,
+            101 strings with 610 characters,
 and the built_in function-call counts, 0 in all, are:
 = -- 0
 > -- 0

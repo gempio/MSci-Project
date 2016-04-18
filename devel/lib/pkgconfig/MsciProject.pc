@@ -1,7 +1,7 @@
 prefix=/home/maciejm/catkin_ws/devel
 
-Name: MsciProject
-Description: Description of MsciProject
+Name: msciProject
+Description: Description of msciProject
 Version: 0.0.0
 Cflags: 
 Libs: -L/home/maciejm/catkin_ws/devel/lib 
