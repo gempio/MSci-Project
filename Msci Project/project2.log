@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.13)  19 APR 2016 02:42
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.13)  19 APR 2016 03:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -287,46 +287,47 @@ Package pdftex.def Info: figures/ROSmapping.png used on input line 349.
  [29 <./figures/ROSmapping.png>] [30
 
 
-] [31]
+] [31] [32]
+[33]
 Chapter 6.
-[32
+[34
 
-] [33] [34]
+] [35] [36]
 Chapter 7.
 
-Overfull \hbox (4.18628pt too wide) in paragraph at lines 411--411
+Overfull \hbox (4.18628pt too wide) in paragraph at lines 447--447
 []\OT1/cmr/bx/n/14.4 Future pos-si-bil-i-ties for ex-pand-ing the project 
  []
 
-[35
+[37
 
-] [36] [37] [38]
+] [38] [39] [40]
 Chapter 8.
-[39
+[41
 
 ]
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no “ in font cmti10!
- [40
+ [42
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 484--485
+Underfull \hbox (badness 10000) in paragraph at lines 520--521
 []\OT1/cmr/m/n/10 Multiple robots sim-u-la-tion and nav-i-ga-tion,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 484--485
+Underfull \hbox (badness 10000) in paragraph at lines 520--521
 \OT1/cmr/m/it/10 http://answers.ros.org/question/41433/multiple-robots-simulati
 on-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 487--488
+Underfull \hbox (badness 10000) in paragraph at lines 523--524
 []\OT1/cmr/m/n/10 Discussion on C++ be-ing plat-form de-pen-dent.
  []
 
-[41] (./project2.aux) ) 
+[43] (./project2.aux) ) 
 Here is how much of TeX's memory you used:
  1613 strings out of 493304
  23446 string characters out of 6139871
@@ -342,10 +343,10 @@ pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on project2.pdf (42 pages, 688840 bytes).
+Output written on project2.pdf (44 pages, 695715 bytes).
 PDF statistics:
- 186 PDF objects out of 1000 (max. 8388607)
- 117 compressed objects within 2 object streams
+ 193 PDF objects out of 1000 (max. 8388607)
+ 122 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
