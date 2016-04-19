@@ -5,7 +5,7 @@ compy:
   background_b: 255
   background_g: 86
   background_r: 150
-  rosdistro: 'indigo
+  rosdistro: 'jade
 
     '
   roslaunch:
@@ -18,7 +18,7 @@ copy:
   background_b: 255
   background_g: 86
   background_r: 150
-  rosdistro: 'indigo
+  rosdistro: 'jade
 
     '
   roslaunch:
@@ -27,7 +27,7 @@ copy:
 
     '
   run_id: cd4b143c-8f02-11e5-9ad9-cc3d82e25333
-rosdistro: 'indigo
+rosdistro: 'jade
 
   '
 roslaunch:

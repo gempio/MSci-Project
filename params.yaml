@@ -1,7 +1,7 @@
 background_b: 255
 background_g: 86
 background_r: 150
-rosdistro: 'indigo
+rosdistro: 'jade
 
   '
 roslaunch:

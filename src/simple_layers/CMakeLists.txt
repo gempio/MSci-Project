@@ -8,7 +8,6 @@ find_package(catkin REQUIRED COMPONENTS
   costmap_2d
   dynamic_reconfigure
   roscpp
-  simple_layers
   robot2_tf
   robot1_tf
 )

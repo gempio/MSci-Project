@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.13)  18 APR 2016 22:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.13)  19 APR 2016 01:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -56,22 +56,25 @@ Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
 \Gin@req@height=\dimen103
 \Gin@req@width=\dimen104
 )
-(./project2.aux)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
+) (./project2.aux)
 \openout1 = `project2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 3.
-LaTeX Font Info:    ... okay on input line 3.
- (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 5.
+LaTeX Font Info:    ... okay on input line 5.
+
+(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count89
 \scratchdimen=\dimen105
@@ -133,11 +136,11 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 7.
+(Font)              <12> on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 7.
+(Font)              <8> on input line 9.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 7.
+(Font)              <6> on input line 9.
 
 [1
 
@@ -175,22 +178,22 @@ Missing character: There is no ™ in font cmr10!
 File: figures/treasures.png Graphic file (type png)
 
 <use figures/treasures.png>
-Package pdftex.def Info: figures/treasures.png used on input line 43.
+Package pdftex.def Info: figures/treasures.png used on input line 45.
 (pdftex.def)             Requested size: 351.90147pt x 58.11215pt.
 
-Overfull \hbox (6.90147pt too wide) in paragraph at lines 43--44
+Overfull \hbox (6.90147pt too wide) in paragraph at lines 45--46
  [][] 
  []
 
 [6 <./figures/treasures.png>] [7] [8] [9] [10] [11]
 Chapter 3.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 109.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 111.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 109.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 111.
  [12
 
 ] [13] [14]
@@ -201,17 +204,17 @@ Chapter 4.
 File: figures/mainCommunication.png Graphic file (type png)
 
 <use figures/mainCommunication.png>
-Package pdftex.def Info: figures/mainCommunication.png used on input line 167.
+Package pdftex.def Info: figures/mainCommunication.png used on input line 169.
 (pdftex.def)             Requested size: 241.49895pt x 246.74753pt.
 
 <figures/RosCommunication.png, id=62, 330.23375pt x 368.37625pt>
 File: figures/RosCommunication.png Graphic file (type png)
 
 <use figures/RosCommunication.png>
-Package pdftex.def Info: figures/RosCommunication.png used on input line 178.
+Package pdftex.def Info: figures/RosCommunication.png used on input line 180.
 (pdftex.def)             Requested size: 276.00105pt x 307.88817pt.
  [16 <./figures/mainCommunication.png>]
-Overfull \hbox (15.76448pt too wide) in paragraph at lines 185--186
+Overfull \hbox (15.76448pt too wide) in paragraph at lines 187--188
 \OT1/cmr/m/n/10 In the Graph-i-cal User In-ter-face, we can't take ad-van-tage 
 of the Pub-lisher/Subscriber
  []
@@ -221,13 +224,13 @@ of the Pub-lisher/Subscriber
 File: figures/GUICommunication.png Graphic file (type png)
 
 <use figures/GUICommunication.png>
-Package pdftex.def Info: figures/GUICommunication.png used on input line 189.
+Package pdftex.def Info: figures/GUICommunication.png used on input line 192.
 (pdftex.def)             Requested size: 276.00105pt x 349.12697pt.
  [18 <./figures/GUICommunication.png>]
 <figures/RVIZ.png, id=77, 1627.07875pt x 1026.83624pt>
 File: figures/RVIZ.png Graphic file (type png)
  <use figures/RVIZ.png>
-Package pdftex.def Info: figures/RVIZ.png used on input line 202.
+Package pdftex.def Info: figures/RVIZ.png used on input line 205.
 (pdftex.def)             Requested size: 207.0021pt x 130.6261pt.
 
 [19 <./figures/RVIZ.png>]
@@ -235,14 +238,14 @@ Package pdftex.def Info: figures/RVIZ.png used on input line 202.
 File: figures/ROSPlan.png Graphic file (type png)
 
 <use figures/ROSPlan.png>
-Package pdftex.def Info: figures/ROSPlan.png used on input line 212.
+Package pdftex.def Info: figures/ROSPlan.png used on input line 215.
 (pdftex.def)             Requested size: 345.0pt x 70.04433pt.
  [20 <./figures/ROSPlan.png>]
 <figures/GUIDesign.png, id=85, 640.3925pt x 456.70625pt>
 File: figures/GUIDesign.png Graphic file (type png)
 
 <use figures/GUIDesign.png>
-Package pdftex.def Info: figures/GUIDesign.png used on input line 240.
+Package pdftex.def Info: figures/GUIDesign.png used on input line 243.
 (pdftex.def)             Requested size: 345.0pt x 246.04625pt.
  [21 <./figures/GUIDesign.png>]
 Missing character: There is no â in font cmr10!
@@ -257,17 +260,17 @@ Missing character: There is no ™ in font cmr10!
 File: figures/GuiUseCase2.png Graphic file (type png)
 
 <use figures/GuiUseCase2.png>
-Package pdftex.def Info: figures/GuiUseCase2.png used on input line 275.
+Package pdftex.def Info: figures/GuiUseCase2.png used on input line 278.
 (pdftex.def)             Requested size: 345.0pt x 96.02641pt.
  [23 <./figures/GuiUseCase2.png>]
 <figures/flowChart.png, id=97, 735.74875pt x 534.99875pt>
 File: figures/flowChart.png Graphic file (type png)
 
 <use figures/flowChart.png>
-Package pdftex.def Info: figures/flowChart.png used on input line 283.
+Package pdftex.def Info: figures/flowChart.png used on input line 286.
 (pdftex.def)             Requested size: 379.5021pt x 275.96417pt.
 
-Overfull \hbox (34.5021pt too wide) in paragraph at lines 283--284
+Overfull \hbox (34.5021pt too wide) in paragraph at lines 286--287
  [][] 
  []
 
@@ -275,54 +278,71 @@ Overfull \hbox (34.5021pt too wide) in paragraph at lines 283--284
 Chapter 5.
 [25
 
-] [26] [27] [28]
-Chapter 6.
-[29
+] [26] [27] [28] <figures/ROSmapping.png, id=115, 1663.21375pt x 835.12pt>
+File: figures/ROSmapping.png Graphic file (type png)
 
-] [30] [31]
+<use figures/ROSmapping.png>
+Package pdftex.def Info: figures/ROSmapping.png used on input line 349.
+(pdftex.def)             Requested size: 659.99832pt x 331.39156pt.
+
+Overfull \hbox (109.99832pt too wide) in paragraph at lines 349--350
+[][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 10.336pt on input line 351.
+
+[29 <./figures/ROSmapping.png>] [30
+
+
+]
+Chapter 6.
+[31
+
+] [32] [33]
 Chapter 7.
 
-Overfull \hbox (4.18628pt too wide) in paragraph at lines 368--368
+Overfull \hbox (4.18628pt too wide) in paragraph at lines 401--401
 []\OT1/cmr/bx/n/14.4 Future pos-si-bil-i-ties for ex-pand-ing the project 
  []
 
-[32
+[34
 
-] [33] [34] [35]
+] [35] [36] [37]
 Chapter 8.
-[36
+[38
 
 ]
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no “ in font cmti10!
- [37
+ [39
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 441--442
+Underfull \hbox (badness 10000) in paragraph at lines 474--475
 []\OT1/cmr/m/n/10 Multiple robots sim-u-la-tion and nav-i-ga-tion,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 441--442
+Underfull \hbox (badness 10000) in paragraph at lines 474--475
 \OT1/cmr/m/it/10 http://answers.ros.org/question/41433/multiple-robots-simulati
 on-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 444--445
+Underfull \hbox (badness 10000) in paragraph at lines 477--478
 []\OT1/cmr/m/n/10 Discussion on C++ be-ing plat-form de-pen-dent.
  []
 
-[38] (./project2.aux) ) 
+[40] (./project2.aux) ) 
 Here is how much of TeX's memory you used:
- 1594 strings out of 493304
- 23066 string characters out of 6139871
- 82827 words of memory out of 5000000
- 5046 multiletter control sequences out of 15000+600000
+ 1613 strings out of 493304
+ 23446 string characters out of 6139871
+ 82984 words of memory out of 5000000
+ 5061 multiletter control sequences out of 15000+600000
  9453 words of font info for 33 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 37i,6n,23p,1201b,218s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,6n,23p,1201b,257s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
@@ -330,10 +350,10 @@ pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on project2.pdf (39 pages, 474202 bytes).
+Output written on project2.pdf (41 pages, 686331 bytes).
 PDF statistics:
- 175 PDF objects out of 1000 (max. 8388607)
- 111 compressed objects within 2 object streams
+ 183 PDF objects out of 1000 (max. 8388607)
+ 115 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
