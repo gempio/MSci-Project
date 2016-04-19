@@ -440,13 +440,28 @@
         This section outlines specific flows of data throughout the application to give a better image of how the server is being used. Each of those commands plays a specific role and there a demonstration of flow for specific situations is explained.
 
         \subsubsection{Connecting to the server}
-        The connection to the server is fairly simple for Java while a bit more tricky for the C++. When Java connects it immediately sends a request to the server to set the id of the application(Using the \%\%setid command). It then receives an ack command that can be ignored and simply confirms that the id has been set by the server. If the socket doesn't exist, the application terminates. If the application receives a shutdown command it will still work for demonstrative purposes of the application but this only happens if the application was switched off and didn't give server time to clean out the old id that will not respond to the next ping request.
+          The connection to the server is fairly simple for Java while a bit more tricky for the C++. When Java connects it immediately sends a request to the server to set the id of the application(Using the \%\%setid command). It then receives an ack command that can be ignored and simply confirms that the id has been set by the server. If the socket doesn't exist, the application terminates. If the application receives a shutdown command it will still work for demonstrative purposes of the application but this only happens if the application was switched off and didn't give server time to clean out the old id that will not respond to the next ping request.
 
-        This works in a similar manner to C++ however with C++, there is almost no way to deal with the server not connecting and the C++ will start to complain about lack of existence of to the server filling up a big chunk of the server data 
+          This works in a similar manner to C++ however with C++, there is almost no way to deal with the server not connecting and the C++ will start to complain about lack of existence of to the server filling up a big chunk of the ROS logging utility and take up drive space. The only way is to set a timeout to connecting to the server however that will also slow down the flow of information so before switching the simulation environment, it is best to start up the server or to comment out the node packages responsible for connecting to the server in case of testing the environment.
 
+        \subsubsection{Sending a robot to specific location}
+          Normally it is possible to send the robot to any location using x and y coordinates but in the current implementation of the system these are hard coded at the simulation environment. This means that rather than using the standard goto command that accepts x and y coordinates, the x and y coordinates are both set to the room number the robot is finished. It would be better to use only one argument for the room number but at this point in time the server is very specific about the number of arguments it receives. This then is passed through the server to the simulation environment and the robot is sent traveling to a specific room.
+
+        \subsubsection{Robot reaching the goal}
+          When a robot reaches its goal, the environment sends a generic message in the form of "robotNo;roomNo". This message is very easy to understand and when a client receives a message of type send with these arguments it updates the map and starts initializing the dialogue for taking the treasure.
+
+        \subsubsection{Asking about the treasure}
+          To receive the first information about the treasure the client sends a quick message to the Hider class and waits for a response before showing user the dialogue. This request is sent as soon as the UI receives the news of robot reaching its goal for efficiency. This message is a generic send message sent to the hider with a room number as an argument. In the hider this message is easily decrypted and a reply is sent using a found type message that contains the details about the treasure.
+
+      \subsection{Final notes about the server}
+        The server is a great piece of work that saved a lot of time during the implementation of the entire system. With it the environment only has to connect, set an id and the messages are being send back and forth without a problem. There are small issues like the time it can take to clean up old clients to reconnect again but that would consume resources on a computer and would not really affect the working system as much. It is only useful for testing.
+
+        Another big note to add is that the server at the time of implementation notify a client of a message being sent successfully or failing to do so because some other client disconnected. This means that troubleshooting is more difficult as this type of lack of responses leads to having to develop more generic messages that could make the system more complex and messages have to be generated at both sides rather than simply filtered.
 
     \section{Hider}
-      Currently Hider is a very static class without any GUI. I will try to develop some Hide treasure GUI for last calls. Later on I will explain its function, how the classes are broken down and reasons for choices.
+      The hider is a very simple two class package that implements a very similar approach to the UI which will be explained later. Currently it holds a HashMap of treasures with an Integer acting as a key to each specific room. When a command comes in, the Hider looks to the HashMap which have a lookup time of O(1) retrieves the treasure details and send those back to the UI.
+
+      The implementation of the Observer design pattern here allows for the main Hider class to be a listener to the server and as such whenever a request comes in, the Hider implements it without a problem.
 
     \section{User}
       Finally with all the required functionality up I will explain a bit more about how the user environment works. This will be done through various figures of classes, telling how the communication works, explaining the use of threading and design patterns to ensure that the environment is called accordingly and reasons for choosing Swing Java over JavaFX etc. etc. etc.
