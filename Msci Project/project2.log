@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.13)  19 APR 2016 03:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.4.13)  19 APR 2016 20:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**project2
+**project2.tex
 (./project2.tex
 LaTeX2e <2011/06/27>
 Babel <3.9h> and hyphenation patterns for 78 languages loaded.
@@ -288,54 +288,54 @@ Package pdftex.def Info: figures/ROSmapping.png used on input line 349.
 
 
 ] [31] [32]
-[33]
+[33] [34] [35]
 Chapter 6.
-[34
+[36
 
-] [35] [36]
+] [37] [38]
 Chapter 7.
 
-Overfull \hbox (4.18628pt too wide) in paragraph at lines 447--447
+Overfull \hbox (4.18628pt too wide) in paragraph at lines 480--480
 []\OT1/cmr/bx/n/14.4 Future pos-si-bil-i-ties for ex-pand-ing the project 
  []
 
-[37
+[39
 
-] [38] [39] [40]
+] [40] [41] [42]
 Chapter 8.
-[41
+[43
 
 ]
 Missing character: There is no â in font cmti10!
 Missing character: There is no € in font cmti10!
 Missing character: There is no “ in font cmti10!
- [42
+ [44
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 520--521
+Underfull \hbox (badness 10000) in paragraph at lines 553--554
 []\OT1/cmr/m/n/10 Multiple robots sim-u-la-tion and nav-i-ga-tion,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 520--521
+Underfull \hbox (badness 10000) in paragraph at lines 553--554
 \OT1/cmr/m/it/10 http://answers.ros.org/question/41433/multiple-robots-simulati
 on-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 523--524
+Underfull \hbox (badness 10000) in paragraph at lines 556--557
 []\OT1/cmr/m/n/10 Discussion on C++ be-ing plat-form de-pen-dent.
  []
 
-[43] (./project2.aux) ) 
+[45] (./project2.aux) ) 
 Here is how much of TeX's memory you used:
- 1613 strings out of 493304
- 23446 string characters out of 6139871
- 82984 words of memory out of 5000000
- 5061 multiletter control sequences out of 15000+600000
+ 1614 strings out of 493304
+ 23456 string characters out of 6139871
+ 82988 words of memory out of 5000000
+ 5062 multiletter control sequences out of 15000+600000
  9453 words of font info for 33 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 37i,6n,23p,1201b,257s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,6n,23p,1205b,257s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfon
 ts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.
@@ -343,10 +343,10 @@ pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
 sr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texl
 ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on project2.pdf (44 pages, 695715 bytes).
+Output written on project2.pdf (46 pages, 699724 bytes).
 PDF statistics:
- 193 PDF objects out of 1000 (max. 8388607)
- 122 compressed objects within 2 object streams
+ 199 PDF objects out of 1000 (max. 8388607)
+ 126 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

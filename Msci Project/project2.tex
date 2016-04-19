@@ -405,7 +405,45 @@
         A full implementation of the simulation environment runs using Rviz as a platform for testing whether the robots work. The navigation stack is fully implemented and accepts commands being taken in. The logging feature is switched on and ROS generally fills up on information quite fast so its absolutely essential that if used in the future, the developer should switch logging off unless they actually wish to troubleshoot. Otherwise ROS could overflow the drive quite fast after about 20-30 runs. Without logging these resources are well preserved and don't use up this much of the computers resources as no visualization software needs to be ran.
 
     \section{Server}
-      Here I will focus on outlining the structure for the server. I will try to make it quite brief as that server package was not my implementation but I will go into some detail about possibilities it provides and the protocol it follows.
+      While the server was fully implemented by  Sklar and Parsons\cite{technical}, it is the main tool that connects the environment and the GUI and with that, the commands and integration of this package into the system is important to discuss.
+
+      The server can work on any operating system and will open up the Socket to computers connected in Local Area Network. If the computer enables connecting to it through the Internet using a dedicated IP, it would also be possible to host this server on a dedicated hosting machine that would then allow the environments to connect through the Internet and as such allow a much more flexible way using connections.
+
+      This server accepts a big variety of commands to which explanations can be found in \cite{technical}. In this report however, only the commands that are used by the system will be discussed. These commands are:
+
+        \begin{itemize}
+          \item \textbf{\%\%setid} - When an application connects to the server it sets its id to receive messages from other applications.
+          \item \textbf{\%\%ping} - Command sent by the server to applications to ensure that they are still connected.
+          \item \textbf{\%\%pong} - Response to the ping command to confirm connection.
+          \item \textbf{\%\%send} - Generic message send from application to application.
+          \item \textbf{\%\%goto} - Command sent from UI to the simulation environment to move a robot to a place on the map.
+          \item \textbf{\%\%found} - Command sent from UI to the Game master(In this implementation from hider to the UI) about information about location and characteristics of the server.
+        \end{itemize}
+
+      This outlines the commands used by both the UI and the simulation environment used in the current implementation. In the future sections, a discussion is created based on the conventions set by the technical description in \cite{technical} as well as an explanation of how each specific command is used in the implementation of the system.
+
+      \subsection{Conventions}
+        The server outlines some specific conventions by which the applications should connect to the server. These are by no way enforced however for ease of debugging they have been implemented in this system. This was also done to standardize how the system behaves. The name convention of apps connecting to the server are as follows:
+
+          \begin{itemize}
+            \item \textbf{SimR}: The simulation environment.
+            \item \textbf{TabUI}: The GUI on the user side.
+            \item \textbf{Hider}: The treasure knowledge base that holds information on which treasures are present in specific places.
+            \item \textbf{Server}: The server running in Java.
+          \end{itemize}
+
+        It is also important to note that these names allow for generation of messages at source code level without having to create external files for what's the name of specific components in the system. Changing those at the current level of implementation would cause the system to malfunction and not deliver messages unless recompiled with changed names. For flexibility in the future, it could be possible to pass these as parameters in the main execution at terminal level or include external files.
+
+        It is also important to note that the port used by the socket has been selected to be 6009. This is to inform that the server needs to be switched on with this specific port otherwise the applications won't be able to switch on properly. This port has been selected due to its availability and on most operating systems it is not used by any software so it is a safe option. On top of that it has been confirmed to guarantee complete data transfer on TCP level. It is only used be x11 windows server which generally does not use it anyway. With regards to threat it is not a targeted port so it keeps system security optimal. For information on this port please refer to \cite{port6009}.
+
+      \subsubsection{Use of specific commands}
+        This section outlines specific flows of data throughout the application to give a better image of how the server is being used. Each of those commands plays a specific role and there a demonstration of flow for specific situations is explained.
+
+        \subsubsection{Connecting to the server}
+        The connection to the server is fairly simple for Java while a bit more tricky for the C++. When Java connects it immediately sends a request to the server to set the id of the application(Using the \%\%setid command). It then receives an ack command that can be ignored and simply confirms that the id has been set by the server. If the socket doesn't exist, the application terminates. If the application receives a shutdown command it will still work for demonstrative purposes of the application but this only happens if the application was switched off and didn't give server time to clean out the old id that will not respond to the next ping request.
+
+        This works in a similar manner to C++ however with C++, there is almost no way to deal with the server not connecting and the C++ will start to complain about lack of existence of to the server filling up a big chunk of the server data 
+
 
     \section{Hider}
       Currently Hider is a very static class without any GUI. I will try to develop some Hide treasure GUI for last calls. Later on I will explain its function, how the classes are broken down and reasons for choices.
@@ -526,6 +564,8 @@
     \bibitem{python}
        Book: Python Programming for the Absolute Beginner, Michael Dawson, 1 Jan 2010
 
+    \bibitem{port6009}
+      Information on TCP port 6009 confirming it is not used and guarantees proper data transfer \emph{http://www.adminsub.net/tcp-udp-port-finder/6009}.
 
 
   \end{thebibliography}

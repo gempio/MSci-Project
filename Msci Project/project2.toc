@@ -37,30 +37,32 @@
 \contentsline {subsection}{\numberline {5.1.4}Challenges in simulation implementation}{32}
 \contentsline {subsection}{\numberline {5.1.5}Final notes for Simulation Environment}{33}
 \contentsline {section}{\numberline {5.2}Server}{33}
-\contentsline {section}{\numberline {5.3}Hider}{33}
-\contentsline {section}{\numberline {5.4}User}{33}
-\contentsline {chapter}{\numberline {6}TESTING - Modes Specification and analysis (Finish this after next meeting with what is had)}{34}
-\contentsline {section}{\numberline {6.1}System against Requirements testing}{34}
-\contentsline {section}{\numberline {6.2}ROS Testing}{34}
-\contentsline {section}{\numberline {6.3}Server Testing}{34}
-\contentsline {section}{\numberline {6.4}GUI Testing}{35}
-\contentsline {section}{\numberline {6.5}Use Case Testing}{35}
-\contentsline {section}{\numberline {6.6}Known problems}{35}
-\contentsline {subsubsection}{GridLayer}{35}
-\contentsline {subsubsection}{Environment mostly simulated}{35}
-\contentsline {subsubsection}{ROS package stack}{35}
-\contentsline {subsubsection}{System currently made to run in an uninterrupted environment}{35}
-\contentsline {subsubsection}{A very strict Server}{35}
-\contentsline {chapter}{\numberline {7}Evaluation (Finish along different modes for testing)}{37}
-\contentsline {section}{\numberline {7.1}Project Progress Evaluation at the time of report}{37}
-\contentsline {section}{\numberline {7.2}How the project compares with other research}{37}
-\contentsline {section}{\numberline {7.3}Future possibilities for expanding the project}{38}
-\contentsline {subsubsection}{Minimizing dependencies}{38}
-\contentsline {subsubsection}{Automatic area clustering of robots}{38}
-\contentsline {subsubsection}{Start using physical robots for the Game}{38}
-\contentsline {subsubsection}{Expand the GUI to JavaFX}{38}
-\contentsline {subsubsection}{Add Phone support}{39}
-\contentsline {subsubsection}{Flexibility through Multi ROS Support}{39}
-\contentsline {subsubsection}{Deep sea exploration}{39}
-\contentsline {subsubsection}{Search-And-Rescue Scouting}{40}
-\contentsline {chapter}{\numberline {8}Conclusion (Finish this by end of April for submission and rewriting code.)}{41}
+\contentsline {subsection}{\numberline {5.2.1}Conventions}{34}
+\contentsline {subsubsection}{Use of specific commands}{35}
+\contentsline {section}{\numberline {5.3}Hider}{35}
+\contentsline {section}{\numberline {5.4}User}{35}
+\contentsline {chapter}{\numberline {6}TESTING - Modes Specification and analysis (Finish this after next meeting with what is had)}{36}
+\contentsline {section}{\numberline {6.1}System against Requirements testing}{36}
+\contentsline {section}{\numberline {6.2}ROS Testing}{36}
+\contentsline {section}{\numberline {6.3}Server Testing}{36}
+\contentsline {section}{\numberline {6.4}GUI Testing}{37}
+\contentsline {section}{\numberline {6.5}Use Case Testing}{37}
+\contentsline {section}{\numberline {6.6}Known problems}{37}
+\contentsline {subsubsection}{GridLayer}{37}
+\contentsline {subsubsection}{Environment mostly simulated}{37}
+\contentsline {subsubsection}{ROS package stack}{37}
+\contentsline {subsubsection}{System currently made to run in an uninterrupted environment}{37}
+\contentsline {subsubsection}{A very strict Server}{37}
+\contentsline {chapter}{\numberline {7}Evaluation (Finish along different modes for testing)}{39}
+\contentsline {section}{\numberline {7.1}Project Progress Evaluation at the time of report}{39}
+\contentsline {section}{\numberline {7.2}How the project compares with other research}{39}
+\contentsline {section}{\numberline {7.3}Future possibilities for expanding the project}{40}
+\contentsline {subsubsection}{Minimizing dependencies}{40}
+\contentsline {subsubsection}{Automatic area clustering of robots}{40}
+\contentsline {subsubsection}{Start using physical robots for the Game}{40}
+\contentsline {subsubsection}{Expand the GUI to JavaFX}{40}
+\contentsline {subsubsection}{Add Phone support}{41}
+\contentsline {subsubsection}{Flexibility through Multi ROS Support}{41}
+\contentsline {subsubsection}{Deep sea exploration}{41}
+\contentsline {subsubsection}{Search-And-Rescue Scouting}{42}
+\contentsline {chapter}{\numberline {8}Conclusion (Finish this by end of April for submission and rewriting code.)}{43}
