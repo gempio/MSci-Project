@@ -53,7 +53,7 @@ class RobotRenderer implements TableCellRenderer
         String robotLoc = temp.getLocation();
         if(temp.isTraveling()) robotLoc = "Traveling";
         else if(robotLoc.equals("-1")) robotLoc = "Corridor";
-        else robotLoc = "Room " + (temp.getRoomNumber()+1);
+        else robotLoc = "Room " + (temp.getRoomNumber());
         int enrg = temp.getRemainingEnergy();
 
         robotName.setText( robotNM );

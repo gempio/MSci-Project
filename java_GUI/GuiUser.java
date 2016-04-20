@@ -476,7 +476,10 @@ public class GuiUser implements Listener{
 			}
 			int questions = questionsNo;
 			System.out.println(questions);
-			if(questions == 0) return true;
+			if(questions == 0) {
+				consensus = true;
+				return true;
+			}
 			curQuestion = 1;
 			String question = dialogue.getNextQuestion();
 
@@ -518,6 +521,7 @@ public class GuiUser implements Listener{
 			                curQuestion++;
 			            	} else if (value.equals("Stop")) {
 			            		dialog.setVisible(false);
+			            		consensus = false;
 			            	}
                         }
                     }
