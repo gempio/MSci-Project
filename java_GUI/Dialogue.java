@@ -3,23 +3,49 @@ import java.io.*;
 
 public class Dialogue {
 	
-	ArrayList<String> notSureQuestions;
-	ArrayList<String> specificRoomQuestions;
-	HashMap<Integer, Integer> roomTimes;
-	int consensus; //Set to 0 when the dialogue is in progress, set to -1 when no consensus is reached and to 1 when it is.
-	boolean typeOfDialogue; //If its false, we initialize notSure if its true we talk with specific room in mind.
-	int curQuestion;
-	int nextRoom;
-	static int[][] mapCosts;
+	private ArrayList<String> notSureQuestions;
+	private ArrayList<String> specificRoomQuestions;
+	private HashMap<Integer, Integer> roomTimes;
+	private boolean typeOfDialogue; //If its false, we initialize notSure if its true we talk with specific room in mind.
+	private int curQuestion;
+	private int curRoom;
+	private int nextRoom;
+	private int suggestedRoom;
+	private int[][] mapCosts;
 
 	public Dialogue() {
 		notSureQuestions = new ArrayList<String>();
 		specificRoomQuestions = new ArrayList<String>();
-		consensus = 0;
 		typeOfDialogue = false;
 		curQuestion = 0;
 		mapCosts = readInCosts();
 		readInTheDialogue();
+		tester();
+	}
+
+	public void tester() {
+
+		ArrayList<Integer> unvisitedRooms = new ArrayList<Integer>();
+		unvisitedRooms.add(1);
+		unvisitedRooms.add(2);
+		unvisitedRooms.add(3);
+		unvisitedRooms.add(4);
+		unvisitedRooms.add(5);
+		unvisitedRooms.add(6);
+		unvisitedRooms.add(7);
+		unvisitedRooms.add(8);
+
+		startNotSure(0,unvisitedRooms);
+		System.out.println(getNextQuestion());
+		System.out.println(getNextQuestion());
+		System.out.println(getNextQuestion());
+		System.out.println(getNextQuestion());
+		System.out.println(getNextQuestion());
+		startSpecific(0,5);
+		System.out.println(getNextQuestion());
+		System.out.println(getNextQuestion());
+		System.out.println(getNextQuestion());
+		System.out.println(getNextQuestion());
 	}
 
 	//Reads in the dialogue file.
@@ -41,45 +67,56 @@ public class Dialogue {
 			System.out.println("IO Exception");
 		}
 	}
-
 	//Restart the dialogue
 	public void restart() {
-		consensus = 0;
 		typeOfDialogue = false;
 		curQuestion = 0;
 	}
 
 	//Number of questions for not sure.
-	public void noQuestionsNS() {
-
+	public int noQuestionsNS() {
+		return notSureQuestions.size();
 	}
 
 	//Number of questions for specific room
-	public void noQuestionsSR() {
-
+	public int noQuestionsSR() {
+		return specificRoomQuestions.size();
 	}
 
 	//Start a Don't know dialogue.
 	public void startNotSure(int curRoom, ArrayList<Integer> unvisitedRooms) {
-		int suggestedRoom = calculateSuggestion(curRoom, unvisitedRooms);
+		this.curRoom = curRoom;
+		this.suggestedRoom = calculateSuggestion(curRoom, unvisitedRooms);
 		restart();
 		typeOfDialogue = true;
 	}
 
+	//Iterator approach like next question architecture.
 	public String getNextQuestion() {
 		curQuestion++;
-		if(typeOfDialogue && curQuestion-1<notSureQuestions.size()) return notSureQuestions.get(curQuestion-1);
-		else if(!typeOfDialogue && curQuestion-1<specificRoomQuestions.size()) return specificRoomQuestions.get(curQuestion-1);
+		if(typeOfDialogue && curQuestion-1<notSureQuestions.size()) {
+			String temp = notSureQuestions.get(curQuestion-1);
+			temp = temp.replace("£room£", Integer.toString(suggestedRoom));
+			temp = temp.replace("£cost£", Integer.toString(mapCosts[curRoom][suggestedRoom]));
+			return temp;
+		}
+		else if(!typeOfDialogue && curQuestion-1<specificRoomQuestions.size()) {
+			String temp = specificRoomQuestions.get(curQuestion-1);
+			temp = temp.replace("£room£", Integer.toString(nextRoom));
+			temp = temp.replace("£cost£", Integer.toString(mapCosts[curRoom][nextRoom]));
+			return temp;
+		}
 		else return "End of Questions";
 	}
 
 	//Start a specific room selected dialogue.
-	public void startSpecific(int cost, int room) {
+	public void startSpecific(int curRoom, int nextRoom) {
 		restart();
+		this.nextRoom = nextRoom;
 		typeOfDialogue = false;
 	}
 
-	public static int calculateSuggestion(int room, ArrayList<Integer> unvisitedRooms) {
+	public int calculateSuggestion(int room, ArrayList<Integer> unvisitedRooms) {
 		String unvisitedRoomsInString = "";
 		
 		for(int uRoom: unvisitedRooms) {
@@ -135,7 +172,7 @@ public class Dialogue {
 		}
 		return temp2;
 	}
-	private static List<String> permutation(String prefix, String str) {
+	private List<String> permutation(String prefix, String str) {
 	    List<String> permutations = new ArrayList<>();
 	    int n = str.length();
 	    if (n == 0) {
@@ -150,11 +187,7 @@ public class Dialogue {
 
 	public static void main(String[] args) {
 		new Dialogue();
-		ArrayList<Integer> unvisitedRooms = new ArrayList<Integer>();
-		unvisitedRooms.add(1);
-		unvisitedRooms.add(2);
-		unvisitedRooms.add(3);
-		System.out.println(calculateSuggestion(0, unvisitedRooms));
+		
 	}
 
 }
