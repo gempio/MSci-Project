@@ -72,6 +72,7 @@ public class GuiUser implements Listener{
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
 	public static void sendRobot(Connector r, int robot, int room) {
+		
 		System.out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 		r.sendMessage("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 	}
@@ -100,7 +101,9 @@ public class GuiUser implements Listener{
     		//table.changeSelection(selectedRobot, 0, false, false);
     	}// this has to be implemented
     	if(attribute.contains("found")) {
+    		System.out.println("Calling out for dialog to create");
     		gui.createDialogs(attribute);
+    		System.out.println("Supposedly the dialog is working");
     		System.out.println("Hider Message about the treasure");
     	}
   	}
@@ -317,6 +320,7 @@ public class GuiUser implements Listener{
 
 		public void createDialogs(String attributes) {
 			//Function for later.
+			System.out.println("Initialized Dialog");
 			if(attributes.contains("Nothing")){}
 			String[] temp = attributes.split("\\(");
 			attributes = temp[1] + " " + temp[2];
