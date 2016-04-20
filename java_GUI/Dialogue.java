@@ -12,15 +12,24 @@ public class Dialogue {
 	private int nextRoom;
 	private int suggestedRoom;
 	private int[][] mapCosts;
+	private boolean useShortPaths;
 
 	public Dialogue() {
+		useShortPaths = true;
 		notSureQuestions = new ArrayList<String>();
 		specificRoomQuestions = new ArrayList<String>();
 		typeOfDialogue = false;
 		curQuestion = 0;
 		mapCosts = readInCosts();
 		readInTheDialogue();
-		tester();
+		//tester();
+	}
+
+	public void setShortestPaths(boolean paths) {
+		this.useShortPaths = paths;
+	}
+	public int getCost(int rooma, int roomb) {
+		return mapCosts[rooma][roomb];
 	}
 
 	public void tester() {

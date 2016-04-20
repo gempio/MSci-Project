@@ -1,4 +1,4 @@
-import java.util.Scanner;
+import java.util.*;
 import java.io.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -26,13 +26,19 @@ public class GuiUser implements Listener{
 	JPanel mapPanel;
 	JLabel map;
 	DefaultTableModel tmodel;
-
-
+	ArrayList<Integer> unvisitedRooms;
+	Dialogue dialogue;
+	int takePictureCost;
+	int grabTreasureCost;
+	boolean consensus;
+	int curQuestion;
+	//Starter method
 	public static void main(String[] args) {
 		new GuiUser();
 	}
-
+	//Constructor for all the basic commands and server initialization.
 	public GuiUser() {
+		dialogue = new Dialogue();
 		firstSelection = 0;
 		command = new CommandObject();
 		addListener(command);
@@ -50,7 +56,7 @@ public class GuiUser implements Listener{
 		command.add(this);
 	}
 
-	//An empty blocking method that ensures that server has time to set up before continuing running asynchrously.
+	//An empty blocking method that ensures that server has time to set up before continuing running asynchronously.
 	public static void waitForServer(Connector r) {
 		while(!(r.isRunning())){
 			System.out.print("");
@@ -71,10 +77,15 @@ public class GuiUser implements Listener{
 	}
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
-	public static void sendRobot(Connector r, int robot, int room) {
-		
+	public void sendRobot(Connector r, int robot, int room) {
+		System.out.println("Sending robot.");
+		int costOfTravel = dialogue.getCost(robots[robot].getRoomNumber(), room+1);
+		System.out.println(costOfTravel);
+		robots[robot].setCost(costOfTravel);
 		System.out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 		r.sendMessage("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
+		unvisitedRooms.remove(new Integer(room+1));
+		System.out.println("Message sent");
 	}
 
 	public void askForTreasure(int room ) {
@@ -84,28 +95,40 @@ public class GuiUser implements Listener{
 	public void register(Observable observable) {observable.add(this);}
   	public void unregister(Observable observable) {observable.remove(this);}
 
+  	//Calculate all the new attributes of the robot.
   	public void fieldChanged(Object source, String attribute) {
     	System.out.println("User GUI: " + attribute); 
     	if(attribute.contains("error")) {
-    		String[] temp = attribute.split("\"");
-    		temp = temp[1].split(";");
-    		System.out.println("Robot: " + (temp[0]+1) + " Room: " + (temp[1]+1));
-    		askForTreasure(Integer.parseInt(temp[1]));
-    		int robotId = Integer.parseInt(temp[0]);
-    		robots[robotId].location = temp[1];
-    		robots[robotId].traveling = false;
-    		robots[robotId].energyLeft -= 20;
-    		if(selectedRobot == robotId) gui.updateMap(Integer.parseInt(robots[robotId].location)+2);
-    		tmodel.fireTableDataChanged();
-    		System.out.println("Selected Robot: " + selectedRobot);
-    		//table.changeSelection(selectedRobot, 0, false, false);
+    		updateRobot(attribute);
     	}// this has to be implemented
     	if(attribute.contains("found")) {
-    		System.out.println("Calling out for dialog to create");
     		gui.createDialogs(attribute);
-    		System.out.println("Supposedly the dialog is working");
-    		System.out.println("Hider Message about the treasure");
     	}
+  	}
+
+  	//Update robot values after it reached its goal.
+  	public void updateRobot(String attribute) {
+
+  		//Split up the message
+  		String[] temp = attribute.split("\"");
+		temp = temp[1].split(";");
+		System.out.println("Robot: " + (temp[0]+1) + " Room: " + (temp[1]+1));
+
+		//Send a message regarding the treasure
+		askForTreasure(Integer.parseInt(temp[1]));
+
+		//Update the robot information
+		int robotId = Integer.parseInt(temp[0]);
+		robots[robotId].setLocation(Integer.parseInt(temp[1])+1);
+		robots[robotId].setTraveling(false);
+		robots[robotId].subtractCost();
+
+		//Change the maps and update the table
+		System.out.println("Map update after robot Update: " + robots[robotId].getRoomNumber());
+		if(selectedRobot == robotId) gui.updateMap(robots[robotId].getRoomNumber());
+		tmodel.fireTableDataChanged();
+		System.out.println("Selected Robot: " + selectedRobot);
+		table.changeSelection(selectedRobot, 0, false, false);
   	}
 
   	private class GUI extends JFrame{
@@ -114,6 +137,11 @@ public class GuiUser implements Listener{
 
 		public GUI() {
 			super("Treasure Hunt");
+
+			unvisitedRooms = new ArrayList<Integer>();
+			for(int i = 0; i<9; i++) {
+				unvisitedRooms.add(i);
+			}
 	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	 
 	        JLabel emptyLabel = new JLabel("");
@@ -135,7 +163,6 @@ public class GuiUser implements Listener{
 			noRobotsBox = new JComboBox<String>(noRobots);
 			noRobotsBox.setSelectedIndex(0);
 
-
 			continueBtn.addActionListener(new ActionListener(){
 
 				public void actionPerformed(ActionEvent e)
@@ -149,8 +176,6 @@ public class GuiUser implements Listener{
 
 			});
 			
-
-			//Code to EDDDITTTTTTTTTTTTTTTTTTTTTT
 			//Lay out the label and scroll pane from top to bottom.
 			JPanel listPane = new JPanel();
 			listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
@@ -161,16 +186,13 @@ public class GuiUser implements Listener{
 			listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
 			//Lay out the buttons from left to right.
-			
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
-
-
 			buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 			buttonPane.add(Box.createHorizontalGlue());
 			buttonPane.add(continueBtn);
 
-
+			//Fill out the container.
 			container.add(listPane, BorderLayout.CENTER);
 			container.add(buttonPane, BorderLayout.PAGE_END);
 			this.add(container);
@@ -224,7 +246,7 @@ public class GuiUser implements Listener{
     				System.out.println("Value changed: " + temp);
     				System.out.println("Value changed: " + selectedRobot);
     				updateButtons(robots[selectedRobot]);
-    				updateMap(Integer.parseInt(robots[selectedRobot].location)+2);
+    				updateMap(robots[selectedRobot].getRoomNumber());
     			}
     		};
 
@@ -256,9 +278,11 @@ public class GuiUser implements Listener{
 			//Populate room buttons
 			roomOptionList.setLayout(new FlowLayout());
 			int noRooms = 8;
-			rooms = new JButton[noRooms];
-			for(i = 0; i<noRooms; i++) {
-				rooms[i] = new JButton("" + (i+1));
+			rooms = new JButton[noRooms+1];
+			rooms[0] = new JButton("Don't know");
+			roomOptionList.add(rooms[0]);
+			for(i = 1; i<noRooms+1; i++) {
+				rooms[i] = new JButton("" + (i));
 				rooms[i].setPreferredSize(new Dimension(60,60));
 				rooms[i].addActionListener(new ActionListener(){
 
@@ -267,10 +291,14 @@ public class GuiUser implements Listener{
 		                //Execute when button is pressed
 		                String command = ((JButton) e.getSource()).getActionCommand();
 		            	System.out.println(command);
-		            	sendRobot(r, selectedRobot,Integer.parseInt(command)-1);
-
-		            	robots[selectedRobot].traveling = true;
-		            	blockButtons();
+		            	//Initialize Specific room dialogue this will return true or false depending on consensus.
+		            	initializeSrDialogue(robots[selectedRobot].getRoomNumber(), Integer.parseInt(command));
+		            	//If consensus was reached, send the robot.
+		            	if(consensus) {
+		            		sendRobot(r, selectedRobot,Integer.parseInt(command)-1);
+		            		robots[selectedRobot].setTraveling(true);
+		            		blockButtons();
+		            	}
 	            	}
 
 				});
@@ -306,7 +334,7 @@ public class GuiUser implements Listener{
 
 		public void updateMap(int roomId) {
 			System.out.println(roomId);
-			System.out.println("maps/mapR"+(roomId+1)+".png");
+			System.out.println("maps/mapR"+(roomId)+".png");
 			
 			try{ 
 				BufferedImage myPicture = ImageIO.read(new File("maps/mapR"+(roomId)+".png"));
@@ -320,7 +348,6 @@ public class GuiUser implements Listener{
 
 		public void createDialogs(String attributes) {
 			//Function for later.
-<<<<<<< HEAD
 			System.out.println("Initialized Dialog");
 			if(attributes.contains("Nothing")){}
 			String[] temp = attributes.split("\\(");
@@ -369,9 +396,6 @@ public class GuiUser implements Listener{
             } else {
                 
             }
-=======
-			new GuiDialog();
->>>>>>> 29e5c48c62234b72bda18ee54eda9adfb3cf6a6f
 		}
 
 		public void takePicture(String attributes) {
@@ -414,15 +438,70 @@ public class GuiUser implements Listener{
 
 		public void updateButtons(Robot robot) {
 
-			if(robot.traveling) {
-				for(i=0; i<rooms.length; i++) {
+			if(robot.isTraveling()) {
+				for(i=1; i<rooms.length; i++) {
 					rooms[i].setEnabled(false);
 				}
 			} else {
-				for(i=0; i<rooms.length; i++) {
-					rooms[i].setEnabled(true);
+				for(i=1; i<rooms.length; i++) {
+					if(unvisitedRooms.contains(i)) rooms[i].setEnabled(true);
 				}
 			}
+
+		}
+
+		public boolean initializeSrDialogue(int start, int end) {
+			dialogue.startSpecific(start, end);
+			int questions = dialogue.noQuestionsSR();
+			if(questions == 0) return true;
+			curQuestion = 1;
+			String question = dialogue.getNextQuestion();
+
+			String[] optionsForConsensus= {"Continue", "Stop"};
+			final JOptionPane optionPane = new JOptionPane(
+                                    question,
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    JOptionPane.YES_NO_OPTION);
+
+			optionPane.setOptions(optionsForConsensus);
+            final JDialog dialog = new JDialog(this,
+                                         "Dialogue",
+                                         true);
+            dialog.setContentPane(optionPane);
+            dialog.setDefaultCloseOperation(
+                JDialog.DO_NOTHING_ON_CLOSE);
+            dialog.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent we) {
+                    dialog.setVisible(false);
+                }
+            });
+            optionPane.addPropertyChangeListener(
+                new PropertyChangeListener() {
+                    public void propertyChange(PropertyChangeEvent e) {
+                        String prop = e.getPropertyName();
+                        if (dialog.isVisible() && (e.getSource() == optionPane) && (JOptionPane.VALUE_PROPERTY.equals(prop))) {
+                        	String value = (String) optionPane.getValue();
+                        	optionPane.setValue("Something");
+                        	System.out.println(value);
+
+                        	if (value.equals("Continue")) {
+			            	System.out.println("Clicked");
+			                optionPane.setMessage(dialogue.getNextQuestion());
+			                if(curQuestion == questions) {
+			                	dialog.setVisible(false);
+			                	consensus = true;
+			                }
+			                curQuestion++;
+			            	} else if (value.equals("Stop")) {
+			            		dialog.setVisible(false);
+			            	}
+                        }
+                    }
+                });
+            dialog.pack();
+            dialog.setLocationRelativeTo(this);
+            dialog.setVisible(true);
+            return consensus;
 
 		}
 
