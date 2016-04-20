@@ -38,7 +38,6 @@ public class GuiUser implements Listener{
 	}
 	//Constructor for all the basic commands and server initialization.
 	public GuiUser() {
-		dialogue = new Dialogue();
 		firstSelection = 0;
 		command = new CommandObject();
 		addListener(command);
@@ -85,6 +84,7 @@ public class GuiUser implements Listener{
 		System.out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 		r.sendMessage("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 		unvisitedRooms.remove(new Integer(room+1));
+		dialogue.setUnvisitedRooms(unvisitedRooms);
 		System.out.println("Message sent");
 	}
 
@@ -139,9 +139,10 @@ public class GuiUser implements Listener{
 			super("Treasure Hunt");
 
 			unvisitedRooms = new ArrayList<Integer>();
-			for(int i = 0; i<9; i++) {
+			for(int i = 1; i<9; i++) {
 				unvisitedRooms.add(i);
 			}
+			dialogue = new Dialogue(unvisitedRooms);
 	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	 
 	        JLabel emptyLabel = new JLabel("");
@@ -280,6 +281,18 @@ public class GuiUser implements Listener{
 			int noRooms = 8;
 			rooms = new JButton[noRooms+1];
 			rooms[0] = new JButton("Don't know");
+			rooms[0].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					initializeDialogue(false, robots[selectedRobot].getRoomNumber(), 0);	
+					if(consensus) {
+						int suggestion = dialogue.getSuggestion();
+						sendRobot(r, selectedRobot,suggestion-1);
+						robots[selectedRobot].setTraveling(true);
+		            	blockButtons();
+					}
+				}
+				
+			});
 			roomOptionList.add(rooms[0]);
 			for(i = 1; i<noRooms+1; i++) {
 				rooms[i] = new JButton("" + (i));
@@ -292,7 +305,7 @@ public class GuiUser implements Listener{
 		                String command = ((JButton) e.getSource()).getActionCommand();
 		            	System.out.println(command);
 		            	//Initialize Specific room dialogue this will return true or false depending on consensus.
-		            	initializeSrDialogue(robots[selectedRobot].getRoomNumber(), Integer.parseInt(command));
+		            	initializeDialogue(true, robots[selectedRobot].getRoomNumber(), Integer.parseInt(command));
 		            	//If consensus was reached, send the robot.
 		            	if(consensus) {
 		            		sendRobot(r, selectedRobot,Integer.parseInt(command)-1);
@@ -443,6 +456,7 @@ public class GuiUser implements Listener{
 					rooms[i].setEnabled(false);
 				}
 			} else {
+				rooms[0].setEnabled(true);
 				for(i=1; i<rooms.length; i++) {
 					if(unvisitedRooms.contains(i)) rooms[i].setEnabled(true);
 				}
@@ -450,9 +464,18 @@ public class GuiUser implements Listener{
 
 		}
 
-		public boolean initializeSrDialogue(int start, int end) {
-			dialogue.startSpecific(start, end);
-			int questions = dialogue.noQuestionsSR();
+		public boolean initializeDialogue(boolean specific, int start, int end) {
+			int questionsNo = 0;
+			if(specific) {
+				dialogue.startSpecific(start, end);
+				questionsNo = dialogue.noQuestionsSR();
+			}
+			else {
+				dialogue.startNotSure(start);
+				questionsNo = dialogue.noQuestionsNS();
+			}
+			int questions = questionsNo;
+			System.out.println(questions);
 			if(questions == 0) return true;
 			curQuestion = 1;
 			String question = dialogue.getNextQuestion();
@@ -487,6 +510,7 @@ public class GuiUser implements Listener{
                         	if (value.equals("Continue")) {
 			            	System.out.println("Clicked");
 			                optionPane.setMessage(dialogue.getNextQuestion());
+			                dialog.repaint();
 			                if(curQuestion == questions) {
 			                	dialog.setVisible(false);
 			                	consensus = true;
@@ -498,6 +522,8 @@ public class GuiUser implements Listener{
                         }
                     }
                 });
+            dialog.setPreferredSize(new Dimension(600,150));
+            dialog.setModal(true);
             dialog.pack();
             dialog.setLocationRelativeTo(this);
             dialog.setVisible(true);

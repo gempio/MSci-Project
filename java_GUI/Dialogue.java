@@ -13,8 +13,10 @@ public class Dialogue {
 	private int suggestedRoom;
 	private int[][] mapCosts;
 	private boolean useShortPaths;
+	private ArrayList<Integer> unvisitedRooms;
 
-	public Dialogue() {
+	public Dialogue(ArrayList<Integer> unvisitedRooms) {
+		this.unvisitedRooms = unvisitedRooms;
 		useShortPaths = true;
 		notSureQuestions = new ArrayList<String>();
 		specificRoomQuestions = new ArrayList<String>();
@@ -22,7 +24,7 @@ public class Dialogue {
 		curQuestion = 0;
 		mapCosts = readInCosts();
 		readInTheDialogue();
-		//tester();
+		System.out.println(notSureQuestions.size());
 	}
 
 	public void setShortestPaths(boolean paths) {
@@ -30,31 +32,6 @@ public class Dialogue {
 	}
 	public int getCost(int rooma, int roomb) {
 		return mapCosts[rooma][roomb];
-	}
-
-	public void tester() {
-
-		ArrayList<Integer> unvisitedRooms = new ArrayList<Integer>();
-		unvisitedRooms.add(1);
-		unvisitedRooms.add(2);
-		unvisitedRooms.add(3);
-		unvisitedRooms.add(4);
-		unvisitedRooms.add(5);
-		unvisitedRooms.add(6);
-		unvisitedRooms.add(7);
-		unvisitedRooms.add(8);
-
-		startNotSure(0,unvisitedRooms);
-		System.out.println(getNextQuestion());
-		System.out.println(getNextQuestion());
-		System.out.println(getNextQuestion());
-		System.out.println(getNextQuestion());
-		System.out.println(getNextQuestion());
-		startSpecific(0,5);
-		System.out.println(getNextQuestion());
-		System.out.println(getNextQuestion());
-		System.out.println(getNextQuestion());
-		System.out.println(getNextQuestion());
 	}
 
 	//Reads in the dialogue file.
@@ -92,10 +69,13 @@ public class Dialogue {
 		return specificRoomQuestions.size();
 	}
 
+	public int getSuggestion() {
+		return suggestedRoom;
+	}
 	//Start a Don't know dialogue.
-	public void startNotSure(int curRoom, ArrayList<Integer> unvisitedRooms) {
+	public void startNotSure(int curRoom) {
 		this.curRoom = curRoom;
-		this.suggestedRoom = calculateSuggestion(curRoom, unvisitedRooms);
+		this.suggestedRoom = calculateSuggestion(curRoom);
 		restart();
 		typeOfDialogue = true;
 	}
@@ -125,12 +105,13 @@ public class Dialogue {
 		typeOfDialogue = false;
 	}
 
-	public int calculateSuggestion(int room, ArrayList<Integer> unvisitedRooms) {
+	public int calculateSuggestion(int room) {
 		String unvisitedRoomsInString = "";
 		
 		for(int uRoom: unvisitedRooms) {
 			unvisitedRoomsInString += Integer.toString(uRoom);
 		}
+		
 		//All the permutations of possible paths.
 		List<String> list = permutation(Integer.toString(room), unvisitedRoomsInString);
 		//Calculate the costs of each path permutation.
@@ -148,6 +129,10 @@ public class Dialogue {
 
 		Integer minCostPath = Collections.min(pathCostsPerPermutation.keySet());
 		return Character.getNumericValue(pathCostsPerPermutation.get(minCostPath).charAt(1));
+	}
+
+	public void setUnvisitedRooms(ArrayList<Integer> unvisitedRooms) {
+		this.unvisitedRooms = unvisitedRooms;
 	}
 
 	public int[][] readInCosts() {
@@ -195,7 +180,7 @@ public class Dialogue {
 	}
 
 	public static void main(String[] args) {
-		new Dialogue();
+	
 		
 	}
 
