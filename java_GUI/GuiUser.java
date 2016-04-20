@@ -320,6 +320,7 @@ public class GuiUser implements Listener{
 
 		public void createDialogs(String attributes) {
 			//Function for later.
+<<<<<<< HEAD
 			System.out.println("Initialized Dialog");
 			if(attributes.contains("Nothing")){}
 			String[] temp = attributes.split("\\(");
@@ -368,6 +369,9 @@ public class GuiUser implements Listener{
             } else {
                 
             }
+=======
+			new GuiDialog();
+>>>>>>> 29e5c48c62234b72bda18ee54eda9adfb3cf6a6f
 		}
 
 		public void takePicture(String attributes) {
