@@ -34,6 +34,9 @@ public class GuiUser implements Listener{
 	int curQuestion;
 	int score;
 	ArrayList<String[]> treasureOptions;
+	String[] actualTreasOptions;
+	JLabel scoreLabel;
+
 	//Starter method
 	public static void main(String[] args) {
 		new GuiUser();
@@ -42,6 +45,7 @@ public class GuiUser implements Listener{
 	public GuiUser() {
 		score = 0;
 		firstSelection = 0;
+		readInTreasuresAndRoomsAmount();
 		command = new CommandObject();
 		addListener(command);
 		this.r = new Connector("127.0.1.1", 6009,command);
@@ -78,10 +82,13 @@ public class GuiUser implements Listener{
 	}
 
 	public void readInTreasuresAndRoomsAmount() {
+		ArrayList<String> tempTreasArray = new ArrayList<String>();
+		treasureOptions = new ArrayList<String[]>();
 		try (BufferedReader br = new BufferedReader(new FileReader("treasures"))) {
 		    String line = br.readLine();
 		    while ((line = br.readLine()) != null) {
 		       String[] temp = line.split(",");
+		       tempTreasArray.add(temp[3]);
 		       treasureOptions.add(temp);
 		    }
 		} catch(FileNotFoundException e) {
@@ -89,6 +96,9 @@ public class GuiUser implements Listener{
 		} catch(IOException e) {
 			System.out.println("IO Exception");
 		}
+		System.out.println(tempTreasArray);
+		actualTreasOptions = new String[treasureOptions.size()];
+		actualTreasOptions = tempTreasArray.toArray(actualTreasOptions);
 	}
 
 	public void askForTreasure(int room ) {
@@ -112,6 +122,7 @@ public class GuiUser implements Listener{
     		String recievedPoints = attribute.split(",")[1];
     		recievedPoints = recievedPoints.substring(0,recievedPoints.length()-1);
     		score += Integer.parseInt(recievedPoints);
+    		scoreLabel.setText("Score: " + score);
     		System.out.println(score);
     	}
   	}
@@ -160,6 +171,7 @@ public class GuiUser implements Listener{
 	        this.getContentPane().add(emptyLabel, BorderLayout.CENTER);
 	 
 	        //Display the window.
+	        scoreLabel = new JLabel("Score: " + score);
 	        buildRobotAskingPanel();
 	        this.pack();
 	        this.setVisible(true);
@@ -268,7 +280,8 @@ public class GuiUser implements Listener{
     		robotList.add(new JScrollPane(table));   
 
 			//Fill out the top panel
-			topLabelPanel.add(new JLabel("Objectives can be found below"));
+			topLabelPanel.add(new JLabel("Maximize the score by identifying correct treasures"), BorderLayout.WEST);
+			topLabelPanel.add(scoreLabel, BorderLayout.EAST);
 			topLabelPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 
 
@@ -372,16 +385,16 @@ public class GuiUser implements Listener{
 		public void createDialogs(String attributes) {
 			//Function for later.
 			System.out.println("Initialized Dialog");
-			if(attributes.contains("Nothing")){}
 			String[] temp = attributes.split("\\(");
 			attributes = temp[1].substring(0,temp[1].length()-2) + " " + temp[2].substring(0,temp[2].length()-2);
 			String[] optionsForTreasure= {"Take Picture", "Identify the Treasure", "Continue"};
 			final JOptionPane optionPane = new JOptionPane(
                                     attributes,
                                     JOptionPane.QUESTION_MESSAGE,
-                                    JOptionPane.YES_NO_CANCEL_OPTION);
+                                    JOptionPane.YES_NO_CANCEL_OPTION, null);
 
 			optionPane.setOptions(optionsForTreasure);
+			optionPane.setSelectionValues(actualTreasOptions);
             final JDialog dialog = new JDialog(this,
                                          "Identified a shape",
                                          true);
@@ -405,11 +418,13 @@ public class GuiUser implements Listener{
             dialog.setVisible(true);
 
             String value = (String) optionPane.getValue();
+            int room = Integer.parseInt((temp[0].split(" "))[4]);
             if (value.equals("Take Picture")) {
-                takePicture(attributes);
+            	System.out.println(value);
+                takePicture(attributes,room);
             } else if (value.equals("Identify the Treasure")) {
-            	int room = Integer.parseInt((temp[0].split(" "))[4]);
-            	String identification = "Troll";
+            	
+            	String identification = (String) optionPane.getInputValue();
                 sendIdentification(room, identification);
             }
 		}
@@ -418,36 +433,59 @@ public class GuiUser implements Listener{
 			r.sendMessage("%%found TabUI Hider \"" + room+","+identification);
 		}
 
-		public void takePicture(String attributes) {
+		public void takePicture(String attributes, int room) {
 			//Pretty much creating the same type of dialog as in asking to take picture but setting text Icon to the corresponding image
 			 try
                 {
-
+                	String[] optionsForTreasure = {"Identify","Continue"};
                 	final JOptionPane optionPane = new JOptionPane(
                                     attributes,
                                     JOptionPane.QUESTION_MESSAGE,
-                                    JOptionPane.YES_NO_OPTION);
+                                    JOptionPane.YES_NO_OPTION, null);
 
+                	optionPane.setOptions(optionsForTreasure);
+					optionPane.setSelectionValues(actualTreasOptions);
+
+					
 
                     JDialog dialog = new JDialog();
-                    dialog.add(optionPane);
-                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+                    dialog.setLayout(new BorderLayout());
+                    dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
                     dialog.setTitle("Picture of treasure");
+                    dialog.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("rooms/BlackHalfcircle.jpg")))),BorderLayout.NORTH);
+                    dialog.add(optionPane,BorderLayout.SOUTH);
 
-                    dialog.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("rooms/BlackHalfcircle.jpg")))));
+                    optionPane.addPropertyChangeListener(
+	                new PropertyChangeListener() {
+	                    public void propertyChange(PropertyChangeEvent e) {
+	                        String prop = e.getPropertyName();
+
+	                        if (dialog.isVisible()
+	                         && (e.getSource() == optionPane)
+	                         && (JOptionPane.VALUE_PROPERTY.equals(prop))) {
+	                         	String value = (String) optionPane.getValue();
+			                    System.out.println("I'm here now");
+					            if (value.equals("Identify")) {
+					            	String identification = (String) optionPane.getInputValue();
+					                sendIdentification(room, identification);
+					            } else if (value.equals("Continue")) {
+					            	dialog.setVisible(false);
+					            }
+	                            dialog.setVisible(false);
+	                        }
+	                    }
+	                });
 
                     dialog.pack();
                     dialog.setLocationByPlatform(true);
                     dialog.setVisible(true);
+
+                    
                 } 
                 catch (IOException e) 
                 {
                     e.printStackTrace();
                 }
-
-		}
-
-		public void grabTreasure() {
 
 		}
 		public void blockButtons() {

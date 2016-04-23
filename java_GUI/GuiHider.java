@@ -83,9 +83,12 @@ public class GuiHider implements Listener{
 	public void sendScore(int room, String treasure) {
 		int score = 0;
 		//Correct Identification
-		if(treasures.get(room)[3].equals(treasure)) {
+		if(treasure.contains(treasures.get(room)[3])) {
+			System.out.println(treasures.get(room)[3]);
 			score = Integer.parseInt(treasures.get(room)[2]);
 		} else { //Bad identification
+			System.out.println(treasure);
+			System.out.println(treasures.get(room)[3]);
 			score = 0 - Integer.parseInt(treasures.get(room)[2]);
 		}
 		r.sendMessage("%%score Hider TabUI ," + score);
