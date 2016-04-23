@@ -32,12 +32,15 @@ public class GuiUser implements Listener{
 	int grabTreasureCost;
 	boolean consensus;
 	int curQuestion;
+	int score;
+	ArrayList<String[]> treasureOptions;
 	//Starter method
 	public static void main(String[] args) {
 		new GuiUser();
 	}
 	//Constructor for all the basic commands and server initialization.
 	public GuiUser() {
+		score = 0;
 		firstSelection = 0;
 		command = new CommandObject();
 		addListener(command);
@@ -47,7 +50,6 @@ public class GuiUser implements Listener{
 		waitForServer(r);
 		r.setId("TabUI");
 		gui = new GUI();
-		//askQuestions(this.r);
 		
 	}
 
@@ -60,19 +62,6 @@ public class GuiUser implements Listener{
 		while(!(r.isRunning())){
 			System.out.print("");
 		} //Wait for the server to start up before continuing.
-	}
-
-	//A simple CLI algorithm that keeps asking for where should the robot go and which.
-	public void askQuestions(Connector r) {
-		while(true) {
-			System.out.println("Enter your robot and room to go to e.g. 0;0: ");
-			Scanner scanner = new Scanner(System.in);
-			String sendRobotTo = scanner.nextLine();
-			int room = Integer.parseInt(sendRobotTo.split(";")[0]);
-			int robot = Integer.parseInt(sendRobotTo.split(";")[1]);
-			System.out.println(room + " " + robot);
-			sendRobot(r, room,robot);
-		}
 	}
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
@@ -88,6 +77,20 @@ public class GuiUser implements Listener{
 		System.out.println("Message sent");
 	}
 
+	public void readInTreasuresAndRoomsAmount() {
+		try (BufferedReader br = new BufferedReader(new FileReader("treasures"))) {
+		    String line = br.readLine();
+		    while ((line = br.readLine()) != null) {
+		       String[] temp = line.split(",");
+		       treasureOptions.add(temp);
+		    }
+		} catch(FileNotFoundException e) {
+			System.out.println("File not found.");
+		} catch(IOException e) {
+			System.out.println("IO Exception");
+		}
+	}
+
 	public void askForTreasure(int room ) {
 		r.sendMessage("%%error TabUI Hider  \""+room+"\"");
 	}
@@ -101,8 +104,15 @@ public class GuiUser implements Listener{
     	if(attribute.contains("error")) {
     		updateRobot(attribute);
     	}// this has to be implemented
-    	if(attribute.contains("found")) {
+    	else if(attribute.contains("found")) {
+    		System.out.println("Found called");
     		gui.createDialogs(attribute);
+    	} else if(attribute.contains("score")) {
+    		System.out.println("Score called");
+    		String recievedPoints = attribute.split(",")[1];
+    		recievedPoints = recievedPoints.substring(0,recievedPoints.length()-1);
+    		score += Integer.parseInt(recievedPoints);
+    		System.out.println(score);
     	}
   	}
 
@@ -365,7 +375,7 @@ public class GuiUser implements Listener{
 			if(attributes.contains("Nothing")){}
 			String[] temp = attributes.split("\\(");
 			attributes = temp[1].substring(0,temp[1].length()-2) + " " + temp[2].substring(0,temp[2].length()-2);
-			String[] optionsForTreasure= {"Take Picture", "Grab Treasure", "Continue"};
+			String[] optionsForTreasure= {"Take Picture", "Identify the Treasure", "Continue"};
 			final JOptionPane optionPane = new JOptionPane(
                                     attributes,
                                     JOptionPane.QUESTION_MESSAGE,
@@ -398,14 +408,14 @@ public class GuiUser implements Listener{
             if (value.equals("Take Picture")) {
                 takePicture(attributes);
             } else if (value.equals("Identify the Treasure")) {
-            	int room= 0;
-            	String identification = "";
+            	int room = Integer.parseInt((temp[0].split(" "))[4]);
+            	String identification = "Troll";
                 sendIdentification(room, identification);
             }
 		}
 
 		public void sendIdentification(int room, String identification) {
-			
+			r.sendMessage("%%found TabUI Hider \"" + room+","+identification);
 		}
 
 		public void takePicture(String attributes) {

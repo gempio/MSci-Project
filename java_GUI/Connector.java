@@ -59,7 +59,7 @@ public class Connector implements Runnable{
             while ((fromServer = in.readLine()) != null) {
                 System.out.println("Server: " + fromServer);
                 if (fromServer.contains("ping")) out.println("%%pong");
-                else if (fromServer.contains("error") || fromServer.contains("found")) commands.setField(fromServer);
+                else if (fromServer.contains("error") || fromServer.contains("found") || fromServer.contains("score")) commands.setField(fromServer);
                 else if (fromServer.contains("ack")) System.out.println("ackowledged");
             }
         } catch (UnknownHostException e) {
