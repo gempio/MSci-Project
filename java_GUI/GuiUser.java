@@ -364,7 +364,7 @@ public class GuiUser implements Listener{
 			System.out.println("Initialized Dialog");
 			if(attributes.contains("Nothing")){}
 			String[] temp = attributes.split("\\(");
-			attributes = temp[1] + " " + temp[2];
+			attributes = temp[1].substring(0,temp[1].length()-2) + " " + temp[2].substring(0,temp[2].length()-2);
 			String[] optionsForTreasure= {"Take Picture", "Grab Treasure", "Continue"};
 			final JOptionPane optionPane = new JOptionPane(
                                     attributes,
@@ -378,11 +378,6 @@ public class GuiUser implements Listener{
             dialog.setContentPane(optionPane);
             dialog.setDefaultCloseOperation(
                 JDialog.DO_NOTHING_ON_CLOSE);
-            dialog.addWindowListener(new WindowAdapter() {
-                public void windowClosing(WindowEvent we) {
-                    System.out.println("Thwarted user attempt to close window.");
-                }
-            });
             optionPane.addPropertyChangeListener(
                 new PropertyChangeListener() {
                     public void propertyChange(PropertyChangeEvent e) {
@@ -402,13 +397,15 @@ public class GuiUser implements Listener{
             String value = (String) optionPane.getValue();
             if (value.equals("Take Picture")) {
                 takePicture(attributes);
-            } else if (value.equals("Grab Treasure")) {
-                System.out.println("Try using the window decorations "
-                         + "to close the non-auto-closing dialog. "
-                         + "You can't!");
-            } else {
-                
+            } else if (value.equals("Identify the Treasure")) {
+            	int room= 0;
+            	String identification = "";
+                sendIdentification(room, identification);
             }
+		}
+
+		public void sendIdentification(int room, String identification) {
+			
 		}
 
 		public void takePicture(String attributes) {
@@ -425,7 +422,7 @@ public class GuiUser implements Listener{
                     JDialog dialog = new JDialog();
                     dialog.add(optionPane);
                     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                    dialog.setTitle("Image Loading Demo");
+                    dialog.setTitle("Picture of treasure");
 
                     dialog.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("rooms/BlackHalfcircle.jpg")))));
 

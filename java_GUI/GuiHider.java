@@ -7,33 +7,66 @@ public class GuiHider implements Listener{
 	HashMap<Integer,String[]> treasures;
 	CommandObject command;
 	Connector r;
+	int rooms;
+	ArrayList<String[]> treasuresMap;
+
 	public static void main(String[] args) {
 		new GuiHider();
 	}
 
 	public GuiHider() {
+		//Set up for the Hider environment.
+		treasuresMap = new ArrayList<String[]>();
+		readInTreasuresAndRoomsAmount();
+		ArrayList<Integer> scrambledInts = getScrambledInts(rooms);
+		treasures = getTreasures(scrambledInts);
+		
+		//Once the system is set up the command sharing object and connect to server.
 		command = new CommandObject();
-		register(this.command);
-		treasures = new HashMap<Integer,String[]>();
-		treasures.put(0, setTreasure("Black","Halfcircle"));
-		treasures.put(1, setTreasure("Green","Square"));
-		treasures.put(2, setTreasure("Black", "Halfcircle"));
-		treasures.put(3, setTreasure("Green", "Hat"));
-		treasures.put(4, setTreasure("Black","Halfcircle"));
-		treasures.put(5, setTreasure("Green", "Bottle"));
-		treasures.put(6, setTreasure("Black", "Halfcircle"));
-		treasures.put(7, setTreasure("Green", "Square"));
-
-
+		register(this.command);		
 		r = new Connector("127.0.1.1", 6009, this.command);
 		Thread r2 = new Thread(r);
 		r2.start();
-		
-		waitForServer(r);//Wait for the server to start up before continuing.
 
+		//Wait for the server to start up before continuing.
+		waitForServer(r);
+		//Set the main ID for client to contact the server.
 		r.setId("Hider");
 	}
 
+	public HashMap<Integer,String[]> getTreasures(ArrayList<Integer> scrambledInts) {
+		HashMap<Integer,String[]> temp = new HashMap<Integer,String[]>();
+		Random rand = new Random();
+		for(int i = 0; i<rooms; i++) {
+			int randomInt = rand.nextInt(rooms/2);
+			temp.put(scrambledInts.get(i), treasuresMap.get(randomInt));
+		}
+		return temp;
+	}
+	//Function responsible for reading in the treasures list.
+	public void readInTreasuresAndRoomsAmount() {
+		try (BufferedReader br = new BufferedReader(new FileReader("treasures"))) {
+		    String line = br.readLine();
+		    rooms = Integer.parseInt(line);
+		    while ((line = br.readLine()) != null) {
+		       String[] temp = line.split(",");
+		       treasuresMap.add(temp);
+		    }
+		} catch(FileNotFoundException e) {
+			System.out.println("File not found.");
+		} catch(IOException e) {
+			System.out.println("IO Exception");
+		}
+	}
+
+	public ArrayList<Integer> getScrambledInts(int rooms) {
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		for(int i=0;i<rooms;i++) {
+			temp.add(i);
+		}
+		Collections.shuffle(temp);
+		return temp;
+	}
 	//An empty blocking method that ensures that server has time to set up before continuing running asynchrously.
 	public void waitForServer(Connector r) {
 		while(!(r.isRunning())){
@@ -46,12 +79,12 @@ public class GuiHider implements Listener{
 	public void sendTresureFirstProperty(Connector r, int room) {
 		r.sendMessage("%%found Hider TabUI " + room + " " + room + " \"(colour " + treasures.get(room)[0] + ") (shape " + treasures.get(room)[1] + ")\"");
 	}
-	//A method that returns an array of two property treasure.
-	public String[] setTreasure(String colour, String shape) {
-		String[] temp = {colour,shape};
-		return temp;
+
+	public void sendScore(int room, String treasure) {
+		System.out.println("Message Sent");
 	}
 
+	//Listener functions implemented.
 	public void register(Observable observable) {observable.add(this);}
   	public void unregister(Observable observable) {observable.remove(this);}
 
@@ -60,6 +93,13 @@ public class GuiHider implements Listener{
   			String[] temp = attribute.split("\"");
   			int room = Integer.parseInt(temp[1]);
   			sendTresureFirstProperty(r, room);
+  		} else if(attribute.contains("found")) {
+  			String[] temp = attribute.split("\"");
+  			temp = temp[1].split(",");
+  			int room = Integer.parseInt(temp[0]);
+  			String treasure = temp[1];
+  			System.out.println(room + " " + treasure);
+  			sendScore(room,treasure);
   		}
     	System.out.println("Hider GUI: " + attribute); // this has to be implemented
   	}
