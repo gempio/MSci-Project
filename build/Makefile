@@ -631,136 +631,6 @@ tf_generate_messages_py/fast:
 .PHONY : tf_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named connect_to_server
-
-# Build rule for target.
-connect_to_server: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 connect_to_server
-.PHONY : connect_to_server
-
-# fast build rule for target.
-connect_to_server/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/connect_to_server.dir/build.make robot1_tf/CMakeFiles/connect_to_server.dir/build
-.PHONY : connect_to_server/fast
-
-#=============================================================================
-# Target rules for targets named goal_reacher
-
-# Build rule for target.
-goal_reacher: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 goal_reacher
-.PHONY : goal_reacher
-
-# fast build rule for target.
-goal_reacher/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/goal_reacher.dir/build.make robot1_tf/CMakeFiles/goal_reacher.dir/build
-.PHONY : goal_reacher/fast
-
-#=============================================================================
-# Target rules for targets named laser_cloud
-
-# Build rule for target.
-laser_cloud: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 laser_cloud
-.PHONY : laser_cloud
-
-# fast build rule for target.
-laser_cloud/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/laser_cloud.dir/build.make robot1_tf/CMakeFiles/laser_cloud.dir/build
-.PHONY : laser_cloud/fast
-
-#=============================================================================
-# Target rules for targets named laser_scan
-
-# Build rule for target.
-laser_scan: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 laser_scan
-.PHONY : laser_scan
-
-# fast build rule for target.
-laser_scan/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/laser_scan.dir/build.make robot1_tf/CMakeFiles/laser_scan.dir/build
-.PHONY : laser_scan/fast
-
-#=============================================================================
-# Target rules for targets named my_listener
-
-# Build rule for target.
-my_listener: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 my_listener
-.PHONY : my_listener
-
-# fast build rule for target.
-my_listener/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/my_listener.dir/build.make robot1_tf/CMakeFiles/my_listener.dir/build
-.PHONY : my_listener/fast
-
-#=============================================================================
-# Target rules for targets named my_odom
-
-# Build rule for target.
-my_odom: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 my_odom
-.PHONY : my_odom
-
-# fast build rule for target.
-my_odom/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/my_odom.dir/build.make robot1_tf/CMakeFiles/my_odom.dir/build
-.PHONY : my_odom/fast
-
-#=============================================================================
-# Target rules for targets named my_sensor
-
-# Build rule for target.
-my_sensor: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 my_sensor
-.PHONY : my_sensor
-
-# fast build rule for target.
-my_sensor/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/my_sensor.dir/build.make robot1_tf/CMakeFiles/my_sensor.dir/build
-.PHONY : my_sensor/fast
-
-#=============================================================================
-# Target rules for targets named pose_publisher
-
-# Build rule for target.
-pose_publisher: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 pose_publisher
-.PHONY : pose_publisher
-
-# fast build rule for target.
-pose_publisher/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/pose_publisher.dir/build.make robot1_tf/CMakeFiles/pose_publisher.dir/build
-.PHONY : pose_publisher/fast
-
-#=============================================================================
-# Target rules for targets named tf_broadcaster
-
-# Build rule for target.
-tf_broadcaster: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tf_broadcaster
-.PHONY : tf_broadcaster
-
-# fast build rule for target.
-tf_broadcaster/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/tf_broadcaster.dir/build.make robot1_tf/CMakeFiles/tf_broadcaster.dir/build
-.PHONY : tf_broadcaster/fast
-
-#=============================================================================
-# Target rules for targets named tf_listener
-
-# Build rule for target.
-tf_listener: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 tf_listener
-.PHONY : tf_listener
-
-# fast build rule for target.
-tf_listener/fast:
-	$(MAKE) -f robot1_tf/CMakeFiles/tf_listener.dir/build.make robot1_tf/CMakeFiles/tf_listener.dir/build
-.PHONY : tf_listener/fast
-
-#=============================================================================
 # Target rules for targets named bond_generate_messages_cpp
 
 # Build rule for target.
@@ -1251,7 +1121,7 @@ move_base_gencfg: cmake_check_build_system
 
 # fast build rule for target.
 move_base_gencfg/fast:
-	$(MAKE) -f Robot1/CMakeFiles/move_base_gencfg.dir/build.make Robot1/CMakeFiles/move_base_gencfg.dir/build
+	$(MAKE) -f Robot/CMakeFiles/move_base_gencfg.dir/build.make Robot/CMakeFiles/move_base_gencfg.dir/build
 .PHONY : move_base_gencfg/fast
 
 #=============================================================================
@@ -1343,16 +1213,6 @@ help:
 	@echo "... tf_generate_messages_cpp"
 	@echo "... tf_generate_messages_lisp"
 	@echo "... tf_generate_messages_py"
-	@echo "... connect_to_server"
-	@echo "... goal_reacher"
-	@echo "... laser_cloud"
-	@echo "... laser_scan"
-	@echo "... my_listener"
-	@echo "... my_odom"
-	@echo "... my_sensor"
-	@echo "... pose_publisher"
-	@echo "... tf_broadcaster"
-	@echo "... tf_listener"
 	@echo "... bond_generate_messages_cpp"
 	@echo "... bond_generate_messages_lisp"
 	@echo "... bond_generate_messages_py"

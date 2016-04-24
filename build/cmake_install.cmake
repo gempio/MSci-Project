@@ -118,10 +118,8 @@ IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/maciejm/catkin_ws/build/gtest/cmake_install.cmake")
   INCLUDE("/home/maciejm/catkin_ws/build/controller/cmake_install.cmake")
-  INCLUDE("/home/maciejm/catkin_ws/build/robot1_tf/cmake_install.cmake")
   INCLUDE("/home/maciejm/catkin_ws/build/robot2_tf/cmake_install.cmake")
-  INCLUDE("/home/maciejm/catkin_ws/build/Robot1/cmake_install.cmake")
-  INCLUDE("/home/maciejm/catkin_ws/build/Robot2/cmake_install.cmake")
+  INCLUDE("/home/maciejm/catkin_ws/build/Robot/cmake_install.cmake")
   INCLUDE("/home/maciejm/catkin_ws/build/simple_layers/cmake_install.cmake")
 
 ENDIF(NOT CMAKE_INSTALL_LOCAL_ONLY)
