@@ -494,6 +494,8 @@ public class GuiUser implements Listener{
 					rooms[i].setEnabled(false);
 				}
 			} else {
+				//If the robot is blocked, no point in updating its buttons.
+				if(robot.getBlocked()) return;
 				rooms[0].setEnabled(true);
 				for(i=1; i<rooms.length; i++) {
 					if(unvisitedRooms.contains(i)) rooms[i].setEnabled(true);

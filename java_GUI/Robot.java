@@ -5,8 +5,10 @@ public class Robot {
 	private int energyLeft;
 	private boolean traveling;
 	private int cost;
+	private boolean blocked;
 
 	public Robot(String name, int rNo, int energyLeft, String location) {
+		this.blocked = false;
 		this.cost = 0;
 		this.name = name;
 		this.rNo = 0;
@@ -14,13 +16,20 @@ public class Robot {
 		this.location = location;
 		this.traveling = false;
 	}
+	public boolean getBlocked() {
+		return blocked;
+	}
 
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
 	public int getRoomNumber() {
 		return rNo;
 	}
 
 	public void subtractCost() {
 		energyLeft -= cost;
+		if(energyLeft<=0) blocked = true;
 		cost = 0;
 	}
 

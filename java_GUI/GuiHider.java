@@ -98,6 +98,8 @@ public class GuiHider implements Listener{
 		r.sendMessage("%%image Hider TabUI " +room + " " + treasures.get(room)[4]);
 	}
 
+	public void checkEnergy()
+
 	//Listener functions implemented.
 	public void register(Observable observable) {observable.add(this);}
   	public void unregister(Observable observable) {observable.remove(this);}
