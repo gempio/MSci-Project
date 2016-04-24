@@ -193,32 +193,9 @@ include_directories(
 # catkin_add_nosetests(test)
 #include_directories(${catkin_INCLUDE_DIRS} include)
 
-#add_library(simple_layer src/simple_layer.cpp)
-#add_library(grid_layer src/grid_layer.cpp)
-#add_library(robotPosition src/robotPosition.cpp)
 
-add_executable(tf_broadcaster2 src/tf_broadcaster2.cpp)
-add_executable(tf_listener2 src/tf_listener2.cpp)
-add_executable(laser_scan2 src/laser_scan2.cpp)
-add_executable(laser_cloud2 src/laser_cloud2.cpp)
-add_executable(my_sensor2 src/my_sensor2.cpp)
 add_executable(pose_publisher2 src/pose_publisher2.cpp)
 add_executable(my_odom2 src/my_odom2.cpp)
-add_executable(goal_reacher2 src/goal_reacher2.cpp)
-add_executable(my_listener2 src/my_listener2.cpp)
-add_executable(connect_to_server2 src/connect_to_server2.cpp)
-#add_executable(static_transform_publisher2 src/static_transform_publisher2.cpp)
-target_link_libraries(tf_broadcaster2 ${catkin_LIBRARIES})
-target_link_libraries(tf_listener2 ${catkin_LIBRARIES})
-target_link_libraries(laser_scan2 ${catkin_LIBRARIES})
-target_link_libraries(laser_cloud2 ${catkin_LIBRARIES})
 target_link_libraries(pose_publisher2 ${catkin_LIBRARIES})
 target_link_libraries(my_odom2 ${catkin_LIBRARIES})
-target_link_libraries(goal_reacher2 ${catkin_LIBRARIES})
-target_link_libraries(connect_to_server2 ${catkin_LIBRARIES})
-target_link_libraries(my_listener2 ${catkin_LIBRARIES})
-target_link_libraries(my_sensor2 ${catkin_LIBRARIES})
-
-
-#target_link_libraries(static_transform_publisher ${catkin_LIBRARIES})
 

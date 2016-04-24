@@ -370,12 +370,6 @@ pluginlib_DIR:PATH=/opt/ros/indigo/share/pluginlib/cmake
 robot1_tf_DIR:PATH=/home/maciejm/Documents/catkin_ws/devel/share/robot1_tf/cmake
 
 //Value Computed by CMake
-robot2_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/Robot
-
-//Value Computed by CMake
-robot2_SOURCE_DIR:STATIC=/home/maciejm/catkin_ws/src/Robot
-
-//Value Computed by CMake
 robot2_tf_BINARY_DIR:STATIC=/home/maciejm/catkin_ws/build/robot2_tf
 
 //The directory containing a CMake configuration file for robot2_tf.

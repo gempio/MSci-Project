@@ -261,7 +261,7 @@ gtest/preinstall:
 gtest/CMakeFiles/gtest.dir/all:
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest.dir/build.make gtest/CMakeFiles/gtest.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  5
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  3
 	@echo "Built target gtest"
 .PHONY : gtest/CMakeFiles/gtest.dir/all
 
@@ -292,7 +292,7 @@ clean: gtest/CMakeFiles/gtest.dir/clean
 gtest/CMakeFiles/gtest_main.dir/all: gtest/CMakeFiles/gtest.dir/all
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/depend
 	$(MAKE) -f gtest/CMakeFiles/gtest_main.dir/build.make gtest/CMakeFiles/gtest_main.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  6
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  4
 	@echo "Built target gtest_main"
 .PHONY : gtest/CMakeFiles/gtest_main.dir/all
 
@@ -553,7 +553,7 @@ clean: controller/CMakeFiles/actionlib_msgs_generate_messages_py.dir/clean
 controller/CMakeFiles/controller.dir/all:
 	$(MAKE) -f controller/CMakeFiles/controller.dir/build.make controller/CMakeFiles/controller.dir/depend
 	$(MAKE) -f controller/CMakeFiles/controller.dir/build.make controller/CMakeFiles/controller.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  2
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  1
 	@echo "Built target controller"
 .PHONY : controller/CMakeFiles/controller.dir/all
 
@@ -960,7 +960,7 @@ clean: controller/CMakeFiles/sensor_msgs_generate_messages_py.dir/clean
 controller/CMakeFiles/serverToController.dir/all:
 	$(MAKE) -f controller/CMakeFiles/serverToController.dir/build.make controller/CMakeFiles/serverToController.dir/depend
 	$(MAKE) -f controller/CMakeFiles/serverToController.dir/build.make controller/CMakeFiles/serverToController.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  14
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  8
 	@echo "Built target serverToController"
 .PHONY : controller/CMakeFiles/serverToController.dir/all
 
@@ -1271,23 +1271,14 @@ clean: controller/CMakeFiles/tf_generate_messages_py.dir/clean
 # Directory level rules for directory robot2_tf
 
 # Convenience name for "all" pass in the directory.
-robot2_tf/all: robot2_tf/CMakeFiles/connect_to_server2.dir/all
-robot2_tf/all: robot2_tf/CMakeFiles/goal_reacher2.dir/all
-robot2_tf/all: robot2_tf/CMakeFiles/laser_cloud2.dir/all
-robot2_tf/all: robot2_tf/CMakeFiles/laser_scan2.dir/all
-robot2_tf/all: robot2_tf/CMakeFiles/my_listener2.dir/all
 robot2_tf/all: robot2_tf/CMakeFiles/my_odom2.dir/all
-robot2_tf/all: robot2_tf/CMakeFiles/my_sensor2.dir/all
 robot2_tf/all: robot2_tf/CMakeFiles/pose_publisher2.dir/all
-robot2_tf/all: robot2_tf/CMakeFiles/tf_broadcaster2.dir/all
-robot2_tf/all: robot2_tf/CMakeFiles/tf_listener2.dir/all
 .PHONY : robot2_tf/all
 
 # Convenience name for "clean" pass in the directory.
 robot2_tf/clean: robot2_tf/CMakeFiles/bond_generate_messages_cpp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/bond_generate_messages_lisp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/bond_generate_messages_py.dir/clean
-robot2_tf/clean: robot2_tf/CMakeFiles/connect_to_server2.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/costmap_2d_gencfg.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/costmap_2d_generate_messages_cpp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/costmap_2d_generate_messages_lisp.dir/clean
@@ -1296,15 +1287,10 @@ robot2_tf/clean: robot2_tf/CMakeFiles/dynamic_reconfigure_gencfg.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/clean
-robot2_tf/clean: robot2_tf/CMakeFiles/goal_reacher2.dir/clean
-robot2_tf/clean: robot2_tf/CMakeFiles/laser_cloud2.dir/clean
-robot2_tf/clean: robot2_tf/CMakeFiles/laser_scan2.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/map_msgs_generate_messages_cpp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/map_msgs_generate_messages_lisp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/map_msgs_generate_messages_py.dir/clean
-robot2_tf/clean: robot2_tf/CMakeFiles/my_listener2.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/my_odom2.dir/clean
-robot2_tf/clean: robot2_tf/CMakeFiles/my_sensor2.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/nav_msgs_generate_messages_cpp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/nav_msgs_generate_messages_lisp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/nav_msgs_generate_messages_py.dir/clean
@@ -1316,8 +1302,6 @@ robot2_tf/clean: robot2_tf/CMakeFiles/pcl_msgs_generate_messages_lisp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/pcl_msgs_generate_messages_py.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/pcl_ros_gencfg.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/pose_publisher2.dir/clean
-robot2_tf/clean: robot2_tf/CMakeFiles/tf_broadcaster2.dir/clean
-robot2_tf/clean: robot2_tf/CMakeFiles/tf_listener2.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/topic_tools_generate_messages_cpp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/topic_tools_generate_messages_lisp.dir/clean
 robot2_tf/clean: robot2_tf/CMakeFiles/topic_tools_generate_messages_py.dir/clean
@@ -1418,41 +1402,6 @@ robot2_tf/CMakeFiles/bond_generate_messages_py.dir/clean:
 
 # clean rule for target.
 clean: robot2_tf/CMakeFiles/bond_generate_messages_py.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target robot2_tf/CMakeFiles/connect_to_server2.dir
-
-# All Build rule for target.
-robot2_tf/CMakeFiles/connect_to_server2.dir/all:
-	$(MAKE) -f robot2_tf/CMakeFiles/connect_to_server2.dir/build.make robot2_tf/CMakeFiles/connect_to_server2.dir/depend
-	$(MAKE) -f robot2_tf/CMakeFiles/connect_to_server2.dir/build.make robot2_tf/CMakeFiles/connect_to_server2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  1
-	@echo "Built target connect_to_server2"
-.PHONY : robot2_tf/CMakeFiles/connect_to_server2.dir/all
-
-# Include target in all.
-all: robot2_tf/CMakeFiles/connect_to_server2.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot2_tf/CMakeFiles/connect_to_server2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/connect_to_server2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 0
-.PHONY : robot2_tf/CMakeFiles/connect_to_server2.dir/rule
-
-# Convenience name for target.
-connect_to_server2: robot2_tf/CMakeFiles/connect_to_server2.dir/rule
-.PHONY : connect_to_server2
-
-# clean rule for target.
-robot2_tf/CMakeFiles/connect_to_server2.dir/clean:
-	$(MAKE) -f robot2_tf/CMakeFiles/connect_to_server2.dir/build.make robot2_tf/CMakeFiles/connect_to_server2.dir/clean
-.PHONY : robot2_tf/CMakeFiles/connect_to_server2.dir/clean
-
-# clean rule for target.
-clean: robot2_tf/CMakeFiles/connect_to_server2.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -1704,111 +1653,6 @@ clean: robot2_tf/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target robot2_tf/CMakeFiles/goal_reacher2.dir
-
-# All Build rule for target.
-robot2_tf/CMakeFiles/goal_reacher2.dir/all:
-	$(MAKE) -f robot2_tf/CMakeFiles/goal_reacher2.dir/build.make robot2_tf/CMakeFiles/goal_reacher2.dir/depend
-	$(MAKE) -f robot2_tf/CMakeFiles/goal_reacher2.dir/build.make robot2_tf/CMakeFiles/goal_reacher2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  3
-	@echo "Built target goal_reacher2"
-.PHONY : robot2_tf/CMakeFiles/goal_reacher2.dir/all
-
-# Include target in all.
-all: robot2_tf/CMakeFiles/goal_reacher2.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot2_tf/CMakeFiles/goal_reacher2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/goal_reacher2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 0
-.PHONY : robot2_tf/CMakeFiles/goal_reacher2.dir/rule
-
-# Convenience name for target.
-goal_reacher2: robot2_tf/CMakeFiles/goal_reacher2.dir/rule
-.PHONY : goal_reacher2
-
-# clean rule for target.
-robot2_tf/CMakeFiles/goal_reacher2.dir/clean:
-	$(MAKE) -f robot2_tf/CMakeFiles/goal_reacher2.dir/build.make robot2_tf/CMakeFiles/goal_reacher2.dir/clean
-.PHONY : robot2_tf/CMakeFiles/goal_reacher2.dir/clean
-
-# clean rule for target.
-clean: robot2_tf/CMakeFiles/goal_reacher2.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target robot2_tf/CMakeFiles/laser_cloud2.dir
-
-# All Build rule for target.
-robot2_tf/CMakeFiles/laser_cloud2.dir/all:
-	$(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/depend
-	$(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  7
-	@echo "Built target laser_cloud2"
-.PHONY : robot2_tf/CMakeFiles/laser_cloud2.dir/all
-
-# Include target in all.
-all: robot2_tf/CMakeFiles/laser_cloud2.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot2_tf/CMakeFiles/laser_cloud2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/laser_cloud2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 0
-.PHONY : robot2_tf/CMakeFiles/laser_cloud2.dir/rule
-
-# Convenience name for target.
-laser_cloud2: robot2_tf/CMakeFiles/laser_cloud2.dir/rule
-.PHONY : laser_cloud2
-
-# clean rule for target.
-robot2_tf/CMakeFiles/laser_cloud2.dir/clean:
-	$(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/clean
-.PHONY : robot2_tf/CMakeFiles/laser_cloud2.dir/clean
-
-# clean rule for target.
-clean: robot2_tf/CMakeFiles/laser_cloud2.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target robot2_tf/CMakeFiles/laser_scan2.dir
-
-# All Build rule for target.
-robot2_tf/CMakeFiles/laser_scan2.dir/all:
-	$(MAKE) -f robot2_tf/CMakeFiles/laser_scan2.dir/build.make robot2_tf/CMakeFiles/laser_scan2.dir/depend
-	$(MAKE) -f robot2_tf/CMakeFiles/laser_scan2.dir/build.make robot2_tf/CMakeFiles/laser_scan2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  8
-	@echo "Built target laser_scan2"
-.PHONY : robot2_tf/CMakeFiles/laser_scan2.dir/all
-
-# Include target in all.
-all: robot2_tf/CMakeFiles/laser_scan2.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot2_tf/CMakeFiles/laser_scan2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/laser_scan2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 0
-.PHONY : robot2_tf/CMakeFiles/laser_scan2.dir/rule
-
-# Convenience name for target.
-laser_scan2: robot2_tf/CMakeFiles/laser_scan2.dir/rule
-.PHONY : laser_scan2
-
-# clean rule for target.
-robot2_tf/CMakeFiles/laser_scan2.dir/clean:
-	$(MAKE) -f robot2_tf/CMakeFiles/laser_scan2.dir/build.make robot2_tf/CMakeFiles/laser_scan2.dir/clean
-.PHONY : robot2_tf/CMakeFiles/laser_scan2.dir/clean
-
-# clean rule for target.
-clean: robot2_tf/CMakeFiles/laser_scan2.dir/clean
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target robot2_tf/CMakeFiles/map_msgs_generate_messages_cpp.dir
 
 # All Build rule for target.
@@ -1902,48 +1746,13 @@ clean: robot2_tf/CMakeFiles/map_msgs_generate_messages_py.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target robot2_tf/CMakeFiles/my_listener2.dir
-
-# All Build rule for target.
-robot2_tf/CMakeFiles/my_listener2.dir/all:
-	$(MAKE) -f robot2_tf/CMakeFiles/my_listener2.dir/build.make robot2_tf/CMakeFiles/my_listener2.dir/depend
-	$(MAKE) -f robot2_tf/CMakeFiles/my_listener2.dir/build.make robot2_tf/CMakeFiles/my_listener2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  9
-	@echo "Built target my_listener2"
-.PHONY : robot2_tf/CMakeFiles/my_listener2.dir/all
-
-# Include target in all.
-all: robot2_tf/CMakeFiles/my_listener2.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot2_tf/CMakeFiles/my_listener2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/my_listener2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 0
-.PHONY : robot2_tf/CMakeFiles/my_listener2.dir/rule
-
-# Convenience name for target.
-my_listener2: robot2_tf/CMakeFiles/my_listener2.dir/rule
-.PHONY : my_listener2
-
-# clean rule for target.
-robot2_tf/CMakeFiles/my_listener2.dir/clean:
-	$(MAKE) -f robot2_tf/CMakeFiles/my_listener2.dir/build.make robot2_tf/CMakeFiles/my_listener2.dir/clean
-.PHONY : robot2_tf/CMakeFiles/my_listener2.dir/clean
-
-# clean rule for target.
-clean: robot2_tf/CMakeFiles/my_listener2.dir/clean
-.PHONY : clean
-
-#=============================================================================
 # Target rules for target robot2_tf/CMakeFiles/my_odom2.dir
 
 # All Build rule for target.
 robot2_tf/CMakeFiles/my_odom2.dir/all:
 	$(MAKE) -f robot2_tf/CMakeFiles/my_odom2.dir/build.make robot2_tf/CMakeFiles/my_odom2.dir/depend
 	$(MAKE) -f robot2_tf/CMakeFiles/my_odom2.dir/build.make robot2_tf/CMakeFiles/my_odom2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  10
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  5
 	@echo "Built target my_odom2"
 .PHONY : robot2_tf/CMakeFiles/my_odom2.dir/all
 
@@ -1969,41 +1778,6 @@ robot2_tf/CMakeFiles/my_odom2.dir/clean:
 
 # clean rule for target.
 clean: robot2_tf/CMakeFiles/my_odom2.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target robot2_tf/CMakeFiles/my_sensor2.dir
-
-# All Build rule for target.
-robot2_tf/CMakeFiles/my_sensor2.dir/all:
-	$(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/depend
-	$(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  11
-	@echo "Built target my_sensor2"
-.PHONY : robot2_tf/CMakeFiles/my_sensor2.dir/all
-
-# Include target in all.
-all: robot2_tf/CMakeFiles/my_sensor2.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot2_tf/CMakeFiles/my_sensor2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/my_sensor2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 0
-.PHONY : robot2_tf/CMakeFiles/my_sensor2.dir/rule
-
-# Convenience name for target.
-my_sensor2: robot2_tf/CMakeFiles/my_sensor2.dir/rule
-.PHONY : my_sensor2
-
-# clean rule for target.
-robot2_tf/CMakeFiles/my_sensor2.dir/clean:
-	$(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/clean
-.PHONY : robot2_tf/CMakeFiles/my_sensor2.dir/clean
-
-# clean rule for target.
-clean: robot2_tf/CMakeFiles/my_sensor2.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -2323,7 +2097,7 @@ clean: robot2_tf/CMakeFiles/pcl_ros_gencfg.dir/clean
 robot2_tf/CMakeFiles/pose_publisher2.dir/all:
 	$(MAKE) -f robot2_tf/CMakeFiles/pose_publisher2.dir/build.make robot2_tf/CMakeFiles/pose_publisher2.dir/depend
 	$(MAKE) -f robot2_tf/CMakeFiles/pose_publisher2.dir/build.make robot2_tf/CMakeFiles/pose_publisher2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  12
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  6
 	@echo "Built target pose_publisher2"
 .PHONY : robot2_tf/CMakeFiles/pose_publisher2.dir/all
 
@@ -2349,76 +2123,6 @@ robot2_tf/CMakeFiles/pose_publisher2.dir/clean:
 
 # clean rule for target.
 clean: robot2_tf/CMakeFiles/pose_publisher2.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target robot2_tf/CMakeFiles/tf_broadcaster2.dir
-
-# All Build rule for target.
-robot2_tf/CMakeFiles/tf_broadcaster2.dir/all:
-	$(MAKE) -f robot2_tf/CMakeFiles/tf_broadcaster2.dir/build.make robot2_tf/CMakeFiles/tf_broadcaster2.dir/depend
-	$(MAKE) -f robot2_tf/CMakeFiles/tf_broadcaster2.dir/build.make robot2_tf/CMakeFiles/tf_broadcaster2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  16
-	@echo "Built target tf_broadcaster2"
-.PHONY : robot2_tf/CMakeFiles/tf_broadcaster2.dir/all
-
-# Include target in all.
-all: robot2_tf/CMakeFiles/tf_broadcaster2.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot2_tf/CMakeFiles/tf_broadcaster2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/tf_broadcaster2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 0
-.PHONY : robot2_tf/CMakeFiles/tf_broadcaster2.dir/rule
-
-# Convenience name for target.
-tf_broadcaster2: robot2_tf/CMakeFiles/tf_broadcaster2.dir/rule
-.PHONY : tf_broadcaster2
-
-# clean rule for target.
-robot2_tf/CMakeFiles/tf_broadcaster2.dir/clean:
-	$(MAKE) -f robot2_tf/CMakeFiles/tf_broadcaster2.dir/build.make robot2_tf/CMakeFiles/tf_broadcaster2.dir/clean
-.PHONY : robot2_tf/CMakeFiles/tf_broadcaster2.dir/clean
-
-# clean rule for target.
-clean: robot2_tf/CMakeFiles/tf_broadcaster2.dir/clean
-.PHONY : clean
-
-#=============================================================================
-# Target rules for target robot2_tf/CMakeFiles/tf_listener2.dir
-
-# All Build rule for target.
-robot2_tf/CMakeFiles/tf_listener2.dir/all:
-	$(MAKE) -f robot2_tf/CMakeFiles/tf_listener2.dir/build.make robot2_tf/CMakeFiles/tf_listener2.dir/depend
-	$(MAKE) -f robot2_tf/CMakeFiles/tf_listener2.dir/build.make robot2_tf/CMakeFiles/tf_listener2.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  17
-	@echo "Built target tf_listener2"
-.PHONY : robot2_tf/CMakeFiles/tf_listener2.dir/all
-
-# Include target in all.
-all: robot2_tf/CMakeFiles/tf_listener2.dir/all
-.PHONY : all
-
-# Build rule for subdir invocation for target.
-robot2_tf/CMakeFiles/tf_listener2.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/tf_listener2.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/maciejm/catkin_ws/build/CMakeFiles 0
-.PHONY : robot2_tf/CMakeFiles/tf_listener2.dir/rule
-
-# Convenience name for target.
-tf_listener2: robot2_tf/CMakeFiles/tf_listener2.dir/rule
-.PHONY : tf_listener2
-
-# clean rule for target.
-robot2_tf/CMakeFiles/tf_listener2.dir/clean:
-	$(MAKE) -f robot2_tf/CMakeFiles/tf_listener2.dir/build.make robot2_tf/CMakeFiles/tf_listener2.dir/clean
-.PHONY : robot2_tf/CMakeFiles/tf_listener2.dir/clean
-
-# clean rule for target.
-clean: robot2_tf/CMakeFiles/tf_listener2.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -2586,7 +2290,7 @@ simple_layers/preinstall:
 simple_layers/CMakeFiles/grid_layer.dir/all:
 	$(MAKE) -f simple_layers/CMakeFiles/grid_layer.dir/build.make simple_layers/CMakeFiles/grid_layer.dir/depend
 	$(MAKE) -f simple_layers/CMakeFiles/grid_layer.dir/build.make simple_layers/CMakeFiles/grid_layer.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  4
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  2
 	@echo "Built target grid_layer"
 .PHONY : simple_layers/CMakeFiles/grid_layer.dir/all
 
@@ -2621,7 +2325,7 @@ clean: simple_layers/CMakeFiles/grid_layer.dir/clean
 simple_layers/CMakeFiles/robotPosition.dir/all: simple_layers/CMakeFiles/grid_layer.dir/all
 	$(MAKE) -f simple_layers/CMakeFiles/robotPosition.dir/build.make simple_layers/CMakeFiles/robotPosition.dir/depend
 	$(MAKE) -f simple_layers/CMakeFiles/robotPosition.dir/build.make simple_layers/CMakeFiles/robotPosition.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  13
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  7
 	@echo "Built target robotPosition"
 .PHONY : simple_layers/CMakeFiles/robotPosition.dir/all
 
@@ -2656,7 +2360,7 @@ clean: simple_layers/CMakeFiles/robotPosition.dir/clean
 simple_layers/CMakeFiles/simple_layer.dir/all:
 	$(MAKE) -f simple_layers/CMakeFiles/simple_layer.dir/build.make simple_layers/CMakeFiles/simple_layer.dir/depend
 	$(MAKE) -f simple_layers/CMakeFiles/simple_layer.dir/build.make simple_layers/CMakeFiles/simple_layer.dir/build
-	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  15
+	$(CMAKE_COMMAND) -E cmake_progress_report /home/maciejm/catkin_ws/build/CMakeFiles  9
 	@echo "Built target simple_layer"
 .PHONY : simple_layers/CMakeFiles/simple_layer.dir/all
 

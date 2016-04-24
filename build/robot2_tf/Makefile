@@ -192,20 +192,6 @@ bond_generate_messages_py/fast:
 .PHONY : bond_generate_messages_py/fast
 
 # Convenience name for target.
-robot2_tf/CMakeFiles/connect_to_server2.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/connect_to_server2.dir/rule
-.PHONY : robot2_tf/CMakeFiles/connect_to_server2.dir/rule
-
-# Convenience name for target.
-connect_to_server2: robot2_tf/CMakeFiles/connect_to_server2.dir/rule
-.PHONY : connect_to_server2
-
-# fast build rule for target.
-connect_to_server2/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/connect_to_server2.dir/build.make robot2_tf/CMakeFiles/connect_to_server2.dir/build
-.PHONY : connect_to_server2/fast
-
-# Convenience name for target.
 robot2_tf/CMakeFiles/costmap_2d_gencfg.dir/rule:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/costmap_2d_gencfg.dir/rule
 .PHONY : robot2_tf/CMakeFiles/costmap_2d_gencfg.dir/rule
@@ -318,48 +304,6 @@ dynamic_reconfigure_generate_messages_py/fast:
 .PHONY : dynamic_reconfigure_generate_messages_py/fast
 
 # Convenience name for target.
-robot2_tf/CMakeFiles/goal_reacher2.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/goal_reacher2.dir/rule
-.PHONY : robot2_tf/CMakeFiles/goal_reacher2.dir/rule
-
-# Convenience name for target.
-goal_reacher2: robot2_tf/CMakeFiles/goal_reacher2.dir/rule
-.PHONY : goal_reacher2
-
-# fast build rule for target.
-goal_reacher2/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/goal_reacher2.dir/build.make robot2_tf/CMakeFiles/goal_reacher2.dir/build
-.PHONY : goal_reacher2/fast
-
-# Convenience name for target.
-robot2_tf/CMakeFiles/laser_cloud2.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/laser_cloud2.dir/rule
-.PHONY : robot2_tf/CMakeFiles/laser_cloud2.dir/rule
-
-# Convenience name for target.
-laser_cloud2: robot2_tf/CMakeFiles/laser_cloud2.dir/rule
-.PHONY : laser_cloud2
-
-# fast build rule for target.
-laser_cloud2/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/build
-.PHONY : laser_cloud2/fast
-
-# Convenience name for target.
-robot2_tf/CMakeFiles/laser_scan2.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/laser_scan2.dir/rule
-.PHONY : robot2_tf/CMakeFiles/laser_scan2.dir/rule
-
-# Convenience name for target.
-laser_scan2: robot2_tf/CMakeFiles/laser_scan2.dir/rule
-.PHONY : laser_scan2
-
-# fast build rule for target.
-laser_scan2/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_scan2.dir/build.make robot2_tf/CMakeFiles/laser_scan2.dir/build
-.PHONY : laser_scan2/fast
-
-# Convenience name for target.
 robot2_tf/CMakeFiles/map_msgs_generate_messages_cpp.dir/rule:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/map_msgs_generate_messages_cpp.dir/rule
 .PHONY : robot2_tf/CMakeFiles/map_msgs_generate_messages_cpp.dir/rule
@@ -402,20 +346,6 @@ map_msgs_generate_messages_py/fast:
 .PHONY : map_msgs_generate_messages_py/fast
 
 # Convenience name for target.
-robot2_tf/CMakeFiles/my_listener2.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/my_listener2.dir/rule
-.PHONY : robot2_tf/CMakeFiles/my_listener2.dir/rule
-
-# Convenience name for target.
-my_listener2: robot2_tf/CMakeFiles/my_listener2.dir/rule
-.PHONY : my_listener2
-
-# fast build rule for target.
-my_listener2/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_listener2.dir/build.make robot2_tf/CMakeFiles/my_listener2.dir/build
-.PHONY : my_listener2/fast
-
-# Convenience name for target.
 robot2_tf/CMakeFiles/my_odom2.dir/rule:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/my_odom2.dir/rule
 .PHONY : robot2_tf/CMakeFiles/my_odom2.dir/rule
@@ -428,20 +358,6 @@ my_odom2: robot2_tf/CMakeFiles/my_odom2.dir/rule
 my_odom2/fast:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_odom2.dir/build.make robot2_tf/CMakeFiles/my_odom2.dir/build
 .PHONY : my_odom2/fast
-
-# Convenience name for target.
-robot2_tf/CMakeFiles/my_sensor2.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/my_sensor2.dir/rule
-.PHONY : robot2_tf/CMakeFiles/my_sensor2.dir/rule
-
-# Convenience name for target.
-my_sensor2: robot2_tf/CMakeFiles/my_sensor2.dir/rule
-.PHONY : my_sensor2
-
-# fast build rule for target.
-my_sensor2/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/build
-.PHONY : my_sensor2/fast
 
 # Convenience name for target.
 robot2_tf/CMakeFiles/nav_msgs_generate_messages_cpp.dir/rule:
@@ -598,34 +514,6 @@ pose_publisher2/fast:
 .PHONY : pose_publisher2/fast
 
 # Convenience name for target.
-robot2_tf/CMakeFiles/tf_broadcaster2.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/tf_broadcaster2.dir/rule
-.PHONY : robot2_tf/CMakeFiles/tf_broadcaster2.dir/rule
-
-# Convenience name for target.
-tf_broadcaster2: robot2_tf/CMakeFiles/tf_broadcaster2.dir/rule
-.PHONY : tf_broadcaster2
-
-# fast build rule for target.
-tf_broadcaster2/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/tf_broadcaster2.dir/build.make robot2_tf/CMakeFiles/tf_broadcaster2.dir/build
-.PHONY : tf_broadcaster2/fast
-
-# Convenience name for target.
-robot2_tf/CMakeFiles/tf_listener2.dir/rule:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/tf_listener2.dir/rule
-.PHONY : robot2_tf/CMakeFiles/tf_listener2.dir/rule
-
-# Convenience name for target.
-tf_listener2: robot2_tf/CMakeFiles/tf_listener2.dir/rule
-.PHONY : tf_listener2
-
-# fast build rule for target.
-tf_listener2/fast:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/tf_listener2.dir/build.make robot2_tf/CMakeFiles/tf_listener2.dir/build
-.PHONY : tf_listener2/fast
-
-# Convenience name for target.
 robot2_tf/CMakeFiles/topic_tools_generate_messages_cpp.dir/rule:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 robot2_tf/CMakeFiles/topic_tools_generate_messages_cpp.dir/rule
 .PHONY : robot2_tf/CMakeFiles/topic_tools_generate_messages_cpp.dir/rule
@@ -667,126 +555,6 @@ topic_tools_generate_messages_py/fast:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/topic_tools_generate_messages_py.dir/build.make robot2_tf/CMakeFiles/topic_tools_generate_messages_py.dir/build
 .PHONY : topic_tools_generate_messages_py/fast
 
-src/connect_to_server2.o: src/connect_to_server2.cpp.o
-.PHONY : src/connect_to_server2.o
-
-# target to build an object file
-src/connect_to_server2.cpp.o:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/connect_to_server2.dir/build.make robot2_tf/CMakeFiles/connect_to_server2.dir/src/connect_to_server2.cpp.o
-.PHONY : src/connect_to_server2.cpp.o
-
-src/connect_to_server2.i: src/connect_to_server2.cpp.i
-.PHONY : src/connect_to_server2.i
-
-# target to preprocess a source file
-src/connect_to_server2.cpp.i:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/connect_to_server2.dir/build.make robot2_tf/CMakeFiles/connect_to_server2.dir/src/connect_to_server2.cpp.i
-.PHONY : src/connect_to_server2.cpp.i
-
-src/connect_to_server2.s: src/connect_to_server2.cpp.s
-.PHONY : src/connect_to_server2.s
-
-# target to generate assembly for a file
-src/connect_to_server2.cpp.s:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/connect_to_server2.dir/build.make robot2_tf/CMakeFiles/connect_to_server2.dir/src/connect_to_server2.cpp.s
-.PHONY : src/connect_to_server2.cpp.s
-
-src/goal_reacher2.o: src/goal_reacher2.cpp.o
-.PHONY : src/goal_reacher2.o
-
-# target to build an object file
-src/goal_reacher2.cpp.o:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/goal_reacher2.dir/build.make robot2_tf/CMakeFiles/goal_reacher2.dir/src/goal_reacher2.cpp.o
-.PHONY : src/goal_reacher2.cpp.o
-
-src/goal_reacher2.i: src/goal_reacher2.cpp.i
-.PHONY : src/goal_reacher2.i
-
-# target to preprocess a source file
-src/goal_reacher2.cpp.i:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/goal_reacher2.dir/build.make robot2_tf/CMakeFiles/goal_reacher2.dir/src/goal_reacher2.cpp.i
-.PHONY : src/goal_reacher2.cpp.i
-
-src/goal_reacher2.s: src/goal_reacher2.cpp.s
-.PHONY : src/goal_reacher2.s
-
-# target to generate assembly for a file
-src/goal_reacher2.cpp.s:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/goal_reacher2.dir/build.make robot2_tf/CMakeFiles/goal_reacher2.dir/src/goal_reacher2.cpp.s
-.PHONY : src/goal_reacher2.cpp.s
-
-src/laser_cloud2.o: src/laser_cloud2.cpp.o
-.PHONY : src/laser_cloud2.o
-
-# target to build an object file
-src/laser_cloud2.cpp.o:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/src/laser_cloud2.cpp.o
-.PHONY : src/laser_cloud2.cpp.o
-
-src/laser_cloud2.i: src/laser_cloud2.cpp.i
-.PHONY : src/laser_cloud2.i
-
-# target to preprocess a source file
-src/laser_cloud2.cpp.i:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/src/laser_cloud2.cpp.i
-.PHONY : src/laser_cloud2.cpp.i
-
-src/laser_cloud2.s: src/laser_cloud2.cpp.s
-.PHONY : src/laser_cloud2.s
-
-# target to generate assembly for a file
-src/laser_cloud2.cpp.s:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_cloud2.dir/build.make robot2_tf/CMakeFiles/laser_cloud2.dir/src/laser_cloud2.cpp.s
-.PHONY : src/laser_cloud2.cpp.s
-
-src/laser_scan2.o: src/laser_scan2.cpp.o
-.PHONY : src/laser_scan2.o
-
-# target to build an object file
-src/laser_scan2.cpp.o:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_scan2.dir/build.make robot2_tf/CMakeFiles/laser_scan2.dir/src/laser_scan2.cpp.o
-.PHONY : src/laser_scan2.cpp.o
-
-src/laser_scan2.i: src/laser_scan2.cpp.i
-.PHONY : src/laser_scan2.i
-
-# target to preprocess a source file
-src/laser_scan2.cpp.i:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_scan2.dir/build.make robot2_tf/CMakeFiles/laser_scan2.dir/src/laser_scan2.cpp.i
-.PHONY : src/laser_scan2.cpp.i
-
-src/laser_scan2.s: src/laser_scan2.cpp.s
-.PHONY : src/laser_scan2.s
-
-# target to generate assembly for a file
-src/laser_scan2.cpp.s:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/laser_scan2.dir/build.make robot2_tf/CMakeFiles/laser_scan2.dir/src/laser_scan2.cpp.s
-.PHONY : src/laser_scan2.cpp.s
-
-src/my_listener2.o: src/my_listener2.cpp.o
-.PHONY : src/my_listener2.o
-
-# target to build an object file
-src/my_listener2.cpp.o:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_listener2.dir/build.make robot2_tf/CMakeFiles/my_listener2.dir/src/my_listener2.cpp.o
-.PHONY : src/my_listener2.cpp.o
-
-src/my_listener2.i: src/my_listener2.cpp.i
-.PHONY : src/my_listener2.i
-
-# target to preprocess a source file
-src/my_listener2.cpp.i:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_listener2.dir/build.make robot2_tf/CMakeFiles/my_listener2.dir/src/my_listener2.cpp.i
-.PHONY : src/my_listener2.cpp.i
-
-src/my_listener2.s: src/my_listener2.cpp.s
-.PHONY : src/my_listener2.s
-
-# target to generate assembly for a file
-src/my_listener2.cpp.s:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_listener2.dir/build.make robot2_tf/CMakeFiles/my_listener2.dir/src/my_listener2.cpp.s
-.PHONY : src/my_listener2.cpp.s
-
 src/my_odom2.o: src/my_odom2.cpp.o
 .PHONY : src/my_odom2.o
 
@@ -810,30 +578,6 @@ src/my_odom2.s: src/my_odom2.cpp.s
 src/my_odom2.cpp.s:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_odom2.dir/build.make robot2_tf/CMakeFiles/my_odom2.dir/src/my_odom2.cpp.s
 .PHONY : src/my_odom2.cpp.s
-
-src/my_sensor2.o: src/my_sensor2.cpp.o
-.PHONY : src/my_sensor2.o
-
-# target to build an object file
-src/my_sensor2.cpp.o:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/src/my_sensor2.cpp.o
-.PHONY : src/my_sensor2.cpp.o
-
-src/my_sensor2.i: src/my_sensor2.cpp.i
-.PHONY : src/my_sensor2.i
-
-# target to preprocess a source file
-src/my_sensor2.cpp.i:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/src/my_sensor2.cpp.i
-.PHONY : src/my_sensor2.cpp.i
-
-src/my_sensor2.s: src/my_sensor2.cpp.s
-.PHONY : src/my_sensor2.s
-
-# target to generate assembly for a file
-src/my_sensor2.cpp.s:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/my_sensor2.dir/build.make robot2_tf/CMakeFiles/my_sensor2.dir/src/my_sensor2.cpp.s
-.PHONY : src/my_sensor2.cpp.s
 
 src/pose_publisher2.o: src/pose_publisher2.cpp.o
 .PHONY : src/pose_publisher2.o
@@ -859,54 +603,6 @@ src/pose_publisher2.cpp.s:
 	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/pose_publisher2.dir/build.make robot2_tf/CMakeFiles/pose_publisher2.dir/src/pose_publisher2.cpp.s
 .PHONY : src/pose_publisher2.cpp.s
 
-src/tf_broadcaster2.o: src/tf_broadcaster2.cpp.o
-.PHONY : src/tf_broadcaster2.o
-
-# target to build an object file
-src/tf_broadcaster2.cpp.o:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/tf_broadcaster2.dir/build.make robot2_tf/CMakeFiles/tf_broadcaster2.dir/src/tf_broadcaster2.cpp.o
-.PHONY : src/tf_broadcaster2.cpp.o
-
-src/tf_broadcaster2.i: src/tf_broadcaster2.cpp.i
-.PHONY : src/tf_broadcaster2.i
-
-# target to preprocess a source file
-src/tf_broadcaster2.cpp.i:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/tf_broadcaster2.dir/build.make robot2_tf/CMakeFiles/tf_broadcaster2.dir/src/tf_broadcaster2.cpp.i
-.PHONY : src/tf_broadcaster2.cpp.i
-
-src/tf_broadcaster2.s: src/tf_broadcaster2.cpp.s
-.PHONY : src/tf_broadcaster2.s
-
-# target to generate assembly for a file
-src/tf_broadcaster2.cpp.s:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/tf_broadcaster2.dir/build.make robot2_tf/CMakeFiles/tf_broadcaster2.dir/src/tf_broadcaster2.cpp.s
-.PHONY : src/tf_broadcaster2.cpp.s
-
-src/tf_listener2.o: src/tf_listener2.cpp.o
-.PHONY : src/tf_listener2.o
-
-# target to build an object file
-src/tf_listener2.cpp.o:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/tf_listener2.dir/build.make robot2_tf/CMakeFiles/tf_listener2.dir/src/tf_listener2.cpp.o
-.PHONY : src/tf_listener2.cpp.o
-
-src/tf_listener2.i: src/tf_listener2.cpp.i
-.PHONY : src/tf_listener2.i
-
-# target to preprocess a source file
-src/tf_listener2.cpp.i:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/tf_listener2.dir/build.make robot2_tf/CMakeFiles/tf_listener2.dir/src/tf_listener2.cpp.i
-.PHONY : src/tf_listener2.cpp.i
-
-src/tf_listener2.s: src/tf_listener2.cpp.s
-.PHONY : src/tf_listener2.s
-
-# target to generate assembly for a file
-src/tf_listener2.cpp.s:
-	cd /home/maciejm/catkin_ws/build && $(MAKE) -f robot2_tf/CMakeFiles/tf_listener2.dir/build.make robot2_tf/CMakeFiles/tf_listener2.dir/src/tf_listener2.cpp.s
-.PHONY : src/tf_listener2.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -916,7 +612,6 @@ help:
 	@echo "... bond_generate_messages_cpp"
 	@echo "... bond_generate_messages_lisp"
 	@echo "... bond_generate_messages_py"
-	@echo "... connect_to_server2"
 	@echo "... costmap_2d_gencfg"
 	@echo "... costmap_2d_generate_messages_cpp"
 	@echo "... costmap_2d_generate_messages_lisp"
@@ -926,19 +621,14 @@ help:
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
 	@echo "... dynamic_reconfigure_generate_messages_py"
 	@echo "... edit_cache"
-	@echo "... goal_reacher2"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
-	@echo "... laser_cloud2"
-	@echo "... laser_scan2"
 	@echo "... list_install_components"
 	@echo "... map_msgs_generate_messages_cpp"
 	@echo "... map_msgs_generate_messages_lisp"
 	@echo "... map_msgs_generate_messages_py"
-	@echo "... my_listener2"
 	@echo "... my_odom2"
-	@echo "... my_sensor2"
 	@echo "... nav_msgs_generate_messages_cpp"
 	@echo "... nav_msgs_generate_messages_lisp"
 	@echo "... nav_msgs_generate_messages_py"
@@ -952,41 +642,15 @@ help:
 	@echo "... pose_publisher2"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... tf_broadcaster2"
-	@echo "... tf_listener2"
 	@echo "... topic_tools_generate_messages_cpp"
 	@echo "... topic_tools_generate_messages_lisp"
 	@echo "... topic_tools_generate_messages_py"
-	@echo "... src/connect_to_server2.o"
-	@echo "... src/connect_to_server2.i"
-	@echo "... src/connect_to_server2.s"
-	@echo "... src/goal_reacher2.o"
-	@echo "... src/goal_reacher2.i"
-	@echo "... src/goal_reacher2.s"
-	@echo "... src/laser_cloud2.o"
-	@echo "... src/laser_cloud2.i"
-	@echo "... src/laser_cloud2.s"
-	@echo "... src/laser_scan2.o"
-	@echo "... src/laser_scan2.i"
-	@echo "... src/laser_scan2.s"
-	@echo "... src/my_listener2.o"
-	@echo "... src/my_listener2.i"
-	@echo "... src/my_listener2.s"
 	@echo "... src/my_odom2.o"
 	@echo "... src/my_odom2.i"
 	@echo "... src/my_odom2.s"
-	@echo "... src/my_sensor2.o"
-	@echo "... src/my_sensor2.i"
-	@echo "... src/my_sensor2.s"
 	@echo "... src/pose_publisher2.o"
 	@echo "... src/pose_publisher2.i"
 	@echo "... src/pose_publisher2.s"
-	@echo "... src/tf_broadcaster2.o"
-	@echo "... src/tf_broadcaster2.i"
-	@echo "... src/tf_broadcaster2.s"
-	@echo "... src/tf_listener2.o"
-	@echo "... src/tf_listener2.i"
-	@echo "... src/tf_listener2.s"
 .PHONY : help
 
 

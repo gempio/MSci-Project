@@ -56,7 +56,7 @@ public class GuiUser implements Listener{
 		gui = new GUI();
 		
 	}
-
+	//Implementing Listener Interface
 	public void addListener(CommandObject command) {
 		command.add(this);
 	}
@@ -78,12 +78,14 @@ public class GuiUser implements Listener{
 		dialogue.setUnvisitedRooms(unvisitedRooms);
 	}
 
+	//Just a command ran occasionally to ensure that the game ends.
 	public void checkIfGameFinished() {
 		int blockedRobots = 0;
 		for(int i= 0; i<robots.length;i++) {
 			if(robots[i].getBlocked()) blockedRobots++;
 		}
-		if(blockedRobots == robots.length) gui.showFinishSplashDialog();
+		if(blockedRobots == robots.length) gui.showFinishSplashDialog(false);
+		else if(unvisitedRooms.size() == 0) gui.showFinishSplashDialog(true);
 	}
 
 	public void readInTreasuresAndRoomsAmount() {
@@ -127,6 +129,7 @@ public class GuiUser implements Listener{
     		
     		score += Integer.parseInt(recievedPoints);
     		scoreLabel.setText("Score: " + score);
+    		checkIfGameFinished();
     	} else if(attribute.contains("image")) {
     		String[] brokenDownCommand = attribute.split(" ");
     		String filename = brokenDownCommand[brokenDownCommand.length-1];
@@ -190,6 +193,7 @@ public class GuiUser implements Listener{
     			JOptionPane.showMessageDialog(this, "Identification Unsuccessful: " + score + " points", "Attempt Failed", JOptionPane.INFORMATION_MESSAGE);
     		}
 		}
+		//Beginner Screen to select the amount of Robots the user can use.
 		public void buildRobotAskingPanel() {
 			JPanel container = new JPanel();
 			container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
@@ -431,6 +435,8 @@ public class GuiUser implements Listener{
             } else if (value.equals("Identify the Treasure")) {
             	String identification = (String) optionPane.getInputValue();
                 sendIdentification(room, identification);
+            } else {
+            	checkIfGameFinished();
             }
 		}
 
@@ -472,6 +478,7 @@ public class GuiUser implements Listener{
 					                sendIdentification(room, identification);
 					            } else if (value.equals("Continue")) {
 					            	dialog.setVisible(false);
+					            	checkIfGameFinished();
 					            }
 	                            dialog.setVisible(false);
 	                        }
@@ -579,8 +586,9 @@ public class GuiUser implements Listener{
 
 		}
 		public void showFinishSplashDialog(boolean cleanFinish) {
-			if(!cleanFinish) JOptionPane.showMessageDialog(this, "You have visited all rooms. You have finished the game with a score of: " + score + ". \\nCongratulations", "Game over.", JOptionPane.INFORMATION_MESSAGE);
-			else JOptionPane.showMessageDialog(this, "Both robots have ran out of energy. You have finished the game with a score of: " + score + ". \\nCongratulations", "Game over.", JOptionPane.INFORMATION_MESSAGE);
+			if(cleanFinish) JOptionPane.showMessageDialog(this, "You have visited all rooms. You have finished the game with a score of: " + score + ". Congratulations", "Game over.", JOptionPane.INFORMATION_MESSAGE);
+			else JOptionPane.showMessageDialog(this, "Robot/s have ran out of energy. You have finished the game with a score of: " + score + ". \\nCongratulations", "Game over.", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
 		}
 
 	}
