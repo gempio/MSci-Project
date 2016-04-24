@@ -78,6 +78,14 @@ public class GuiUser implements Listener{
 		dialogue.setUnvisitedRooms(unvisitedRooms);
 	}
 
+	public void checkIfGameFinished() {
+		int blockedRobots = 0;
+		for(int i= 0; i<robots.length;i++) {
+			if(robots[i].getBlocked()) blockedRobots++;
+		}
+		if(blockedRobots == robots.length) gui.showFinishSplashDialog();
+	}
+
 	public void readInTreasuresAndRoomsAmount() {
 		ArrayList<String> tempTreasArray = new ArrayList<String>();
 		treasureOptions = new ArrayList<String[]>();
@@ -449,7 +457,6 @@ public class GuiUser implements Listener{
                     dialog.setLayout(new BorderLayout());
                     dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
                     dialog.setTitle("Picture of treasure");
-                    System.out.println(filename);
                     dialog.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("rooms/" + filename)))),BorderLayout.NORTH);
                     dialog.add(optionPane,BorderLayout.SOUTH);
 
@@ -571,7 +578,13 @@ public class GuiUser implements Listener{
             return consensus;
 
 		}
+		public void showFinishSplashDialog(boolean cleanFinish) {
+			if(!cleanFinish) JOptionPane.showMessageDialog(this, "You have visited all rooms. You have finished the game with a score of: " + score + ". \\nCongratulations", "Game over.", JOptionPane.INFORMATION_MESSAGE);
+			else JOptionPane.showMessageDialog(this, "Both robots have ran out of energy. You have finished the game with a score of: " + score + ". \\nCongratulations", "Game over.", JOptionPane.INFORMATION_MESSAGE);
+		}
 
 	}
+
+
 
 }
