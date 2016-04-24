@@ -77,7 +77,7 @@ public class GuiHider implements Listener{
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
 	public void sendTresureFirstProperty(Connector r, int room) {
-		r.sendMessage("%%found Hider TabUI " + room + " " + room + " \"(colour " + treasures.get(room)[0] + ") (shape " + treasures.get(room)[1] + ")\"");
+		r.sendMessage("%%found Hider TabUI " + room + " " + room + " \"(Colour: " + treasures.get(room)[0] + ") (Footprint: " + treasures.get(room)[1] + ")\"");
 	}
 
 	public void sendScore(int room, String treasure) {
@@ -97,8 +97,6 @@ public class GuiHider implements Listener{
 	public void sendPicture(int room) {
 		r.sendMessage("%%image Hider TabUI " +room + " " + treasures.get(room)[4]);
 	}
-
-	public void checkEnergy()
 
 	//Listener functions implemented.
 	public void register(Observable observable) {observable.add(this);}

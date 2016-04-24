@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  24 APR 2016 06:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  24 APR 2016 18:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -518,12 +518,75 @@ File: figures/ROSmapping.png Graphic file (type png)
 Package pdftex.def Info: figures/ROSmapping.png used on input line 56.
 (pdftex.def)             Requested size: 411.9399pt x 206.84256pt.
  [30 <./figures/ROSmapping.png>] [31] [32] [33]
-[34] [35] [36] [37]) [38]
+[34] [35] [36] [37] [38] [39]
+Underfull \hbox (badness 10000) in paragraph at lines 194--204
+
+ []
+
+[40] [41] [42] <figures/finished.png, id=173, 1007.765pt x 757.83125pt>
+File: figures/finished.png Graphic file (type png)
+
+<use figures/finished.png>
+Package pdftex.def Info: figures/finished.png used on input line 235.
+(pdftex.def)             Requested size: 411.9399pt x 309.77617pt.
+ [43] [44 <./figures/finished.png>]
+<figures/App1.png, id=181, 312.16624pt x 132.495pt>
+File: figures/App1.png Graphic file (type png)
+ <use figures/App1.png>
+Package pdftex.def Info: figures/App1.png used on input line 261.
+(pdftex.def)             Requested size: 164.77344pt x 69.93694pt.
+
+[45 <./figures/App1.png>] <figures/App2.png, id=187, 576.1525pt x 154.5775pt>
+File: figures/App2.png Graphic file (type png)
+
+<use figures/App2.png>
+Package pdftex.def Info: figures/App2.png used on input line 271.
+(pdftex.def)             Requested size: 164.77344pt x 44.206pt.
+ <figures/App3.png, id=188, 181.67876pt x 214.8025pt>
+File: figures/App3.png Graphic file (type png)
+
+<use figures/App3.png>
+Package pdftex.def Info: figures/App3.png used on input line 279.
+(pdftex.def)             Requested size: 123.58322pt x 146.11948pt.
+ [46 <./figures/App2.png> <./figures/App3.png>]
+<figures/App4.png, id=195, 325.215pt x 91.34125pt>
+File: figures/App4.png Graphic file (type png)
+ <use figures/App4.png>
+Package pdftex.def Info: figures/App4.png used on input line 287.
+(pdftex.def)             Requested size: 164.77344pt x 46.27957pt.
+
+<figures/App5.png, id=196, 527.9725pt x 134.5025pt>
+File: figures/App5.png Graphic file (type png)
+ <use figures/App5.png>
+Package pdftex.def Info: figures/App5.png used on input line 295.
+(pdftex.def)             Requested size: 164.77344pt x 41.9765pt.
+
+<figures/App6.png, id=197, 795.97375pt x 731.73375pt>
+File: figures/App6.png Graphic file (type png)
+ <use figures/App6.png>
+Package pdftex.def Info: figures/App6.png used on input line 303.
+(pdftex.def)             Requested size: 164.77344pt x 151.46904pt.
+
+[47 <./figures/App4.png> <./figures/App5.png> <./figures/App6.png>]
+<figures/App7.png, id=204, 315.1775pt x 125.46875pt>
+File: figures/App7.png Graphic file (type png)
+ <use figures/App7.png>
+Package pdftex.def Info: figures/App7.png used on input line 311.
+(pdftex.def)             Requested size: 164.77344pt x 65.59447pt.
+
+<figures/App8.png, id=205, 713.66624pt x 125.46875pt>
+File: figures/App8.png Graphic file (type png)
+ <use figures/App8.png>
+Package pdftex.def Info: figures/App8.png used on input line 319.
+(pdftex.def)             Requested size: 247.16644pt x 43.45331pt.
+)
+[48 <./figures/App7.png> <./figures/App8.png>]
 \openout2 = `Chapters/ProfessionalIssues.aux'.
 
- (./Chapters/ProfessionalIssues.tex
+
+(./Chapters/ProfessionalIssues.tex
 Chapter 6.
-) [39
+) [49
 
 
 
@@ -532,29 +595,29 @@ Chapter 6.
 
  (./Chapters/Testing.tex
 Chapter 7.
-[40
+[50
 
 
 
-]) [41] [42]
+]) [51] [52]
 \openout2 = `Chapters/Evaluation.aux'.
 
  (./Chapters/Evaluation.tex
 Chapter 8.
-[43
+[53
 
 
 
-] [44] [45]) [46]
+] [54] [55]) [56]
 \openout2 = `Chapters/Conclusion.aux'.
 
  (./Chapters/Conclusion.tex
 Chapter 9.
-) [47
+) [57
 
 
 
-] (./report.bbl [48
+] (./report.bbl [58
 
 
 ]
@@ -569,7 +632,7 @@ Overfull \hbox (34.5409pt too wide) in paragraph at lines 40--41
 /10 http://stackoverflow.com/questions/11810484/why-
  []
 
-) [49]
+) [59]
 \openout2 = `Appendices/appendix.aux'.
 
 
@@ -578,7 +641,7 @@ No file Appendices/appendix.tex.
 
 (./Appendices/UserGuide.tex
 Appendix A.
-) [50
+) [60
 
 
 
@@ -588,7 +651,7 @@ Appendix A.
 
  (./Appendices/SourceCode.tex
 Appendix B.
-) [51
+) [61
 
 
 
@@ -599,24 +662,25 @@ Appendix B.
 (./Appendices/appendix.aux) (./Appendices/UserGuide.aux)
 (./Appendices/SourceCode.aux)) ) 
 Here is how much of TeX's memory you used:
- 4052 strings out of 495028
- 59746 string characters out of 6181496
- 128024 words of memory out of 5000000
- 7110 multiletter control sequences out of 15000+600000
- 45420 words of font info for 34 fonts, out of 8000000 for 9000
+ 4099 strings out of 495028
+ 60611 string characters out of 6181496
+ 128059 words of memory out of 5000000
+ 7147 multiletter control sequences out of 15000+600000
+ 49646 words of font info for 35 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 38i,7n,34p,1233b,243s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/
+ 38i,7n,34p,1581b,243s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.
+enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/
 dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr
 /share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share
-/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/
-lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb>
-Output written on report.pdf (55 pages, 765366 bytes).
+lic/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/sha
+re/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/l
+m/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texm
+f/fonts/type1/public/lm/lmsy10.pfb>
+Output written on report.pdf (65 pages, 1466624 bytes).
 PDF statistics:
- 232 PDF objects out of 1000 (max. 8388607)
- 149 compressed objects within 2 object streams
+ 285 PDF objects out of 1000 (max. 8388607)
+ 173 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
 

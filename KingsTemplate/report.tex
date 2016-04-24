@@ -9,9 +9,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Front Matter - project title, name, supervisor name and date
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{7CCS3PRJ Final Year\\\vspace{0.2cm}Individual Project Report Title}
+\title{7CCS3PRJ Final Year\\\vspace{0.2cm}Argumentation-based dialogue framework for human/robot interaction}
 \author{Maciej Musialek}
-\studentID{K1208837}
+\studentID{1211523}
 \supervisor{Dr. Elizabeth Black \&  Dr. Elizabeth Sklar}
 
 \date{\today}
@@ -31,7 +31,7 @@
 % You can write each chapter directly here or in a separate .tex file and use the include command.
 
 \chapter{Introduction}
-Communication has been a subject of research for a long time now. With the development of computers and robotics a new area was opened regarding communication between humans and robots. With the addition of job automation allowing robots to perform tasks on their own and take instructions, the communication started playing an even bigger part in job distribution. Humans handle the job distribution and robots would perform tasks carried onto them.
+	Communication has been a subject of research for a long time now. With the development of computers and robotics a new area was opened regarding communication between humans and robots. With the addition of job automation allowing robots to perform tasks on their own and take instructions, the communication started playing an even bigger part in job distribution. Humans handle the job distribution and robots would perform tasks carried onto them.
 
     This project focuses on turn-taking communication for energy limited robots with an addition of trying to give some decision power to robots, like proposing potential moves rather than list all of them. It focuses on creating a robot platform with a user interface that will allow testing how single human interaction can improve multi robot collaboration. This will be done by comparing different levels of freedom to robots from no control to complete control over the environment and their choices. This was largely motivated by a paper done by Sklar and Azhar\cite{Elizabeth} in their paper on Argumentation-Based Dialogue Games for Shared Control in Human-Robot Systems.
 
@@ -45,10 +45,9 @@ Communication has been a subject of research for a long time now. With the devel
 
     The main challenges with creating such a diverse system is in creating an environment where a variety of dialogues can be ran and tested. To achieve this, a modular system of classes needs to be developed to allow researchers to swap in and out different models of communication they would like to test on their users. It does not however suffice to simply create a dialogue class. To save time in future research, a unified environment has to be created to save time in reinventing a wheel for creating various scenarios to be tested. In this project, an environment based on Sklar and Azhar’s treasure hunt game will be implemented and ran along a modular communication class that will be fully editable by the user to ensure various models of communication are allowed. This will pose an additional challenge of creating a platform that holds the simulation software as well as the Graphical User Interface that are both in their essence modular inside the system. For this purpose, Robot Operating System(ROS) has been used to create a simulation platform and the main challenge with this is creating an environment that is also scalable based on the needs of research.
 
-    The next sections of the report will focus on giving a concrete description of how this system was developed and how researchers can use it to help their work.
+    The next chapters of the report will focus on giving a concrete description of how this system was developed and how researchers can use it to help their work.
 
 \include{Chapters/Background}
-%\include{Chapters/Body}
 \include{Chapters/DesignSpecification}
 \include{Chapters/Implementation}
 \include{Chapters/ProfessionalIssues}

@@ -397,7 +397,7 @@ public class GuiUser implements Listener{
 		public void createDialogs(String attributes) {
 			//Take in the information regarding the treasure and who it.
 			String[] temp = attributes.split("\\(");
-			attributes = temp[1].substring(0,temp[1].length()-2) + " " + temp[2].substring(0,temp[2].length()-2);
+			attributes = temp[1].substring(0,temp[1].length()-2) + " " + temp[2].substring(0,temp[2].length()-3);
 			String[] optionsForTreasure= {"Take Picture", "Identify the Treasure", "Continue"};
 			final JOptionPane optionPane = new JOptionPane(
                                     attributes,
@@ -450,7 +450,7 @@ public class GuiUser implements Listener{
                 {
                 	String[] optionsForTreasure = {"Identify","Continue"};
                 	final JOptionPane optionPane = new JOptionPane(
-                                    optionsForTreasure,
+                                    "Please identify or leave the treasure",
                                     JOptionPane.QUESTION_MESSAGE,
                                     JOptionPane.YES_NO_OPTION, null);
 
@@ -592,3 +592,4 @@ public class GuiUser implements Listener{
 		}
 
 	}
+}
