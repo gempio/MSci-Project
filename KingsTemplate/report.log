@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  24 APR 2016 18:51
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  25 APR 2016 00:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -211,8 +211,7 @@ LaTeX Info: Redefining \cite on input line 694.
 (./Chapters/Background.aux) (./Chapters/DesignSpecification.aux)
 (./Chapters/Implementation.aux) (./Chapters/ProfessionalIssues.aux)
 (./Chapters/Testing.aux) (./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux
-) (./Appendices/appendix.aux) (./Appendices/UserGuide.aux)
-(./Appendices/SourceCode.aux))
+))
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
@@ -599,25 +598,31 @@ Chapter 7.
 
 
 
-]) [51] [52]
+] [51] [52] [53] [54] [55] [56]) [57]
 \openout2 = `Chapters/Evaluation.aux'.
 
  (./Chapters/Evaluation.tex
 Chapter 8.
-[53
+[58
 
 
 
-] [54] [55]) [56]
+] [59]
+Overfull \hbox (16.42104pt too wide) in paragraph at lines 32--33
+\OT1/lmr/m/n/10 The sys-tem has been fully de-vel-oped and is ca-pa-ble of pro-
+vid-ing func-tion-al-ity for the argumentation-
+ []
+
+[60] [61]) [62] [63]
 \openout2 = `Chapters/Conclusion.aux'.
 
  (./Chapters/Conclusion.tex
 Chapter 9.
-) [57
+) [64
 
 
 
-] (./report.bbl [58
+] (./report.bbl [65
 
 
 ]
@@ -632,55 +637,29 @@ Overfull \hbox (34.5409pt too wide) in paragraph at lines 40--41
 /10 http://stackoverflow.com/questions/11810484/why-
  []
 
-) [59]
-\openout2 = `Appendices/appendix.aux'.
-
-
-No file Appendices/appendix.tex.
-\openout2 = `Appendices/UserGuide.aux'.
-
-(./Appendices/UserGuide.tex
-Appendix A.
-) [60
-
-
-
-
-]
-\openout2 = `Appendices/SourceCode.aux'.
-
- (./Appendices/SourceCode.tex
-Appendix B.
-) [61
-
-
-
-] (./report.aux (./Chapters/Background.aux)
+) [66] (./report.aux (./Chapters/Background.aux)
 (./Chapters/DesignSpecification.aux) (./Chapters/Implementation.aux)
 (./Chapters/ProfessionalIssues.aux) (./Chapters/Testing.aux)
-(./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux)
-(./Appendices/appendix.aux) (./Appendices/UserGuide.aux)
-(./Appendices/SourceCode.aux)) ) 
+(./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux)) ) 
 Here is how much of TeX's memory you used:
- 4099 strings out of 495028
- 60611 string characters out of 6181496
- 128059 words of memory out of 5000000
- 7147 multiletter control sequences out of 15000+600000
+ 4077 strings out of 495028
+ 60110 string characters out of 6181496
+ 127165 words of memory out of 5000000
+ 7144 multiletter control sequences out of 15000+600000
  49646 words of font info for 35 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  38i,7n,34p,1581b,243s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.
-enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/
-dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr
-/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></usr/sha
-re/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/l
-m/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/texm
-f/fonts/type1/public/lm/lmsy10.pfb>
-Output written on report.pdf (65 pages, 1466624 bytes).
+{/usr/share/texmf/fon
+ts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</
+usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/
+public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/publi
+c/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/t
+exmf/fonts/type1/public/lm/lmsy10.pfb>
+Output written on report.pdf (70 pages, 1478033 bytes).
 PDF statistics:
- 285 PDF objects out of 1000 (max. 8388607)
- 173 compressed objects within 2 object streams
+ 296 PDF objects out of 1000 (max. 8388607)
+ 180 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  101 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,0 +1,13 @@
+# Fdb version 3
+["pdflatex"] 1461536553 "Evaluation.tex" "Evaluation.pdf" "Evaluation" 1461536554
+  "/etc/texmf/web2c/texmf.cnf" 1445954923 475 c0e671620eb5563b2130f56340a5fde8 ""
+  "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1272929888 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
+  "/usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1136768653 1328 c834bbb027764024c09d3d2bf908b5f0 ""
+  "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1392645748 31083 1dfd8bf685ce0009c40532fedf8a7c53 ""
+  "/usr/share/texmf/web2c/texmf.cnf" 1392645748 31083 1dfd8bf685ce0009c40532fedf8a7c53 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1445954933 722336 aa374ca49e0a13456e030e7a278ea30d ""
+  "Evaluation.aux" 1461535699 1871 9a3da9d1079fba8ef5a1ca85d8b44c61 ""
+  "Evaluation.tex" 1461536549 11678 ecd0b2a36cded9819a1db8a18b630ed0 ""
+  (generated)
+  "Evaluation.log"
+  "Evaluation.pdf"

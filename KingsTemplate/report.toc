@@ -54,34 +54,35 @@
 \contentsline {subsection}{\numberline {5.4.6}GuiUser class}{43}
 \contentsline {subsection}{\numberline {5.4.7}Flow of the application}{45}
 \contentsline {chapter}{\numberline {6}Professional and Ethical Issues}{49}
-\contentsline {section}{\numberline {6.1}Section Heading}{49}
 \contentsline {chapter}{\numberline {7}Testing}{50}
-\contentsline {section}{\numberline {7.1}System against Requirements testing}{50}
-\contentsline {section}{\numberline {7.2}ROS Testing}{50}
-\contentsline {section}{\numberline {7.3}Server Testing}{50}
-\contentsline {section}{\numberline {7.4}GUI Testing}{51}
-\contentsline {section}{\numberline {7.5}Use Case Testing}{51}
-\contentsline {section}{\numberline {7.6}Known problems}{51}
-\contentsline {subsubsection}{GridLayer}{51}
-\contentsline {subsubsection}{Environment mostly simulated}{51}
-\contentsline {subsubsection}{ROS package stack}{51}
-\contentsline {subsubsection}{System currently made to run in an uninterrupted environment}{51}
-\contentsline {subsubsection}{A very strict Server}{52}
-\contentsline {chapter}{\numberline {8}Evaluation}{53}
-\contentsline {section}{\numberline {8.1}Project Progress Evaluation at the time of report}{53}
-\contentsline {section}{\numberline {8.2}How the project compares with other research}{53}
-\contentsline {section}{\numberline {8.3}Future possibilities for expanding the project}{54}
-\contentsline {subsubsection}{Minimizing dependencies}{54}
-\contentsline {subsubsection}{Automatic area clustering of robots}{54}
-\contentsline {subsubsection}{Start using physical robots for the Game}{54}
-\contentsline {subsubsection}{Expand the GUI to JavaFX}{55}
-\contentsline {subsubsection}{Add Phone support}{55}
-\contentsline {subsubsection}{Flexibility through Multi ROS Support}{55}
-\contentsline {subsubsection}{Deep sea exploration}{56}
-\contentsline {subsubsection}{Search-And-Rescue Scouting}{56}
-\contentsline {chapter}{\numberline {9}Conclusion and Future Work}{57}
-\contentsline {section}{Bibliography}{59}
-\contentsline {chapter}{\numberline {A}User Guide}{60}
-\contentsline {section}{\numberline {A.1}Instructions}{60}
-\contentsline {chapter}{\numberline {B}Source Code}{61}
-\contentsline {section}{\numberline {B.1}Instructions}{61}
+\contentsline {section}{\numberline {7.1}Testing against the specification.}{50}
+\contentsline {subsubsection}{Simulation environment}{50}
+\contentsline {subsubsection}{Graphical User Interface}{51}
+\contentsline {subsubsection}{Dialogue Interface}{52}
+\contentsline {subsubsection}{Summary}{53}
+\contentsline {section}{\numberline {7.2}ROS Testing}{53}
+\contentsline {section}{\numberline {7.3}Server Testing}{54}
+\contentsline {section}{\numberline {7.4}GUI Testing}{54}
+\contentsline {section}{\numberline {7.5}User Testing}{55}
+\contentsline {section}{\numberline {7.6}Testing summary}{56}
+\contentsline {section}{\numberline {7.7}Known problems}{56}
+\contentsline {subsubsection}{GridLayer}{56}
+\contentsline {subsubsection}{Environment mostly simulated}{57}
+\contentsline {subsubsection}{ROS package stack}{57}
+\contentsline {subsubsection}{System currently made to run in an uninterrupted environment}{57}
+\contentsline {chapter}{\numberline {8}Evaluation}{58}
+\contentsline {section}{\numberline {8.1}What was achieved vs. original intentions}{58}
+\contentsline {section}{\numberline {8.2}How the project compares with other research}{59}
+\contentsline {section}{\numberline {8.3}Future possibilities for expanding the project}{60}
+\contentsline {subsection}{\numberline {8.3.1}Improvements}{60}
+\contentsline {subsubsection}{Minimizing dependencies}{60}
+\contentsline {subsubsection}{Automatic area clustering of robots}{60}
+\contentsline {subsubsection}{Start using physical robots for the Game}{61}
+\contentsline {subsubsection}{Expand the GUI to JavaFX}{61}
+\contentsline {subsubsection}{Mobile Application support}{61}
+\contentsline {subsubsection}{Flexibility through Multi ROS Support}{62}
+\contentsline {subsection}{\numberline {8.3.2}Migration from dialogue research}{62}
+\contentsline {subsubsection}{Deep sea exploration}{62}
+\contentsline {subsubsection}{Search-And-Rescue Scouting}{63}
+\contentsline {chapter}{\numberline {9}Conclusion}{64}
+\contentsline {section}{Bibliography}{66}

@@ -1,24 +1,118 @@
 \chapter{Testing}
-	Modes specification and analysis will focus on altering the code in such a way that will allow provision of different results. I will provide algorithms for three different modes that allow an unbiased picture that will show how human interaction and robot collaboration will influence the results. This part will definitely allow for some research work.
+	The testing section will aim to test the system against the specification stated before in the project as well as test the environment for any defects. It will also list the known problems that the system has at the moment of submission. It should be noted that as the system is outlined it is extremely close to the outline of the system given in \cite{Elizabeth} and \cite{technical}
 
-    \section{System against Requirements testing}
-      Here I will weigh what the system managed to achieve in comparison to the requirements set out in the specification and design chapters.
+    \section{Testing against the specification.}
+      The specification outlines a very specific list of requirements. These requirements give an outline to how the environment should work. Each of these requirements is going to be evaluated in a list manner and give an explanation as to what extent has each of the points been achieved.
+      \subsubsection{Simulation environment}
+      \begin{itemize}
+        \item \textbf{SE1}: ROS based simulation environment. - Fully implemented. The simulation environment runs a navigation stack implementation in ROS.
+
+        \item \textbf{SE2}: An environment that allows simulation of a robot on a 2-D plane with the map received from project supervisor. - Fully achieved using the navigation stack.
+
+        \item \textbf{SE3}: Accepting commands from outside sources that guide the robot e.g. Go to room 1. - Fully implemented however this is using the hard coded room coordinates rather than X and Y coordinates of the rooms.
+
+        \item \textbf{SE4}: Responding to commands about robots position and whether it reached its goal. - The goal reached state is fully implemented while the position of robots was not required as the GUI does not implement real time update of the robots position.
+
+        \item \textbf{SE5}: An ability for the robot to realize which rooms are closest to it. - This is actually developed outside of the environment stack. The robot could calculate the path it takes it to get to the room but since the robot does not follow the path directly as well as uses heading to later readjust itself when it reaches the goal, path length would not be ideal measure of calculating cost.
+
+        \item \textbf{SE6}: Robot is able to find its own way inside the map to the goal. - Fully implemented. Once given the coordinates the robot moves to them freely.
+
+        \item \textbf{SE7}: Allow for more than one robot in a single simulation. - Partially implemented by running multiple map servers for each robot. However robots are still able to move around and a single ROS stack environment allows control of multiple robots.
+
+        \item \textbf{SE8}: Robot is fully aware of another robots presence. - Not implemented. The GridLayer package in ROS does not allow for real time updates of a static map that is used in this report.
+
+        \item \textbf{SE9}: Robot is able to avoid collisions with other robots. - Not implemented because \textbf{SE8} could not be implemented to update the costmap.
+
+        \item \textbf{SE10}: The environment can accept various maps and robots can adapt to these. - Fully implemented. The robots positions on the map are not affected by map change. Room coordinates will have to be recoded along with packages outside of ROS however different maps can easily by changed by changing the map file and robots will work with these.
+
+        \item \textbf{SE11}:  (Optional) Simulation minimizes the use of system resources. - This is achieved to an extent. The way this is done is by ROS implementing the navigation stack as opposed to gazebo packages.
+      \end{itemize}
+
+      This summarizes the specification for the ROS system environment. It is clear that most of the specification has been developed wherever possible apart from places where the ROS environment itself was not yet developed enough to support updates for their static map environment.
+
+    \subsubsection{Graphical User Interface}
+      \begin{itemize}
+          \item \textbf{UI1}: Interface should provide an approximated view of the simulation. - Fully implemented with robots updating their positions and notifying the user whether the robot is traveling to the location or not.
+
+          \item \textbf{UI2}: Interface provides options for users to select rooms that robots go to. - Fully implemented.
+
+          \item \textbf{UI3}: Users are able to select robots that they want to send goals for. - Implemented by using a custom JTable in Java Swing package.
+
+          \item \textbf{UI4}: User has the option of identifying the treasure, taking the picture and moving on. - Fully implemented with Implementation showing examples in the work flow.
+
+          \item \textbf{UI5}: Upon receiving the picture user has the option to identify the treasure. - Fully implemented with Implementation for reference.
+
+          \item \textbf{UI6}: Interface contains the map with an outline of rooms. - Implemented.
+
+          \item \textbf{UI7}: Interface updates robots positions on the map based on where they are in the simulation. - Not implemented. This would require custom AWT packages in Java that would consume too much time in the project. This was tackled by creating various map states and showing robot positions when robot reaches each room.
+
+          \item \textbf{UI8}: Interface accepts various dialogues when a command is executed to show to the user. - Implemented. There is room for other dialogue interrupts but currently the dialogue is centered around selecting a room and not knowing where the room is.
+
+          \item \textbf{UI9}: (Optional) Keyboard shortcuts implemented to smooth out the job as opposed to point and click where a mouse has to move all the time. - Not implemented. There was not enough time to achieve this functionality.
+        \end{itemize}
+
+        This summarizes the testing for the GUI section of the system. The system fully implements most of the requirements with the exception of \textbf{UI7} and \textbf{UI9} where the time constraint didn't allow for such additions however the basic functionality is fully working.
+
+      \subsubsection{Dialogue Interface}
+        \begin{itemize}
+          \item \textbf{DI1}: Hold necessary dialogues for different scenarios(Select room, Take a picture, Take treasure) - Fully implemented for Selecting a room and user not being sure which room to visit.
+          \item \textbf{DI2}: Cater to different amounts of responses. - Fully implemented. The template allows for different amount of questions per scenario.
+          \item \textbf{DI3}: Be outside of the GUI to ensure modularity. - Implemented to an extent. The GUI makes use of the dialogue class however the GUI depends on the dialogue class with the dialogue class only accepting an ArrayList of Integers to calculate closest rooms. In that essence the class is outside of the GUI with the GUI making use of it.
+          \item \textbf{DI4}: (Optional) Allow an array of responses for a given action(Two different sentences for the same action). - Not implemented. Due to the time constraints.
+          \item \textbf{DI5}: Dialogue possibilities held on an external file. - Fully implemented using the template approach.
+        \end{itemize}
+
+        With an exception to the optional \textbf{DI4} all the required functionality is fully implemented or in the case of \textbf{DI3} being implemented to an extent that the Dialogue is a non executable. This was reasoned by the logic for the ease of development as well as future use.
+
+      \subsubsection{Summary}
+        Almost all of the system features have been fully implemented and the system works as expected. There was only one feature which was not implemented due to software constraints but in the future this might be the case and as such, the GridLayer is included in the final source code for future implementations. With this a conclusion can be reached that the system satisfies the purpose it was set out to carry out in regards with the specification. The next sections will outline the stability of ROS to see how well it performs.
+
     \section{ROS Testing}
-      This will be testing on the ROS environment to fish out any bugs in the code to ensure that software is of quality.(Loop missing time lookups)
+      Outside of the specification it is important that the ROS environment can work fluently by itself without any problems. To achieve this various checks have been carried out to ensure stability of the ROS environment. These checks have been ran 15 times to ensure that the environment can work properly.
+      \begin{itemize}
+        \item Switching the environment with Rviz for debugging. Success rate: 86\%. This is an acceptable success rate. The environment switches on properly however Rviz sometimes crashes. Probably with ROS updates this issue will be alleviated.
+        \item Switching the environment without Rviz for production. Success rate: 100\%. The environment always switches on properly.
+        \item Environment connects to the Server successfully. Success rate 100\%. The environment will always switch on correctly and connect to the server if it is switched on and sufficient time has been given for the old ROS environment to be clear.
+        \item Environment accepts commands from the User GUI. Success rate: 100\%. As long as room commands keep coming in and a connection is maintained, the environment accepts commands and sends correct robots to correct rooms.
+        \item Simulation Environment sends back commands regarding the goal reached state. Success rate: 100\%. The User side will always receive a command it requests.
+        \item Robot reaches its goal. Success rate: 100\%. There was not a situation where a robot didn't reach a goal sent to it by the controller package. More runs could be ran however during the development after the correct simulation environment was reached there was never an issue with robots reaching their goals.
+      \end{itemize}
+
     \section{Server Testing}
-      Testing server connections to fish out any errors for future fixes with regards to how connections are handled. (\%\%shutdown messages could be improved on). What happens when we suddenly close the server.
+      The server environment is an external package provided by \cite{technical} and is responsible for handling the connections between the clients. It can be inferred that with the testing done in the simulation environment it fulfills its purpose fully and rechecking what has already been checked is not unnecessary. This environment fulfills its job fully which is to connect the system components together.
+
     \section{GUI Testing}
-      Testing the GUI, resizing etc. and testing different situations(Do the dialogs pop up correctly, Can user interrupt traveling robots etc.) What happens when the GUI closes by itself.
-    \section{Use Case Testing}
-      Testing the full implementation when switched on the application correctly and seeing if at any point the program crashes. Do these about 5-10 times in a row and see how many times there is a problem with software(if there is any). With these results elaborate on what could be causing issues if such present and include it in future works.
+      The GUI testing ensures that the user is presented with an environment that fully emulates the treasure hunt game using the ROS simulation environment. It can be inferred from the specification that it fulfills this duty properly as well as from the implementation that commands work as expected. Some tests are required to test the stability with running ROS however it can already be said that the GUI is working as intended.
+      \begin{itemize}
+        \item GUI won't switch on without the server being switched on too. Success rate: 100\%. The environment will throw an I/O exception and won't switch on saying that it can't connect to the specified IP address.
+        \item The game satisfies the logic outlined in the Design section. Success rate: 100\%.
+        \item The game makes sure the user is fully informed about what is going on in the game. This measure cannot be counted however multiple dialogues have been given to ensure that the users can fully be informed about game progress.
+        \item Game doesn't crash during execution. Success rate: 100\%. The game always was able to go through the entire process from start to termination without any issues.
+        \item The dialogue interface always provides the optimal suggestion for rooms. This is true because of the algorithm developed. In fact after repeated use, users started using the Don't Know button to maximize energy efficiency rather than plan out the route themselves.
+        \item Editing templates updated the way the software interacts with the user. Success rate: 100\%. As long as the templates followed the conventions outlined in the implementation there were no problems with the software and it adapted accordingly.
+      \end{itemize}
+
+    \section{User Testing}
+      With the fully implemented product, 4 users were asked to test the software and play with it or try to break it as well as complete the game throughout. 2 of the users also had a chance to continually use the game in their own time later showing how they used it.
+
+      During this time the users didn't manage to find errors with some comments about the overall game structure. The main error they found was with the energy management where they were able to move to a certain room that required more energy than the robot had. They couldn't however take pictures or identify the treasure which rendered the action useless. The robot would switch off after reaching the room. This feature needs to be improved because users might naively move the robot with less energy to a room and then realize that they visited a room that they can't revisit or take advantage of.
+
+      The comments the users has were always around the map not updating for them making the experience a bit tedious since they had to wait looking at a static environment. This is mostly due to the expectations from the environment and the way current games work however this improvement would be one of the top priorities in future development. There were also comments regarding the treasures and how they were easy to make out from each other however the current template design allows for more ambiguity if the administrator of the system edits the template so that the color and the footprint of 2 treasures are the same but represent a different treasure requiring the user to take pictures to identify said treasures. That would increase the difficulty and users would enjoy the game more. One of the users was also a bit annoyed that he was constantly asked questions about the his room options and if he was sure however that is a personal preference for how he wants his environment to be handled and can be further investigated how various profiles of personalities use the system however this is outside the scope of this project.
+
+      An observation of 2 users that had a bigger exposure to the system showed that they trusted the robot more than their planning choosing the Don't Know option to complete the run. This can suggest either user laziness in which case no conclusions can be drawn for various environments however it can also infer that we're moving towards an age where robots are more trusted than human intuition. It is important to note, that with such a small user group drawing conclusions on human preference would be inaccurate and a bigger sample needs to be drawn out. It is also important to note that three out of the four asked users were also informatics students meaning that the sample group was already generally made to adapt to software quickly and bigger sample of users would be required to draw better results.
+
+    \section{Testing summary}
+      The system performed well by the specification and by the design it was set out to use. Reliability of software was also tested and proved to be very effective under specified scenario of running the game. Some users were also asked to ensure that the environment functions well by someone that is unfamiliar with it. The environment didn't fail for them and with little instructions they were able to use it fluently suggesting that a successful platform was implemented.
+
     \section{Known problems}
       \subsubsection{GridLayer}
-        Talk about how the environment doesn't let robots update the costmap but are rather reliant on the static map which means that at current stage they are rather reliant on the environment being unchanging. They can also overlap in their travels.
+        The GridLayer is advertised by ROS to allow adding obstacles to the static map and at the start of the software it does so without the problem however it does not update the map accordingly with time. On top of that, like with a lot of ROS packages very little support is given for its implementation and as such it was extremely difficult to set up. With later tests, the GridLayer map would pose obstacles in the wrong places as well as distort the map. This means that at the current version of ROS it is not a viable package to use. Nonetheless, if in future ROS decides to update this particular package, the GridLayer will be extremely useful in development and as such is ran in the standard ROS stack.
+
       \subsubsection{Environment mostly simulated}
-        A lot of the work to create the game is simulated like energy levels and taking pictures. Elaborate on how this might pose difficulties in the future.
+        This is not a problem by the definition of the project but as a consequence of this, very little could have been developed in ROS itself. A lot of functionality has been migrated to GUI classes or the Hider class to provide the functionality outlined for the ROS stack. This is plainly because the simulation in ROS environment allows for simulating robot on a map but does very little to making the simulation more elaborate such as create a 3d background environment. In the future when an environment is to be moved to the physical world this functionality will have to be reinvented and functions redirected to the Simulation environment.
+
       \subsubsection{ROS package stack}
-        Talk about how libraries and executables are very rarely properly working together and how inclusion of external classes can lead to errors. An example of this can be integrating GridLayer using robotPosition class to set new obstacles.
+        ROS package stack refers to the way in which ROS connects its packages together to allow users to use them comfortably. Very little support however is given to users that want to connect classes together by means other than subscribing and publishing. This became a bigger issue when trying to connect classes that couldn't use such features because they were using the spin function that is normally used in the main body outside of it meaning that connecting classes would be necessary. Due to ROS's own implementation of the C++ compiler this was rendered extremely difficult and took a lot of time from the project.
+
       \subsubsection{System currently made to run in an uninterrupted environment}
-        As of right now closing either of the applications could cause an error forcing the user not to notice any error until sufficient time has passed to realize there is a fault in the system. \textbf{Will try to fix this to ping everyone occasionally or make a note that Server could notify all other nodes of one node disabling to halt all actions and ask for a restart.}
-      \subsubsection{A very strict Server}
-        This actually ensures that no impostors attack the server however more frequent pings could be specified for certain applications where if the application is switched off, the user will not have to wait until the server cleans out the old GUI before a new one can be switched on.
+        As of right now closing either of the applications could cause an error forcing the user not to notice any error until sufficient time has passed to realize there is a fault in the system. It is not an issue for a freshly started system that the administrator remembers to restart after every use. In the future it could be a good idea to develop functionality that allows components to be restarted without having to restart the entire system.

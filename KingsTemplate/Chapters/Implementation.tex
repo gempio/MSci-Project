@@ -259,7 +259,7 @@
       \begin{figure}[htp]
         \centering
         \makebox{\includegraphics[width=0.4\hsize]{figures/App1.png}}
-        \caption{Finished GUI.}
+        \caption{Prompt asking what number of robots to start with.}
       \end{figure}
 
       This command is only used for the set up of the GUI. For simplicity reasons, the Simulation environment starts with 2 robots at the start however in the future functionality for starting the ROS stack could be created that creates Robots based on the command sent to it by the server. The amount of robots running at the ROS stack does not however, affect the functionality of the GUI and will work correctly with different amounts of robots set up at the GUI as long as both environments hold the same possible number of robots. In the current implementation 2 robots are set up to be the maximum however it will not be a problem to increase them as that is a single variable in the GUI and a matter of adding a robot group in the ROS launch file.
