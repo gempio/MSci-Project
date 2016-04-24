@@ -19,40 +19,12 @@
 
     </node>
 
-  <node pkg="robot2_tf" type="my_sensor2" name="my_sensor1"  args="1" output="screen">
-    <param name="sensor_param" value="param_value" />
-  </node>
-
-  <node pkg="robot2_tf" type="laser_cloud2" name="laser_cloud1" args="1" output="screen">
-    <param name="sensor_param" value="param_value" />
-  </node>
-
   <node pkg="robot2_tf" type="my_odom2" name="my_odom1" args="1" output="screen">
     <param name="odom_param" value="param_value" />
   </node>
 
-  <node pkg="robot2_tf" type="tf_broadcaster2" name="broadcaster1" args="1" output="screen">
-    <param name="broadcaster" value="param_value" />
-  </node>
-
-  <node pkg="robot2_tf" type="tf_listener2" name="listener1" args="1" output="screen">
-    <param name="listener" value="param_value" />
-  </node>
-
 <node pkg="robot2_tf" type="pose_publisher2" name="pose_publisher1" args="1" output="screen">
     <param name="pose_publisher" value="param_value" />
-  </node>
-
-  <node type="laser_scan_assembler" pkg="laser_assembler" args="1" name="my_assembler5">
-    <remap from="scan2" to="tilt_scan"/>
-    <param name="max_scans" type="int" value="400" />
-    <param name="fixed_frame" type="string" value="base_link2" />
-  </node>
-
-  <node type="point_cloud_assembler" pkg="laser_assembler" args="1" name="my_assembler6">
-    <remap from="cloud" to="my_cloud_in"/>
-    <param name="max_clouds" type="int" value="400" />
-    <param name="fixed_frame" type="string" value="base_link2" />
   </node>
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
@@ -82,40 +54,12 @@
       <param name="max_iterations" value="10"/>
     </node>
 
-  <node pkg="robot2_tf" type="my_sensor2" name="my_sensor2"  args="2" output="screen">
-    <param name="sensor_param" value="param_value" />
-  </node>
-
-  <node pkg="robot2_tf" type="laser_cloud2" name="laser_cloud2" args="2" output="screen">
-    <param name="sensor_param" value="param_value" />
-  </node>
-
   <node pkg="robot2_tf" type="my_odom2" name="my_odom2" args="2" output="screen">
     <param name="odom_param" value="param_value" />
   </node>
 
-  <node pkg="robot2_tf" type="tf_broadcaster2" name="broadcaster2" args="2" output="screen">
-    <param name="broadcaster" value="param_value" />
-  </node>
-
-  <node pkg="robot2_tf" type="tf_listener2" name="listener2" args="2" output="screen">
-    <param name="listener" value="param_value" />
-  </node>
-
 <node pkg="robot2_tf" type="pose_publisher2" name="pose_publisher2" args="2" output="screen">
     <param name="pose_publisher" value="param_value" />
-  </node>
-
-  <node type="laser_scan_assembler" pkg="laser_assembler" args="2" name="my_assembler3">
-    <remap from="scan2" to="tilt_scan"/>
-    <param name="max_scans" type="int" value="400" />
-    <param name="fixed_frame" type="string" value="base_link2" />
-  </node>
-
-  <node type="point_cloud_assembler" pkg="laser_assembler" args="2" name="my_assembler4">
-    <remap from="cloud" to="my_cloud_in"/>
-    <param name="max_clouds" type="int" value="400" />
-    <param name="fixed_frame" type="string" value="base_link2" />
   </node>
 
   <node pkg="move_base" type="move_base" respawn="false" name="move_base">
