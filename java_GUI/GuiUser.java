@@ -449,6 +449,7 @@ public class GuiUser implements Listener{
                     dialog.setLayout(new BorderLayout());
                     dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
                     dialog.setTitle("Picture of treasure");
+                    System.out.println(filename);
                     dialog.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("rooms/" + filename)))),BorderLayout.NORTH);
                     dialog.add(optionPane,BorderLayout.SOUTH);
 
@@ -472,9 +473,7 @@ public class GuiUser implements Listener{
 
                     dialog.pack();
                     dialog.setLocationByPlatform(true);
-                    dialog.setVisible(true);
-
-                    
+                    dialog.setVisible(true);   
                 } 
                 catch (IOException e) 
                 {

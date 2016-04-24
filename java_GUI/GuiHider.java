@@ -95,7 +95,7 @@ public class GuiHider implements Listener{
 	}
 
 	public void sendPicture(int room) {
-		r.sendMessage("%%image Hider TabUI " +room + " " + treasures.get(room));
+		r.sendMessage("%%image Hider TabUI " +room + " " + treasures.get(room)[4]);
 	}
 
 	//Listener functions implemented.

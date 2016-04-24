@@ -15,6 +15,7 @@ public class Dialogue {
 	private boolean useShortPaths;
 	private ArrayList<Integer> unvisitedRooms;
 
+	//Initialize the code.
 	public Dialogue(ArrayList<Integer> unvisitedRooms) {
 		this.unvisitedRooms = unvisitedRooms;
 		useShortPaths = true;
@@ -27,9 +28,12 @@ public class Dialogue {
 		System.out.println(notSureQuestions.size());
 	}
 
+	//Boolean that decides whether or not the hamiltonian path algorithm will be applied
 	public void setShortestPaths(boolean paths) {
 		this.useShortPaths = paths;
 	}
+
+	//Retrieve the cost to not hold the cost adjecency 2D array in more than one class.
 	public int getCost(int rooma, int roomb) {
 		return mapCosts[rooma][roomb];
 	}
@@ -53,6 +57,7 @@ public class Dialogue {
 			System.out.println("IO Exception");
 		}
 	}
+
 	//Restart the dialogue
 	public void restart() {
 		typeOfDialogue = false;
@@ -69,9 +74,11 @@ public class Dialogue {
 		return specificRoomQuestions.size();
 	}
 
+	//Return the best suggested room based on set data.
 	public int getSuggestion() {
 		return suggestedRoom;
 	}
+
 	//Start a Don't know dialogue.
 	public void startNotSure(int curRoom) {
 		this.curRoom = curRoom;
@@ -104,7 +111,8 @@ public class Dialogue {
 		this.nextRoom = nextRoom;
 		typeOfDialogue = false;
 	}
-
+	//Hamiltonian path style architecture to retrieving the optimal next room
+	//based on unvisited rooms.
 	public int calculateSuggestion(int room) {
 		String unvisitedRoomsInString = "";
 		
@@ -131,10 +139,12 @@ public class Dialogue {
 		return Character.getNumericValue(pathCostsPerPermutation.get(minCostPath).charAt(1));
 	}
 
+	//Ensures that when asked for suggestion, the dialogue is up to date.
 	public void setUnvisitedRooms(ArrayList<Integer> unvisitedRooms) {
 		this.unvisitedRooms = unvisitedRooms;
 	}
 
+	//Read in adjacency matrix for the code.
 	public int[][] readInCosts() {
 		int[][] adjacencyMatrix;
 		try (BufferedReader br = new BufferedReader(new FileReader("mapTimes"))) {
@@ -159,6 +169,7 @@ public class Dialogue {
 		return null;
 	}
 
+	//Short function to convert strings arrays to integer arrays.
 	public int[] convertStringToIntArray(String[] temp) {
 		int[] temp2 = new int[temp.length];
 		for(int i = 0; i<temp.length;i++) {
@@ -166,6 +177,8 @@ public class Dialogue {
 		}
 		return temp2;
 	}
+
+	//Recursion styled permutation creator.
 	private List<String> permutation(String prefix, String str) {
 	    List<String> permutations = new ArrayList<>();
 	    int n = str.length();
