@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  24 APR 2016 03:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  24 APR 2016 06:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -208,11 +208,11 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count131
 ) (./report.aux
-(./Chapters/Background.aux) (./Chapters/Body.aux)
-(./Chapters/DesignSpecification.aux) (./Chapters/Implementation.aux)
-(./Chapters/ProfessionalIssues.aux) (./Chapters/Evaluation.aux)
-(./Chapters/Conclusion.aux) (./Appendices/appendix.aux)
-(./Appendices/UserGuide.aux) (./Appendices/SourceCode.aux))
+(./Chapters/Background.aux) (./Chapters/DesignSpecification.aux)
+(./Chapters/Implementation.aux) (./Chapters/ProfessionalIssues.aux)
+(./Chapters/Testing.aux) (./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux
+) (./Appendices/appendix.aux) (./Appendices/UserGuide.aux)
+(./Appendices/SourceCode.aux))
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
@@ -228,8 +228,7 @@ LaTeX Font Info:    ... okay on input line 22.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 22.
-
-(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+ (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
@@ -372,107 +371,205 @@ G copy)>] (./FrontMatter/abstract.tex) [1
 [1] (./FrontMatter/acknowledgements.tex) [0
 
 ] (./report.toc
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 2.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 3.
 
 (/usr/share/texmf/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 2.
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 3.
 
 (/usr/share/texmf/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 2.
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 3.
 
 (/usr/share/texmf/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 2.
+(Font)              <10> on input line 3.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 2.
+(Font)              <7> on input line 3.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 2.
-)
+(Font)              <5> on input line 3.
+ [1
+
+])
 \tf@toc=\write3
 \openout3 = `report.toc'.
 
- [1
-
-]
+ [2]
 Chapter 1.
-[2
+[3
 
-]
+] [4]
 \openout2 = `Chapters/Background.aux'.
 
  (./Chapters/Background.tex
 Chapter 2.
-) [3
+[5
 
 
-]
-\openout2 = `Chapters/Body.aux'.
+] <figures/treasures.png, id=36, 547.04375pt x 90.3375pt>
+File: figures/treasures.png Graphic file (type png)
 
- (./Chapters/Body.tex
-Chapter 3.
-) [4
+<use figures/treasures.png>
+Package pdftex.def Info: figures/treasures.png used on input line 16.
+(pdftex.def)             Requested size: 420.18045pt x 69.38777pt.
 
+Overfull \hbox (8.24055pt too wide) in paragraph at lines 16--17
+ [][] 
+ []
 
-
-]
+[6 <./figures/treasures.png>] [7] [8] [9] [10]) [11]
 \openout2 = `Chapters/DesignSpecification.aux'.
 
- (./Chapters/DesignSpecification.tex
+
+(./Chapters/DesignSpecification.tex
+Chapter 3.
+LaTeX Font Info:    Try loading font information for OMS+lmr on input line 8.
+(/usr/share/texmf/tex/latex/lm/omslmr.fd
+File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 8.
+ [12
+
+
+
+] [13] [14]
 Chapter 4.
-) [5
+[15
 
+] <figures/mainCommunication.png, id=70, 369.38pt x 377.41pt>
+File: figures/mainCommunication.png Graphic file (type png)
 
+<use figures/mainCommunication.png>
+Package pdftex.def Info: figures/mainCommunication.png used on input line 66.
+(pdftex.def)             Requested size: 288.35666pt x 294.62624pt.
+ [16 <./figures/mainCommunication.png>]
+<figures/RosCommunication.png, id=76, 330.23375pt x 368.37625pt>
+File: figures/RosCommunication.png Graphic file (type png)
 
-]
+<use figures/RosCommunication.png>
+Package pdftex.def Info: figures/RosCommunication.png used on input line 77.
+(pdftex.def)             Requested size: 329.55316pt x 367.62775pt.
+ [17 <./figures/RosCommunication.png>]
+<figures/GUICommunication.png, id=81, 352.31625pt x 445.665pt>
+File: figures/GUICommunication.png Graphic file (type png)
+
+<use figures/GUICommunication.png>
+Package pdftex.def Info: figures/GUICommunication.png used on input line 89.
+(pdftex.def)             Requested size: 329.55316pt x 416.87148pt.
+ [18]
+<figures/RVIZ.png, id=85, 1627.07875pt x 1026.83624pt>
+File: figures/RVIZ.png Graphic file (type png)
+ <use figures/RVIZ.png>
+Package pdftex.def Info: figures/RVIZ.png used on input line 102.
+(pdftex.def)             Requested size: 247.16644pt x 155.97731pt.
+
+[19 <./figures/GUICommunication.png>]
+<figures/ROSPlan.png, id=90, 464.73625pt x 94.3525pt>
+File: figures/ROSPlan.png Graphic file (type png)
+
+<use figures/ROSPlan.png>
+Package pdftex.def Info: figures/ROSPlan.png used on input line 112.
+(pdftex.def)             Requested size: 411.9399pt x 83.6351pt.
+ [20 <./figures/RVIZ.png> <./figures/ROSPlan.png>]
+<figures/GUIDesign.png, id=94, 640.3925pt x 456.70625pt>
+File: figures/GUIDesign.png Graphic file (type png)
+
+<use figures/GUIDesign.png>
+Package pdftex.def Info: figures/GUIDesign.png used on input line 140.
+(pdftex.def)             Requested size: 411.9399pt x 293.7823pt.
+ [21] [22 <./figures/GUIDesign.png>] [23]
+<figures/GuiUseCase2.png, id=105, 699.61375pt x 194.7275pt>
+File: figures/GuiUseCase2.png Graphic file (type png)
+
+<use figures/GuiUseCase2.png>
+Package pdftex.def Info: figures/GuiUseCase2.png used on input line 175.
+(pdftex.def)             Requested size: 411.9399pt x 114.65942pt.
+
+<figures/flowChart.png, id=106, 735.74875pt x 534.99875pt>
+File: figures/flowChart.png Graphic file (type png)
+
+<use figures/flowChart.png>
+Package pdftex.def Info: figures/flowChart.png used on input line 183.
+(pdftex.def)             Requested size: 453.1364pt x 329.508pt.
+
+Overfull \hbox (41.1965pt too wide) in paragraph at lines 183--184
+ [][] 
+ []
+
+) [24 <./figures/GuiUseCase2.png>] [25 <./figures/flowChart.png>]
 \openout2 = `Chapters/Implementation.aux'.
 
- (./Chapters/Implementation.tex
+
+(./Chapters/Implementation.tex
 Chapter 5.
-) [6
+[26
 
 
 
-]
+] [27] [28] [29] <figures/ROSmapping.png, id=128, 1663.21375pt x 835.12pt>
+File: figures/ROSmapping.png Graphic file (type png)
+
+<use figures/ROSmapping.png>
+Package pdftex.def Info: figures/ROSmapping.png used on input line 56.
+(pdftex.def)             Requested size: 411.9399pt x 206.84256pt.
+ [30 <./figures/ROSmapping.png>] [31] [32] [33]
+[34] [35] [36] [37]) [38]
 \openout2 = `Chapters/ProfessionalIssues.aux'.
 
  (./Chapters/ProfessionalIssues.tex
 Chapter 6.
-) [7
+) [39
 
 
 
 ]
+\openout2 = `Chapters/Testing.aux'.
+
+ (./Chapters/Testing.tex
+Chapter 7.
+[40
+
+
+
+]) [41] [42]
 \openout2 = `Chapters/Evaluation.aux'.
 
  (./Chapters/Evaluation.tex
-Chapter 7.
-) [8
+Chapter 8.
+[43
 
 
 
-]
+] [44] [45]) [46]
 \openout2 = `Chapters/Conclusion.aux'.
 
  (./Chapters/Conclusion.tex
-Chapter 8.
-) [9
+Chapter 9.
+) [47
 
 
 
-] (./report.bbl
-
-Package natbib Warning: Empty `thebibliography' environment on input line 3.
-
-) [10
+] (./report.bbl [48
 
 
 ]
+Overfull \hbox (6.23558pt too wide) in paragraph at lines 37--38
+[]\OT1/lmr/m/n/10 Multiple robots sim-u-la-tion and nav-i-ga-tion, \OT1/lmr/m/i
+t/10 http://answers.ros.org/question/41433/multiple-
+ []
+
+
+Overfull \hbox (34.5409pt too wide) in paragraph at lines 40--41
+[]\OT1/lmr/m/n/10 Discussion on C++ be-ing plat-form de-pen-dent. \OT1/lmr/m/it
+/10 http://stackoverflow.com/questions/11810484/why-
+ []
+
+) [49]
 \openout2 = `Appendices/appendix.aux'.
 
 
@@ -481,7 +578,7 @@ No file Appendices/appendix.tex.
 
 (./Appendices/UserGuide.tex
 Appendix A.
-) [11
+) [50
 
 
 
@@ -491,33 +588,35 @@ Appendix A.
 
  (./Appendices/SourceCode.tex
 Appendix B.
-) [12
+) [51
 
 
 
-] (./report.aux (./Chapters/Background.aux) (./Chapters/Body.aux)
+] (./report.aux (./Chapters/Background.aux)
 (./Chapters/DesignSpecification.aux) (./Chapters/Implementation.aux)
-(./Chapters/ProfessionalIssues.aux) (./Chapters/Evaluation.aux)
-(./Chapters/Conclusion.aux) (./Appendices/appendix.aux)
-(./Appendices/UserGuide.aux) (./Appendices/SourceCode.aux)) ) 
+(./Chapters/ProfessionalIssues.aux) (./Chapters/Testing.aux)
+(./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux)
+(./Appendices/appendix.aux) (./Appendices/UserGuide.aux)
+(./Appendices/SourceCode.aux)) ) 
 Here is how much of TeX's memory you used:
- 3938 strings out of 495028
- 57534 string characters out of 6181496
- 124800 words of memory out of 5000000
- 7011 multiletter control sequences out of 15000+600000
- 41202 words of font info for 33 fonts, out of 8000000 for 9000
+ 4052 strings out of 495028
+ 59746 string characters out of 6181496
+ 128024 words of memory out of 5000000
+ 7110 multiletter control sequences out of 15000+600000
+ 45420 words of font info for 34 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 38i,5n,34p,1103b,243s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/
-fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc
-}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/typ
-e1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmmi10.pfb></us
-r/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmr12.pfb>
-Output written on report.pdf (16 pages, 146111 bytes).
+ 38i,7n,34p,1233b,243s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}
+{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/share/texmf/fonts/enc/
+dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr
+/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/pub
+lic/lm/lmmi10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share
+/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/
+lmri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb>
+Output written on report.pdf (55 pages, 765366 bytes).
 PDF statistics:
- 79 PDF objects out of 1000 (max. 8388607)
- 54 compressed objects within 1 object stream
+ 232 PDF objects out of 1000 (max. 8388607)
+ 149 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 6 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

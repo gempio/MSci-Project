@@ -1,3 +1,48 @@
 \begin{thebibliography}{}
+\bibitem{Elizabeth}
+      Elizabeth I. Sklar and M. Q. Azhar, Argumentation-Based Dialogue Games for Shared Control in Human-Robot Systems,
+      \emph{Journal of Human-Robot Interaction, Vol. 1, No. 1, 2012, Pages 78-95. DOI 10.5898/JHRI.1.1.Tanaka}.
 
+    \bibitem{ChangLiu}
+      Chang Liu et al. Goal Inference Improves Objective and Perceived Performance in Human-Robot Collaboration, 
+      \emph{Proceedings of the 15th International Conference on Autonomous Agents and Multiagent Systems (AAMAS 2016), J. Thangarajah, K. Tuyls, C. Jonker, S. Marsella (eds.), May 9–13, 2016, Singapore.}.
+
+    \bibitem{Vijay}
+      Vijay Govindarajan et al. Human-Robot Collaborative Topological Exploration for Search and Rescue Applications,
+      \emph{Distributed Autonomous Robotic Systems Volume 112 of the series Springer Tracts in Advanced Robotics pp 17-32 15 Jan 2016}.
+
+    \bibitem{Hiraki}
+      Hiraki Goto et al. Human-Robot Collaborative Assembly by On-line Human Action Recognition Based on an FSM Task Mode,
+      \emph{Proc. HRI-2013 Workshop on collaborative Manipulation: New challenges for robotics and HRI, Mar. 3 2013}.
+
+    \bibitem{Fiore}
+      Michelangelo Fiore, Aurelie Clodic, Rachid Alami.On Planning and Task achievement Modalities for Human-Robot Collaboration. \emph{International Symposium on Experimental Robotics (ISER 2014), Jun 2014, Marrakech, Morocco. 15p. <hal-01149109> 13 November 2015}.
+
+    \bibitem{ChienLiang}
+      Chien-Liang Fok et al. Integration and Usage of a ROS-Based Whole Body Control Software Framework
+      \emph{Robot Operating System (ROS)Volume 625 of the series Studies in Computational Intelligence pp 535-563 10 February 2016}.
+
+    \bibitem{Liang}
+      Liang S Ng et al. Open source hardware and software platform for robotics and artificial intelligence applications
+      \emph{IOP Conf. Series: Materials Science and Engineering 114 (2016) 012142 doi:10.1088/1757-899X/114/1/012142}.
+
+    \bibitem{Pedro}
+      Pedro Deusdado et al. An Aerial-Ground Robotic Team for Systematic Soil and Biota Sampling in Estuarine Mudflats
+      \emph{Robot 2015: Second Iberian Robotics Conference Volume 418 of the series Advances in Intelligent Systems and Computing pp 15-26}.
+
+    \bibitem{technical}
+      Elizabeth I. Sklar and Simon Parsons (2015). HRT2: System Architecture Overview, version 2.1. Technical Report, Dept of Computer Science, University of Liverpool, 2015.
+
+    \bibitem{wiki1}
+      Multiple robots simulation and navigation, \emph{http://answers.ros.org/question/41433/multiple-robots-simulation-andnavigation/}.
+
+    \bibitem{cplus}
+      Discussion on C++ being platform dependent. \emph{http://stackoverflow.com/questions/11810484/why-is-c-platformdependent}.
+    \bibitem{socketio}
+      Socket IO website for reference. \emph{http://socket.io/}.
+    \bibitem{python}
+       Book: Python Programming for the Absolute Beginner, Michael Dawson, 1 Jan 2010
+
+    \bibitem{port6009}
+      Information on TCP port 6009 confirming it is not used and guarantees proper data transfer \emph{http://www.adminsub.net/tcp-udp-port-finder/6009}.
 \end{thebibliography}

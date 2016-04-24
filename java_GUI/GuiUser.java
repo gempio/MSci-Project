@@ -592,7 +592,3 @@ public class GuiUser implements Listener{
 		}
 
 	}
-
-
-
-}

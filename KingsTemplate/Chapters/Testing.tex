@@ -1,0 +1,24 @@
+\chapter{Testing}
+	Modes specification and analysis will focus on altering the code in such a way that will allow provision of different results. I will provide algorithms for three different modes that allow an unbiased picture that will show how human interaction and robot collaboration will influence the results. This part will definitely allow for some research work.
+
+    \section{System against Requirements testing}
+      Here I will weigh what the system managed to achieve in comparison to the requirements set out in the specification and design chapters.
+    \section{ROS Testing}
+      This will be testing on the ROS environment to fish out any bugs in the code to ensure that software is of quality.(Loop missing time lookups)
+    \section{Server Testing}
+      Testing server connections to fish out any errors for future fixes with regards to how connections are handled. (\%\%shutdown messages could be improved on). What happens when we suddenly close the server.
+    \section{GUI Testing}
+      Testing the GUI, resizing etc. and testing different situations(Do the dialogs pop up correctly, Can user interrupt traveling robots etc.) What happens when the GUI closes by itself.
+    \section{Use Case Testing}
+      Testing the full implementation when switched on the application correctly and seeing if at any point the program crashes. Do these about 5-10 times in a row and see how many times there is a problem with software(if there is any). With these results elaborate on what could be causing issues if such present and include it in future works.
+    \section{Known problems}
+      \subsubsection{GridLayer}
+        Talk about how the environment doesn't let robots update the costmap but are rather reliant on the static map which means that at current stage they are rather reliant on the environment being unchanging. They can also overlap in their travels.
+      \subsubsection{Environment mostly simulated}
+        A lot of the work to create the game is simulated like energy levels and taking pictures. Elaborate on how this might pose difficulties in the future.
+      \subsubsection{ROS package stack}
+        Talk about how libraries and executables are very rarely properly working together and how inclusion of external classes can lead to errors. An example of this can be integrating GridLayer using robotPosition class to set new obstacles.
+      \subsubsection{System currently made to run in an uninterrupted environment}
+        As of right now closing either of the applications could cause an error forcing the user not to notice any error until sufficient time has passed to realize there is a fault in the system. \textbf{Will try to fix this to ping everyone occasionally or make a note that Server could notify all other nodes of one node disabling to halt all actions and ask for a restart.}
+      \subsubsection{A very strict Server}
+        This actually ensures that no impostors attack the server however more frequent pings could be specified for certain applications where if the application is switched off, the user will not have to wait until the server cleans out the old GUI before a new one can be switched on.
