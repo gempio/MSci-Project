@@ -70,15 +70,12 @@ public class GuiUser implements Listener{
 
 	//Simple method that sends a send robot message and asks the server to pass it through.
 	public void sendRobot(Connector r, int robot, int room) {
-		System.out.println("Sending robot.");
 		int costOfTravel = dialogue.getCost(robots[robot].getRoomNumber(), room+1);
-		System.out.println(costOfTravel);
 		robots[robot].setCost(costOfTravel);
-		System.out.println("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
+		robots[robot].setTraveling(true);
 		r.sendMessage("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
 		unvisitedRooms.remove(new Integer(room+1));
 		dialogue.setUnvisitedRooms(unvisitedRooms);
-		System.out.println("Message sent");
 	}
 
 	public void readInTreasuresAndRoomsAmount() {
@@ -96,7 +93,6 @@ public class GuiUser implements Listener{
 		} catch(IOException e) {
 			System.out.println("IO Exception");
 		}
-		System.out.println(tempTreasArray);
 		actualTreasOptions = new String[treasureOptions.size()];
 		actualTreasOptions = tempTreasArray.toArray(actualTreasOptions);
 	}
@@ -110,20 +106,24 @@ public class GuiUser implements Listener{
 
   	//Calculate all the new attributes of the robot.
   	public void fieldChanged(Object source, String attribute) {
-    	System.out.println("User GUI: " + attribute); 
+
     	if(attribute.contains("error")) {
     		updateRobot(attribute);
     	}// this has to be implemented
     	else if(attribute.contains("found")) {
-    		System.out.println("Found called");
     		gui.createDialogs(attribute);
     	} else if(attribute.contains("score")) {
-    		System.out.println("Score called");
     		String recievedPoints = attribute.split(",")[1];
     		recievedPoints = recievedPoints.substring(0,recievedPoints.length()-1);
+    		gui.showMessage(Integer.parseInt(recievedPoints));
+    		
     		score += Integer.parseInt(recievedPoints);
     		scoreLabel.setText("Score: " + score);
-    		System.out.println(score);
+    	} else if(attribute.contains("image")) {
+    		String[] brokenDownCommand = attribute.split(" ");
+    		String filename = brokenDownCommand[brokenDownCommand.length-1];
+    		int room = Integer.parseInt(brokenDownCommand[brokenDownCommand.length-2]);
+    		gui.takePicture(filename,room);
     	}
   	}
 
@@ -133,7 +133,6 @@ public class GuiUser implements Listener{
   		//Split up the message
   		String[] temp = attribute.split("\"");
 		temp = temp[1].split(";");
-		System.out.println("Robot: " + (temp[0]+1) + " Room: " + (temp[1]+1));
 
 		//Send a message regarding the treasure
 		askForTreasure(Integer.parseInt(temp[1]));
@@ -145,13 +144,11 @@ public class GuiUser implements Listener{
 		robots[robotId].subtractCost();
 
 		//Change the maps and update the table
-		System.out.println("Map update after robot Update: " + robots[robotId].getRoomNumber());
 		if(selectedRobot == robotId) gui.updateMap(robots[robotId].getRoomNumber());
 		tmodel.fireTableDataChanged();
-		System.out.println("Selected Robot: " + selectedRobot);
 		table.changeSelection(selectedRobot, 0, false, false);
   	}
-
+  	//Class responsible for creating the GUI and handling its logic.
   	private class GUI extends JFrame{
   		
   		private static final long serialVersionUID = 1L;
@@ -177,6 +174,14 @@ public class GuiUser implements Listener{
 	        this.setVisible(true);
 		}
 
+		//This message tells the user whether or not their identification was correct.
+		public void showMessage(int score) {
+			if(score>0) {
+    			JOptionPane.showMessageDialog(this, "Identification Successful: " + score + " points", "Success", JOptionPane.INFORMATION_MESSAGE);
+    		} else {
+    			JOptionPane.showMessageDialog(this, "Identification Unsuccessful: " + score + " points", "Attempt Failed", JOptionPane.INFORMATION_MESSAGE);
+    		}
+		}
 		public void buildRobotAskingPanel() {
 			JPanel container = new JPanel();
 			container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
@@ -258,7 +263,6 @@ public class GuiUser implements Listener{
     		table.setDefaultRenderer(Object.class, new RobotRenderer());
     		ListSelectionListener cellsChange = new ListSelectionListener() {
     			public void valueChanged(ListSelectionEvent e) {
-    				System.out.println("listSelectionListener event.");
     				if (e.getValueIsAdjusting()) return; 
     				int temp = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
     				if(temp != -1) {
@@ -266,8 +270,6 @@ public class GuiUser implements Listener{
     					firstSelection = temp;
     				}
     				else selectedRobot = firstSelection;
-    				System.out.println("Value changed: " + temp);
-    				System.out.println("Value changed: " + selectedRobot);
     				updateButtons(robots[selectedRobot]);
     				updateMap(robots[selectedRobot].getRoomNumber());
     			}
@@ -283,7 +285,6 @@ public class GuiUser implements Listener{
 			topLabelPanel.add(new JLabel("Maximize the score by identifying correct treasures"), BorderLayout.WEST);
 			topLabelPanel.add(scoreLabel, BorderLayout.EAST);
 			topLabelPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
-
 
 			//Fill out the first basic map.
 			map = getImageLabel("maps/mapR1.png");
@@ -311,6 +312,7 @@ public class GuiUser implements Listener{
 						int suggestion = dialogue.getSuggestion();
 						sendRobot(r, selectedRobot,suggestion-1);
 						robots[selectedRobot].setTraveling(true);
+						tmodel.fireTableDataChanged();
 		            	blockButtons();
 					}
 				}
@@ -326,7 +328,6 @@ public class GuiUser implements Listener{
 	            	{
 		                //Execute when button is pressed
 		                String command = ((JButton) e.getSource()).getActionCommand();
-		            	System.out.println(command);
 		            	//Initialize Specific room dialogue this will return true or false depending on consensus.
 		            	initializeDialogue(true, robots[selectedRobot].getRoomNumber(), Integer.parseInt(command));
 		            	//If consensus was reached, send the robot.
@@ -363,7 +364,6 @@ public class GuiUser implements Listener{
 				JLabel picLabel = new JLabel(new ImageIcon(myPicture));
 				return picLabel;
 			} catch(IOException e){
-				System.out.println("Image not loaded");
 				return null;
 			}
 		}
@@ -383,8 +383,7 @@ public class GuiUser implements Listener{
 		}
 
 		public void createDialogs(String attributes) {
-			//Function for later.
-			System.out.println("Initialized Dialog");
+			//Take in the information regarding the treasure and who it.
 			String[] temp = attributes.split("\\(");
 			attributes = temp[1].substring(0,temp[1].length()-2) + " " + temp[2].substring(0,temp[2].length()-2);
 			String[] optionsForTreasure= {"Take Picture", "Identify the Treasure", "Continue"};
@@ -420,10 +419,8 @@ public class GuiUser implements Listener{
             String value = (String) optionPane.getValue();
             int room = Integer.parseInt((temp[0].split(" "))[4]);
             if (value.equals("Take Picture")) {
-            	System.out.println(value);
-                takePicture(attributes,room);
+                r.sendMessage("%%snap TabUI Hider " + room);
             } else if (value.equals("Identify the Treasure")) {
-            	
             	String identification = (String) optionPane.getInputValue();
                 sendIdentification(room, identification);
             }
@@ -433,13 +430,13 @@ public class GuiUser implements Listener{
 			r.sendMessage("%%found TabUI Hider \"" + room+","+identification);
 		}
 
-		public void takePicture(String attributes, int room) {
+		public void takePicture(String filename, int room) {
 			//Pretty much creating the same type of dialog as in asking to take picture but setting text Icon to the corresponding image
 			 try
                 {
                 	String[] optionsForTreasure = {"Identify","Continue"};
                 	final JOptionPane optionPane = new JOptionPane(
-                                    attributes,
+                                    optionsForTreasure,
                                     JOptionPane.QUESTION_MESSAGE,
                                     JOptionPane.YES_NO_OPTION, null);
 
@@ -452,19 +449,16 @@ public class GuiUser implements Listener{
                     dialog.setLayout(new BorderLayout());
                     dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
                     dialog.setTitle("Picture of treasure");
-                    dialog.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("rooms/BlackHalfcircle.jpg")))),BorderLayout.NORTH);
+                    dialog.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("rooms/" + filename)))),BorderLayout.NORTH);
                     dialog.add(optionPane,BorderLayout.SOUTH);
 
-                    optionPane.addPropertyChangeListener(
-	                new PropertyChangeListener() {
+                    optionPane.addPropertyChangeListener(new PropertyChangeListener() {
+	                    
 	                    public void propertyChange(PropertyChangeEvent e) {
 	                        String prop = e.getPropertyName();
 
-	                        if (dialog.isVisible()
-	                         && (e.getSource() == optionPane)
-	                         && (JOptionPane.VALUE_PROPERTY.equals(prop))) {
+	                        if (dialog.isVisible() && (e.getSource() == optionPane)&& (JOptionPane.VALUE_PROPERTY.equals(prop))) {
 	                         	String value = (String) optionPane.getValue();
-			                    System.out.println("I'm here now");
 					            if (value.equals("Identify")) {
 					            	String identification = (String) optionPane.getInputValue();
 					                sendIdentification(room, identification);
@@ -520,7 +514,6 @@ public class GuiUser implements Listener{
 				questionsNo = dialogue.noQuestionsNS();
 			}
 			int questions = questionsNo;
-			System.out.println(questions);
 			if(questions == 0) {
 				consensus = true;
 				return true;
@@ -553,10 +546,8 @@ public class GuiUser implements Listener{
                         if (dialog.isVisible() && (e.getSource() == optionPane) && (JOptionPane.VALUE_PROPERTY.equals(prop))) {
                         	String value = (String) optionPane.getValue();
                         	optionPane.setValue("Something");
-                        	System.out.println(value);
 
                         	if (value.equals("Continue")) {
-			            	System.out.println("Clicked");
 			                optionPane.setMessage(dialogue.getNextQuestion());
 			                dialog.repaint();
 			                if(curQuestion == questions) {

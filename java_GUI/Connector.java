@@ -40,8 +40,24 @@ public class Connector implements Runnable{
 		if(isAble) return true;
 		else return false;
 	}
+
 	public void makeOutPublic(PrintWriter out) {
 		this.out = out;
+	}
+	//Checks that messages are only of the kind that are allowed. Makes it easier to add allowed commands.
+	public boolean checkLegalCommands(String fromServer) {
+		return fromServer.contains("error") || fromServer.contains("found") 
+		|| fromServer.contains("score") || fromServer.contains("image") 
+		|| fromServer.contains("snap");
+	}
+
+	public void processServerCommands(String fromServer) {
+		//Check for ping responses
+		if (fromServer.contains("ping")) out.println("%%pong");
+		//Check for passdata responses ensuring commands are legal to pass.
+        else if (checkLegalCommands(fromServer)) commands.setField(fromServer);
+        //Check for ack Responses
+        else if (fromServer.contains("ack")) System.out.println("ackowledged");
 	}
 
 	public void run() {
@@ -57,10 +73,7 @@ public class Connector implements Runnable{
  			makeOutPublic(out);
  			isAble = true;
             while ((fromServer = in.readLine()) != null) {
-                System.out.println("Server: " + fromServer);
-                if (fromServer.contains("ping")) out.println("%%pong");
-                else if (fromServer.contains("error") || fromServer.contains("found") || fromServer.contains("score")) commands.setField(fromServer);
-                else if (fromServer.contains("ack")) System.out.println("ackowledged");
+            	processServerCommands(fromServer);
             }
         } catch (UnknownHostException e) {
             System.err.println("Don't know about host " + hostName);

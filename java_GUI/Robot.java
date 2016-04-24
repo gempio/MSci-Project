@@ -34,7 +34,7 @@ public class Robot {
 	}
 
 	public void setTraveling(boolean travel) {
-		this.traveling = traveling;
+		this.traveling = travel;
 	}
 
 	public boolean isTraveling() {

@@ -94,22 +94,36 @@ public class GuiHider implements Listener{
 		r.sendMessage("%%score Hider TabUI ," + score);
 	}
 
+	public void sendPicture(int room) {
+		r.sendMessage("%%image Hider TabUI " +room + " " + treasures.get(room));
+	}
+
 	//Listener functions implemented.
 	public void register(Observable observable) {observable.add(this);}
   	public void unregister(Observable observable) {observable.remove(this);}
 
   	public void fieldChanged(Object source, String attribute) {
-  		if(attribute.contains("error")) {
+
+  		if(attribute.contains("error")) 
+  		{
   			String[] temp = attribute.split("\"");
   			int room = Integer.parseInt(temp[1]);
   			sendTresureFirstProperty(r, room);
-  		} else if(attribute.contains("found")) {
+  		} 
+  		else if(attribute.contains("found")) 
+  		{
   			String[] temp = attribute.split("\"");
   			temp = temp[1].split(",");
   			int room = Integer.parseInt(temp[0]);
   			String treasure = temp[1];
   			System.out.println(room + " " + treasure);
   			sendScore(room,treasure);
+  		} 
+  		else if(attribute.contains("snap")) 
+  		{
+  			String[] temp = attribute.split(" ");
+  			int room = Integer.parseInt(temp[temp.length-1]);
+  			sendPicture(room);
   		}
     	System.out.println("Hider GUI: " + attribute); // this has to be implemented
   	}

@@ -179,9 +179,4 @@ public class Dialogue {
 	    return permutations;
 	}
 
-	public static void main(String[] args) {
-	
-		
-	}
-
 }
