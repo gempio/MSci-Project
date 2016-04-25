@@ -1,8 +1,3118 @@
-\chapter{Source Code}
-\section{Instructions}
-Complete source code listings must be submitted as an appendix to the report. The project source codes are usually spread out over several files/units. You should try to help the reader to navigate through your source code by providing a ``table of contents'' (titles of these files/units and one line descriptions). The first page of the program listings folder must contain the following statement certifying the work as your own: ``I verify that I am the sole author of the programs contained in this folder, except where explicitly stated to the contrary''. Your (typed) signature and the date should follow this statement.
+\chapter{Source Code Listings}
 
-All work on programs must stop once the code is submitted. You are required to keep safely several copies of this version of the program - one copy must be kept on the departmental disk space - and you must use one of these copies in the project examination. Your examiners may ask to see the last-modified dates of your program files, and may ask you to demonstrate that the program files you use in the project examination are identical to the program files you had stored on the departmental disk space before you submitted the project. Any attempt to demonstrate code that is not included in your submitted source listings is an attempt to cheat; any such attempt will be reported to the KCL Misconduct Committee.
+I verify that I am the sole author of the programs contained in this file except where explicitly stated to the Contrary.
+Your Maciej Musialek 25/05/2016.
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\section{Gui And Hider source code}
+\subsection{Main GUI Class}
+This class is responsible for the main communication inside the User folder. Its folder path therefore is: \\GuiUser.java
+\begin{lstlisting}
+//GuiUser.java
+import java.util.*;
+import java.io.*;
+import javax.swing.*;
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.table.*;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import javax.swing.event.*;
+import java.beans.*;
+/** 
+	A class responsible for holding user data and listening to specific events
+*/
+public class GuiUser implements Listener{
+	//Just a starter method for GUI with basic CLI.
+	CommandObject command;
+	Connector r;
+	Robot[] robots;
+	JComboBox<String> noRobotsBox;
+	int i;
+	JButton[] rooms;
+	int selectedRobot;
+	int firstSelection;
+	JTable table;
+	GUI gui;
+	JPanel mapPanel;
+	JLabel map;
+	DefaultTableModel tmodel;
+	ArrayList<Integer> unvisitedRooms;
+	Dialogue dialogue;
+	int takePictureCost;
+	int grabTreasureCost;
+	boolean consensus;
+	int curQuestion;
+	int score;
+	ArrayList<String[]> treasureOptions;
+	String[] actualTreasOptions;
+	JLabel scoreLabel;
 
-\textbf{You may find it easier to firstly generate a PDF of your source code using a text editor and then merge it to the end of your report. There are many free tools available that allow you to merge PDF files.}
+	//Starter method
+	public static void main(String[] args) {
+		new GuiUser();
+	}
+	//Constructor for all the basic commands and server initialization.
+	public GuiUser() {
+		score = 0;
+		firstSelection = 0;
+		readInTreasuresAndRoomsAmount();
+		command = new CommandObject();
+		addListener(command);
+		this.r = new Connector("127.0.1.1", 6009,command);
+		Thread r2 = new Thread(r);
+		r2.start();
+		waitForServer(r);
+		r.setId("TabUI");
+		gui = new GUI();
+		
+	}
+	//Implementing Listener Interface
+	public void addListener(CommandObject command) {
+		command.add(this);
+	}
 
+	//An empty blocking method that ensures that server has time to set up before continuing running asynchronously.
+	public static void waitForServer(Connector r) {
+		while(!(r.isRunning())){
+			System.out.print("");
+		} //Wait for the server to start up before continuing.
+	}
+
+	//Simple method that sends a send robot message and asks the server to pass it through.
+	public void sendRobot(Connector r, int robot, int room) {
+		int costOfTravel = dialogue.getCost(robots[robot].getRoomNumber(), room+1);
+		robots[robot].setCost(costOfTravel);
+		robots[robot].setTraveling(true);
+		r.sendMessage("%%goto TabUI SimR " + robot + " " + room + " " + room + " 45");
+		unvisitedRooms.remove(new Integer(room+1));
+		dialogue.setUnvisitedRooms(unvisitedRooms);
+	}
+
+	//Just a command ran occasionally to ensure that the game ends.
+	public void checkIfGameFinished() {
+		int blockedRobots = 0;
+		for(int i= 0; i<robots.length;i++) {
+			if(robots[i].getBlocked()) blockedRobots++;
+		}
+		if(blockedRobots == robots.length) gui.showFinishSplashDialog(false);
+		else if(unvisitedRooms.size() == 0) gui.showFinishSplashDialog(true);
+	}
+
+	public void readInTreasuresAndRoomsAmount() {
+		ArrayList<String> tempTreasArray = new ArrayList<String>();
+		treasureOptions = new ArrayList<String[]>();
+		try (BufferedReader br = new BufferedReader(new FileReader("treasures"))) {
+		    String line = br.readLine();
+		    while ((line = br.readLine()) != null) {
+		       String[] temp = line.split(",");
+		       tempTreasArray.add(temp[3]);
+		       treasureOptions.add(temp);
+		    }
+		} catch(FileNotFoundException e) {
+			System.out.println("File not found.");
+		} catch(IOException e) {
+			System.out.println("IO Exception");
+		}
+		actualTreasOptions = new String[treasureOptions.size()];
+		actualTreasOptions = tempTreasArray.toArray(actualTreasOptions);
+	}
+	//Send a message to ask about the treasure
+	public void askForTreasure(int room ) {
+		r.sendMessage("%%error TabUI Hider  \""+room+"\"");
+	}
+	//Regirter and unregister implementations of the Listener class
+	public void register(Observable observable) {observable.add(this);}
+  	public void unregister(Observable observable) {observable.remove(this);}
+
+  	//Calculate all the new attributes of the robot.
+  	public void fieldChanged(Object source, String attribute) {
+
+    	if(attribute.contains("error")) {
+    		updateRobot(attribute);
+    	}// this has to be implemented
+    	else if(attribute.contains("found")) {
+    		gui.createDialogs(attribute);
+    	} else if(attribute.contains("score")) {
+    		String recievedPoints = attribute.split(",")[1];
+    		recievedPoints = recievedPoints.substring(0,recievedPoints.length()-1);
+    		gui.showMessage(Integer.parseInt(recievedPoints));
+    		
+    		score += Integer.parseInt(recievedPoints);
+    		scoreLabel.setText("Score: " + score);
+    		checkIfGameFinished();
+    	} else if(attribute.contains("image")) {
+    		String[] brokenDownCommand = attribute.split(" ");
+    		String filename = brokenDownCommand[brokenDownCommand.length-1];
+    		int room = Integer.parseInt(brokenDownCommand[brokenDownCommand.length-2]);
+    		gui.takePicture(filename,room);
+    	}
+  	}
+
+  	//Update robot values after it reached its goal.
+  	public void updateRobot(String attribute) {
+
+  		//Split up the message
+  		String[] temp = attribute.split("\"");
+		temp = temp[1].split(";");
+
+		//Send a message regarding the treasure
+		askForTreasure(Integer.parseInt(temp[1]));
+
+		//Update the robot information
+		int robotId = Integer.parseInt(temp[0]);
+		robots[robotId].setLocation(Integer.parseInt(temp[1])+1);
+		robots[robotId].setTraveling(false);
+		robots[robotId].subtractCost();
+
+		//Change the maps and update the table
+		if(selectedRobot == robotId) gui.updateMap(robots[robotId].getRoomNumber());
+		tmodel.fireTableDataChanged();
+		table.changeSelection(selectedRobot, 0, false, false);
+  	}
+  	//Class responsible for creating the GUI and handling its logic.
+  	private class GUI extends JFrame{
+  		
+  		private static final long serialVersionUID = 1L;
+
+		public GUI() {
+			super("Treasure Hunt");
+
+			unvisitedRooms = new ArrayList<Integer>();
+			for(int i = 1; i<9; i++) {
+				unvisitedRooms.add(i);
+			}
+			dialogue = new Dialogue(unvisitedRooms);
+	        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	 
+	        JLabel emptyLabel = new JLabel("");
+	        emptyLabel.setPreferredSize(new Dimension(175, 100));
+	        this.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+	 
+	        //Display the window.
+	        scoreLabel = new JLabel("Score: " + score);
+	        buildRobotAskingPanel();
+	        this.pack();
+	        this.setVisible(true);
+		}
+
+		//This message tells the user whether or not their identification was correct.
+		public void showMessage(int score) {
+			if(score>0) {
+    			JOptionPane.showMessageDialog(this, "Identification Successful: " + score + " points", "Success", JOptionPane.INFORMATION_MESSAGE);
+    		} else {
+    			JOptionPane.showMessageDialog(this, "Identification Unsuccessful: " + score + " points", "Attempt Failed", JOptionPane.INFORMATION_MESSAGE);
+    		}
+		}
+		//Beginner Screen to select the amount of Robots the user can use.
+		public void buildRobotAskingPanel() {
+			JPanel container = new JPanel();
+			container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
+			JButton continueBtn = new JButton("Continue");
+			String[] noRobots = { "1","2"};
+
+			noRobotsBox = new JComboBox<String>(noRobots);
+			noRobotsBox.setSelectedIndex(0);
+
+			continueBtn.addActionListener(new ActionListener(){
+
+				public void actionPerformed(ActionEvent e)
+	            {
+	                //Execute when button is pressed
+	            	String temp = String.valueOf(noRobotsBox.getSelectedItem());
+	            	robots = new Robot[Integer.parseInt(temp)];
+	                buildMainPanel();
+	            }
+
+
+			});
+			
+			//Lay out the label and scroll pane from top to bottom.
+			JPanel listPane = new JPanel();
+			listPane.setLayout(new BoxLayout(listPane, BoxLayout.PAGE_AXIS));
+			JLabel label = new JLabel("Please provide number of robots");
+			listPane.add(label);
+			listPane.add(Box.createRigidArea(new Dimension(0,5)));
+			listPane.add(noRobotsBox);
+			listPane.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
+			//Lay out the buttons from left to right.
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+			buttonPane.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+			buttonPane.add(Box.createHorizontalGlue());
+			buttonPane.add(continueBtn);
+
+			//Fill out the container.
+			container.add(listPane, BorderLayout.CENTER);
+			container.add(buttonPane, BorderLayout.PAGE_END);
+			this.add(container);
+		}
+
+		public void buildMainPanel() {
+			//Create a new container
+			JPanel container = new JPanel();
+			
+			//Let's start the robots off.
+			for(int i=0; i<robots.length; i++) {
+				robots[i] = new Robot("Robot " + (i+1), i, 100, "-1");
+			}
+
+			//Introduce the main panels.
+			JPanel topLabelPanel = new JPanel(new BorderLayout());
+			mapPanel = new JPanel();
+			JPanel robotList = new JPanel();
+			JPanel roomOptionList = new JPanel();
+			JPanel middlePanel = new JPanel();
+			JPanel bottomPanel = new JPanel();
+
+			//Set their sizes.
+			topLabelPanel.setPreferredSize(new Dimension(1000,20));
+			mapPanel.setPreferredSize(new Dimension(800,600));
+			robotList.setPreferredSize(new Dimension(180,600));
+			roomOptionList.setPreferredSize(new Dimension(800,100));
+
+			tmodel = new DefaultTableModel();
+			tmodel.addColumn("NoHeader", robots);
+			//Fill out the robotList
+			table = new JTable(tmodel) {
+				 private static final long serialVersionUID = 2L;
+				 public boolean isCellEditable(int row, int column) {return false;}
+			};
+    		table.setDefaultRenderer(Object.class, new RobotRenderer());
+    		ListSelectionListener cellsChange = new ListSelectionListener() {
+    			public void valueChanged(ListSelectionEvent e) {
+    				if (e.getValueIsAdjusting()) return; 
+    				int temp = ((DefaultListSelectionModel) e.getSource()).getMinSelectionIndex();
+    				if(temp != -1) {
+    					selectedRobot = temp;
+    					firstSelection = temp;
+    				}
+    				else selectedRobot = firstSelection;
+    				updateButtons(robots[selectedRobot]);
+    				updateMap(robots[selectedRobot].getRoomNumber());
+    			}
+    		};
+
+    		table.getSelectionModel().addListSelectionListener(cellsChange);
+    		table.setTableHeader(null);
+    		table.setRowHeight(90);
+    		robotList.setLayout(new BorderLayout());  
+    		robotList.add(new JScrollPane(table));   
+
+			//Fill out the top panel
+			topLabelPanel.add(new JLabel("Maximize the score by identifying correct treasures"), BorderLayout.WEST);
+			topLabelPanel.add(scoreLabel, BorderLayout.EAST);
+			topLabelPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+
+			//Fill out the first basic map.
+			map = getImageLabel("maps/mapR1.png");
+			mapPanel.add(map);
+
+			//Fill out the middle panel
+			middlePanel.setLayout(new BorderLayout());
+			middlePanel.add(mapPanel,BorderLayout.WEST);
+			middlePanel.add(robotList,BorderLayout.EAST);
+
+			//Fill out the bottom panel
+			bottomPanel.setLayout(new BorderLayout());
+			bottomPanel.add(Box.createRigidArea(new Dimension(0,5)), BorderLayout.NORTH);
+			bottomPanel.add(new JLabel("Please select a room to go to: "), BorderLayout.NORTH);
+			
+			//Populate room buttons
+			roomOptionList.setLayout(new FlowLayout());
+			int noRooms = 8;
+			rooms = new JButton[noRooms+1];
+			rooms[0] = new JButton("Don't know");
+			rooms[0].addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					initializeDialogue(false, robots[selectedRobot].getRoomNumber(), 0);	
+					if(consensus) {
+						int suggestion = dialogue.getSuggestion();
+						sendRobot(r, selectedRobot,suggestion-1);
+						robots[selectedRobot].setTraveling(true);
+						tmodel.fireTableDataChanged();
+		            	blockButtons();
+					}
+				}
+				
+			});
+			roomOptionList.add(rooms[0]);
+			for(i = 1; i<noRooms+1; i++) {
+				rooms[i] = new JButton("" + (i));
+				rooms[i].setPreferredSize(new Dimension(60,60));
+				rooms[i].addActionListener(new ActionListener(){
+
+					public void actionPerformed(ActionEvent e)
+	            	{
+		                //Execute when button is pressed
+		                String command = ((JButton) e.getSource()).getActionCommand();
+		            	//Initialize Specific room dialogue this will return true or false depending on consensus.
+		            	initializeDialogue(true, robots[selectedRobot].getRoomNumber(), Integer.parseInt(command));
+		            	//If consensus was reached, send the robot.
+		            	if(consensus) {
+		            		sendRobot(r, selectedRobot,Integer.parseInt(command)-1);
+		            		robots[selectedRobot].setTraveling(true);
+		            		blockButtons();
+		            	}
+	            	}
+
+				});
+				roomOptionList.add(rooms[i]);
+			}
+
+			bottomPanel.add(roomOptionList, BorderLayout.CENTER);
+			//Fill out the main container
+			container.setLayout(new BorderLayout());
+			container.add(topLabelPanel, BorderLayout.NORTH);
+			container.add(middlePanel, BorderLayout.CENTER);
+			container.add(bottomPanel, BorderLayout.SOUTH);
+
+
+			//Set the new container and repaint.
+			table.changeSelection(0, 0, false, false);
+			this.setContentPane(container);
+			this.validate();
+			this.pack();
+			this.repaint();
+		}
+
+		public JLabel getImageLabel(String path) {
+			try{ 
+				BufferedImage myPicture = ImageIO.read(new File(path));
+				JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+				return picLabel;
+			} catch(IOException e){
+				return null;
+			}
+		}
+
+		public void updateMap(int roomId) {
+			
+			try{ 
+				BufferedImage myPicture = ImageIO.read(new File("maps/mapR"+(roomId)+".png"));
+				map.setIcon(new ImageIcon(myPicture));
+			} catch(IOException e){
+				System.out.println("Image not loaded");
+			}
+
+			mapPanel.repaint();
+		}
+
+		public void createDialogs(String attributes) {
+			//Take in the information regarding the treasure and who it.
+			String[] temp = attributes.split("\\(");
+			attributes = temp[1].substring(0,temp[1].length()-2) + " " + temp[2].substring(0,temp[2].length()-3);
+			String[] optionsForTreasure= {"Take Picture", "Identify the Treasure", "Continue"};
+			final JOptionPane optionPane = new JOptionPane(
+                                    attributes,
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    JOptionPane.YES_NO_CANCEL_OPTION, null);
+
+			optionPane.setOptions(optionsForTreasure);
+			optionPane.setSelectionValues(actualTreasOptions);
+            final JDialog dialog = new JDialog(this,
+                                         "Identified a shape",
+                                         true);
+            dialog.setContentPane(optionPane);
+            dialog.setDefaultCloseOperation(
+                JDialog.DO_NOTHING_ON_CLOSE);
+            optionPane.addPropertyChangeListener(
+                new PropertyChangeListener() {
+                    public void propertyChange(PropertyChangeEvent e) {
+                        String prop = e.getPropertyName();
+
+                        if (dialog.isVisible()
+                         && (e.getSource() == optionPane)
+                         && (JOptionPane.VALUE_PROPERTY.equals(prop))) {
+                            dialog.setVisible(false);
+                        }
+                    }
+                });
+            dialog.pack();
+            dialog.setLocationRelativeTo(this);
+            dialog.setVisible(true);
+
+            String value = (String) optionPane.getValue();
+            int room = Integer.parseInt((temp[0].split(" "))[4]);
+            if (value.equals("Take Picture")) {
+                r.sendMessage("%%snap TabUI Hider " + room);
+            } else if (value.equals("Identify the Treasure")) {
+            	String identification = (String) optionPane.getInputValue();
+                sendIdentification(room, identification);
+            } else {
+            	checkIfGameFinished();
+            }
+		}
+
+		public void sendIdentification(int room, String identification) {
+			r.sendMessage("%%found TabUI Hider \"" + room+","+identification);
+		}
+
+		public void takePicture(String filename, int room) {
+			//Pretty much creating the same type of dialog as in asking to take picture but setting text Icon to the corresponding image
+			 try
+                {
+                	String[] optionsForTreasure = {"Identify","Continue"};
+                	final JOptionPane optionPane = new JOptionPane(
+                                    "Please identify or leave the treasure",
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    JOptionPane.YES_NO_OPTION, null);
+
+                	optionPane.setOptions(optionsForTreasure);
+					optionPane.setSelectionValues(actualTreasOptions);
+
+					
+
+                    JDialog dialog = new JDialog();
+                    dialog.setLayout(new BorderLayout());
+                    dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+                    dialog.setTitle("Picture of treasure");
+                    dialog.add(new JLabel(new ImageIcon(ImageIO.read(getClass().getResourceAsStream("rooms/" + filename)))),BorderLayout.NORTH);
+                    dialog.add(optionPane,BorderLayout.SOUTH);
+
+                    optionPane.addPropertyChangeListener(new PropertyChangeListener() {
+	                    
+	                    public void propertyChange(PropertyChangeEvent e) {
+	                        String prop = e.getPropertyName();
+
+	                        if (dialog.isVisible() && (e.getSource() == optionPane)&& (JOptionPane.VALUE_PROPERTY.equals(prop))) {
+	                         	String value = (String) optionPane.getValue();
+					            if (value.equals("Identify")) {
+					            	String identification = (String) optionPane.getInputValue();
+					                sendIdentification(room, identification);
+					            } else if (value.equals("Continue")) {
+					            	dialog.setVisible(false);
+					            	checkIfGameFinished();
+					            }
+	                            dialog.setVisible(false);
+	                        }
+	                    }
+	                });
+
+                    dialog.pack();
+                    dialog.setLocationByPlatform(true);
+                    dialog.setVisible(true);   
+                } 
+                catch (IOException e) 
+                {
+                    e.printStackTrace();
+                }
+
+		}
+		public void blockButtons() {
+			for(i=0; i<rooms.length; i++) {
+				rooms[i].setEnabled(false);
+			}
+		}
+
+		public void updateButtons(Robot robot) {
+
+			if(robot.isTraveling()) {
+				for(i=1; i<rooms.length; i++) {
+					rooms[i].setEnabled(false);
+				}
+			} else {
+				//If the robot is blocked, no point in updating its buttons.
+				if(robot.getBlocked()) return;
+				rooms[0].setEnabled(true);
+				for(i=1; i<rooms.length; i++) {
+					if(unvisitedRooms.contains(i)) rooms[i].setEnabled(true);
+				}
+			}
+
+		}
+
+		public boolean initializeDialogue(boolean specific, int start, int end) {
+			int questionsNo = 0;
+			if(specific) {
+				dialogue.startSpecific(start, end);
+				questionsNo = dialogue.noQuestionsSR();
+			}
+			else {
+				dialogue.startNotSure(start);
+				questionsNo = dialogue.noQuestionsNS();
+			}
+			int questions = questionsNo;
+			if(questions == 0) {
+				consensus = true;
+				return true;
+			}
+			curQuestion = 1;
+			String question = dialogue.getNextQuestion();
+
+			String[] optionsForConsensus= {"Continue", "Stop"};
+			final JOptionPane optionPane = new JOptionPane(
+                                    question,
+                                    JOptionPane.QUESTION_MESSAGE,
+                                    JOptionPane.YES_NO_OPTION);
+
+			optionPane.setOptions(optionsForConsensus);
+            final JDialog dialog = new JDialog(this,
+                                         "Dialogue",
+                                         true);
+            dialog.setContentPane(optionPane);
+            dialog.setDefaultCloseOperation(
+                JDialog.DO_NOTHING_ON_CLOSE);
+            dialog.addWindowListener(new WindowAdapter() {
+                public void windowClosing(WindowEvent we) {
+                    dialog.setVisible(false);
+                }
+            });
+            optionPane.addPropertyChangeListener(
+                new PropertyChangeListener() {
+                    public void propertyChange(PropertyChangeEvent e) {
+                        String prop = e.getPropertyName();
+                        if (dialog.isVisible() && (e.getSource() == optionPane) && (JOptionPane.VALUE_PROPERTY.equals(prop))) {
+                        	String value = (String) optionPane.getValue();
+                        	optionPane.setValue("Something");
+
+                        	if (value.equals("Continue")) {
+			                optionPane.setMessage(dialogue.getNextQuestion());
+			                dialog.repaint();
+			                if(curQuestion == questions) {
+			                	dialog.setVisible(false);
+			                	consensus = true;
+			                }
+			                curQuestion++;
+			            	} else if (value.equals("Stop")) {
+			            		dialog.setVisible(false);
+			            		consensus = false;
+			            	}
+                        }
+                    }
+                });
+            dialog.setPreferredSize(new Dimension(600,150));
+            dialog.setModal(true);
+            dialog.pack();
+            dialog.setLocationRelativeTo(this);
+            dialog.setVisible(true);
+            return consensus;
+
+		}
+		public void showFinishSplashDialog(boolean cleanFinish) {
+			if(cleanFinish) JOptionPane.showMessageDialog(this, "You have visited all rooms. You have finished the game with a score of: " + score + ". Congratulations", "Game over.", JOptionPane.INFORMATION_MESSAGE);
+			else JOptionPane.showMessageDialog(this, "Robot/s have ran out of energy. You have finished the game with a score of: " + score + ". \\nCongratulations", "Game over.", JOptionPane.INFORMATION_MESSAGE);
+			System.exit(0);
+		}
+
+	}
+}
+\end{lstlisting} 
+
+\subsection{Robot class}
+This class is responsible for holding robot logic data and is in the same folder as GuiClass.java
+\begin{lstlisting}
+//Robot.java
+public class Robot {
+	private String name;
+	private String location;
+	private int rNo;
+	private int energyLeft;
+	private boolean traveling;
+	private int cost;
+	private boolean blocked;
+
+	public Robot(String name, int rNo, int energyLeft, String location) {
+		this.blocked = false;
+		this.cost = 0;
+		this.name = name;
+		this.rNo = 0;
+		this.energyLeft = energyLeft;
+		this.location = location;
+		this.traveling = false;
+	}
+	public boolean getBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(boolean blocked) {
+		this.blocked = blocked;
+	}
+	public int getRoomNumber() {
+		return rNo;
+	}
+
+	public void subtractCost() {
+		energyLeft -= cost;
+		if(energyLeft<=0) blocked = true;
+		cost = 0;
+	}
+
+	public void setLocation(int newRoom) {
+		location = Integer.toString(newRoom);
+		rNo = newRoom;
+	}
+
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
+	public void setTraveling(boolean travel) {
+		this.traveling = travel;
+	}
+
+	public boolean isTraveling() {
+		return traveling;
+	}
+
+	public String getName() {
+		return name;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public int getRemainingEnergy() {
+		return energyLeft;
+	}
+}
+\end{lstlisting}
+\subsection{Dialogue class}
+This class is responsible for reading in the templates for dialogues and map costs.
+\begin{lstlisting}
+//Dialogue.java
+import java.util.*;
+import java.io.*;
+
+public class Dialogue {
+	
+	private ArrayList<String> notSureQuestions;
+	private ArrayList<String> specificRoomQuestions;
+	private HashMap<Integer, Integer> roomTimes;
+	private boolean typeOfDialogue; //If its false, we initialize notSure if its true we talk with specific room in mind.
+	private int curQuestion;
+	private int curRoom;
+	private int nextRoom;
+	private int suggestedRoom;
+	private int[][] mapCosts;
+	private boolean useShortPaths;
+	private ArrayList<Integer> unvisitedRooms;
+
+	//Initialize the code.
+	public Dialogue(ArrayList<Integer> unvisitedRooms) {
+		this.unvisitedRooms = unvisitedRooms;
+		useShortPaths = true;
+		notSureQuestions = new ArrayList<String>();
+		specificRoomQuestions = new ArrayList<String>();
+		typeOfDialogue = false;
+		curQuestion = 0;
+		mapCosts = readInCosts();
+		readInTheDialogue();
+		System.out.println(notSureQuestions.size());
+	}
+
+	//Boolean that decides whether or not the hamiltonian path algorithm will be applied
+	public void setShortestPaths(boolean paths) {
+		this.useShortPaths = paths;
+	}
+
+	//Retrieve the cost to not hold the cost adjecency 2D array in more than one class.
+	public int getCost(int rooma, int roomb) {
+		return mapCosts[rooma][roomb];
+	}
+
+	//Reads in the dialogue file.
+	public void readInTheDialogue() {
+		try (BufferedReader br = new BufferedReader(new FileReader("DialogueText"))) {
+		    String line = br.readLine();
+		    boolean nextSection = false;
+		    while ((line = br.readLine()) != null) {
+		       if(line.contains("SpecificRoom:")) {
+		       		nextSection = true;
+		       		continue;
+		       }
+		       if(!nextSection) notSureQuestions.add(line);
+		       else specificRoomQuestions.add(line);
+		    }
+		} catch(FileNotFoundException e) {
+			System.out.println("File not found.");
+		} catch(IOException e) {
+			System.out.println("IO Exception");
+		}
+	}
+
+	//Restart the dialogue
+	public void restart() {
+		typeOfDialogue = false;
+		curQuestion = 0;
+	}
+
+	//Number of questions for not sure.
+	public int noQuestionsNS() {
+		return notSureQuestions.size();
+	}
+
+	//Number of questions for specific room
+	public int noQuestionsSR() {
+		return specificRoomQuestions.size();
+	}
+
+	//Return the best suggested room based on set data.
+	public int getSuggestion() {
+		return suggestedRoom;
+	}
+
+	//Start a Don't know dialogue.
+	public void startNotSure(int curRoom) {
+		this.curRoom = curRoom;
+		this.suggestedRoom = calculateSuggestion(curRoom);
+		restart();
+		typeOfDialogue = true;
+	}
+
+	//Iterator approach like next question architecture.
+	public String getNextQuestion() {
+		curQuestion++;
+		if(typeOfDialogue && curQuestion-1<notSureQuestions.size()) {
+			String temp = notSureQuestions.get(curQuestion-1);
+			temp = temp.replace("£room£", Integer.toString(suggestedRoom));
+			temp = temp.replace("£cost£", Integer.toString(mapCosts[curRoom][suggestedRoom]));
+			return temp;
+		}
+		else if(!typeOfDialogue && curQuestion-1<specificRoomQuestions.size()) {
+			String temp = specificRoomQuestions.get(curQuestion-1);
+			temp = temp.replace("£room£", Integer.toString(nextRoom));
+			temp = temp.replace("£cost£", Integer.toString(mapCosts[curRoom][nextRoom]));
+			return temp;
+		}
+		else return "End of Questions";
+	}
+
+	//Start a specific room selected dialogue.
+	public void startSpecific(int curRoom, int nextRoom) {
+		restart();
+		this.nextRoom = nextRoom;
+		typeOfDialogue = false;
+	}
+	//Hamiltonian path style architecture to retrieving the optimal next room
+	//based on unvisited rooms.
+	public int calculateSuggestion(int room) {
+		String unvisitedRoomsInString = "";
+		
+		for(int uRoom: unvisitedRooms) {
+			unvisitedRoomsInString += Integer.toString(uRoom);
+		}
+		
+		//All the permutations of possible paths.
+		List<String> list = permutation(Integer.toString(room), unvisitedRoomsInString);
+		//Calculate the costs of each path permutation.
+		HashMap<Integer, String> pathCostsPerPermutation = new HashMap<Integer, String>();
+		for(int i = 0; i<list.size(); i++) {
+			String path = list.get(i);
+			int cost = 0;
+			for(int j = 0; j<unvisitedRooms.size(); j++) {
+				int from = Character.getNumericValue(path.charAt(j));
+				int to = Character.getNumericValue(path.charAt(j+1));
+				cost += mapCosts[from][to];
+			}
+			pathCostsPerPermutation.put(cost, path);
+		}
+
+		Integer minCostPath = Collections.min(pathCostsPerPermutation.keySet());
+		return Character.getNumericValue(pathCostsPerPermutation.get(minCostPath).charAt(1));
+	}
+
+	//Ensures that when asked for suggestion, the dialogue is up to date.
+	public void setUnvisitedRooms(ArrayList<Integer> unvisitedRooms) {
+		this.unvisitedRooms = unvisitedRooms;
+	}
+
+	//Read in adjacency matrix for the code.
+	public int[][] readInCosts() {
+		int[][] adjacencyMatrix;
+		try (BufferedReader br = new BufferedReader(new FileReader("mapTimes"))) {
+		    String line = br.readLine();
+		    int noNodes = Integer.parseInt(line);
+		    adjacencyMatrix = new int[noNodes][noNodes];
+		    //Read in the weights of the Nodes.
+		    for(int i = 0; i<noNodes;i++) {
+		    	line = br.readLine();
+		    	int[] weights = convertStringToIntArray(line.split(" "));
+		    	for(int j = 0; j<noNodes;j++) {
+		    		adjacencyMatrix[i][j] = weights[j];
+		    	}
+		    }
+		    return adjacencyMatrix;
+		} catch(FileNotFoundException e) {
+			System.out.println("File not found.");
+		} catch(IOException e) {
+			System.out.println("IO Exception");
+		}
+
+		return null;
+	}
+
+	//Short function to convert strings arrays to integer arrays.
+	public int[] convertStringToIntArray(String[] temp) {
+		int[] temp2 = new int[temp.length];
+		for(int i = 0; i<temp.length;i++) {
+			temp2[i] = Integer.parseInt(temp[i]);
+		}
+		return temp2;
+	}
+
+	//Recursion styled permutation creator.
+	private List<String> permutation(String prefix, String str) {
+	    List<String> permutations = new ArrayList<>();
+	    int n = str.length();
+	    if (n == 0) {
+	        permutations.add(prefix);
+	    }
+	    else {
+	        for (int i = 0; i < n; i++)
+	            permutations.addAll(permutation(prefix + str.charAt(i), str.substring(0, i) + str.substring(i + 1, n)));
+	    }
+	    return permutations;
+	}
+
+}
+\end{lstlisting}
+\subsection{Connector class}
+This class connects to the server to and passes commands to and from the GUI. Also used by the Hider Class.
+\begin{lstlisting}
+import java.io.*;
+import java.net.*;
+import java.util.concurrent.LinkedBlockingQueue;
+
+/*
+	Connector class is responsible for running the server. Listening to basic information coming in to the classes that
+	use it and moving forward.
+
+*/
+public class Connector implements Runnable{
+	Socket kkSocket;
+	PrintWriter out;
+	BufferedReader in;
+	String hostName;
+	int portNumber;
+	boolean isAble;
+	boolean sendMessage;
+	String fromUser;
+	CommandObject commands;
+
+	public Connector(String hostName, int portNumber, CommandObject commands) {
+		this.hostName = hostName;
+		this.portNumber = portNumber;
+		this.isAble = false;
+		this.fromUser = "";
+		this.sendMessage = false;
+		this.commands = commands;
+	}
+
+	public void sendMessage(String message) {
+		System.out.println("Message Sending: " + message);
+		out.println(message);
+	}
+
+	public void setId(String id) {
+		out.println("%%setid " + id);
+	}
+
+	public boolean isRunning() {
+		if(isAble) return true;
+		else return false;
+	}
+
+	public void makeOutPublic(PrintWriter out) {
+		this.out = out;
+	}
+	//Checks that messages are only of the kind that are allowed. Makes it easier to add allowed commands.
+	public boolean checkLegalCommands(String fromServer) {
+		return fromServer.contains("error") || fromServer.contains("found") 
+		|| fromServer.contains("score") || fromServer.contains("image") 
+		|| fromServer.contains("snap");
+	}
+
+	public void processServerCommands(String fromServer) {
+		//Check for ping responses
+		if (fromServer.contains("ping")) out.println("%%pong");
+		//Check for passdata responses ensuring commands are legal to pass.
+        else if (checkLegalCommands(fromServer)) commands.setField(fromServer);
+        //Check for ack Responses
+        else if (fromServer.contains("ack")) System.out.println("ackowledged");
+	}
+
+	public void run() {
+ 		
+        try (
+            Socket kkSocket = new Socket(hostName, portNumber);
+            PrintWriter out = new PrintWriter(kkSocket.getOutputStream(), true);
+            BufferedReader in = new BufferedReader(new InputStreamReader(kkSocket.getInputStream()));
+        ) {
+            BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
+            String fromServer;
+            
+ 			makeOutPublic(out);
+ 			isAble = true;
+            while ((fromServer = in.readLine()) != null) {
+            	processServerCommands(fromServer);
+            }
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host " + hostName);
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection to " +
+                hostName);
+            System.exit(1);
+        }
+
+	}
+}
+\end{lstlisting}
+\subsection{Command Object class}
+This class is responsible for passing commands to and from the Connector to the class that handles it. It is used both by the hider and the GUI.
+\begin{lstlisting}
+import java.util.*;
+
+public class CommandObject implements Observable{
+
+  // code to maintain listeners
+  private ArrayList<Listener> listeners = new ArrayList<Listener>();
+  public void add(Listener listener) {listeners.add(listener);}
+  public void remove(Listener listener) {listeners.remove(listener);}
+
+  // a sample field
+  private String field;
+  public String getField() {return field;}
+  public String setField(String value) {
+    field = value;
+    fire(value); 
+    return value;   
+  }
+
+  // notification code
+  private void fire(String attribute) {
+    for (Listener listener:listeners) {
+      listener.fieldChanged(this, attribute);
+    }
+  }
+}
+\end{lstlisting}
+\subsection{Robot Renderer Class}
+Class responsible for creating custom cells in JTables for robot information.
+\begin{lstlisting}
+import java.util.*;
+
+public class CommandObject implements Observable{
+
+  // code to maintain listeners
+  private ArrayList<Listener> listeners = new ArrayList<Listener>();
+  public void add(Listener listener) {listeners.add(listener);}
+  public void remove(Listener listener) {listeners.remove(listener);}
+
+  // a sample field
+  private String field;
+  public String getField() {return field;}
+  public String setField(String value) {
+    field = value;
+    fire(value); 
+    return value;   
+  }
+
+  // notification code
+  private void fire(String attribute) {
+    for (Listener listener:listeners) {
+      listener.fieldChanged(this, attribute);
+    }
+  }
+}
+\end{lstlisting}
+\subsection{Hider}
+This class is responsible for responding to GUI requests coming in and is held in a separate folder to the GUI. Shares Command Object and Connector classes with GUI.
+\begin{lstlisting}
+import java.util.*;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.io.*;
+
+public class Hider implements Listener{
+
+	HashMap<Integer,String[]> treasures;
+	CommandObject command;
+	Connector r;
+	int rooms;
+	ArrayList<String[]> treasuresMap;
+
+	public static void main(String[] args) {
+		new GuiHider();
+	}
+
+	public GuiHider() {
+		//Set up for the Hider environment.
+		treasuresMap = new ArrayList<String[]>();
+		readInTreasuresAndRoomsAmount();
+		ArrayList<Integer> scrambledInts = getScrambledInts(rooms);
+		treasures = getTreasures(scrambledInts);
+		
+		//Once the system is set up the command sharing object and connect to server.
+		command = new CommandObject();
+		register(this.command);		
+		r = new Connector("127.0.1.1", 6009, this.command);
+		Thread r2 = new Thread(r);
+		r2.start();
+
+		//Wait for the server to start up before continuing.
+		waitForServer(r);
+		//Set the main ID for client to contact the server.
+		r.setId("Hider");
+	}
+
+	public HashMap<Integer,String[]> getTreasures(ArrayList<Integer> scrambledInts) {
+		HashMap<Integer,String[]> temp = new HashMap<Integer,String[]>();
+		Random rand = new Random();
+		for(int i = 0; i<rooms; i++) {
+			int randomInt = rand.nextInt(rooms/2);
+			temp.put(scrambledInts.get(i), treasuresMap.get(randomInt));
+		}
+		return temp;
+	}
+	//Function responsible for reading in the treasures list.
+	public void readInTreasuresAndRoomsAmount() {
+		try (BufferedReader br = new BufferedReader(new FileReader("treasures"))) {
+		    String line = br.readLine();
+		    rooms = Integer.parseInt(line);
+		    while ((line = br.readLine()) != null) {
+		       String[] temp = line.split(",");
+		       treasuresMap.add(temp);
+		    }
+		} catch(FileNotFoundException e) {
+			System.out.println("File not found.");
+		} catch(IOException e) {
+			System.out.println("IO Exception");
+		}
+	}
+
+	public ArrayList<Integer> getScrambledInts(int rooms) {
+		ArrayList<Integer> temp = new ArrayList<Integer>();
+		for(int i=0;i<rooms;i++) {
+			temp.add(i);
+		}
+		Collections.shuffle(temp);
+		return temp;
+	}
+	//An empty blocking method that ensures that server has time to set up before continuing running asynchrously.
+	public void waitForServer(Connector r) {
+		while(!(r.isRunning())){
+			System.out.print("");
+		} //Wait for the server to start up before continuing.
+	}
+
+
+	//Simple method that sends a send robot message and asks the server to pass it through.
+	public void sendTresureFirstProperty(Connector r, int room) {
+		r.sendMessage("%%found Hider TabUI " + room + " " + room + " \"(Colour: " + treasures.get(room)[0] + ") (Footprint: " + treasures.get(room)[1] + ")\"");
+	}
+
+	public void sendScore(int room, String treasure) {
+		int score = 0;
+		//Correct Identification
+		if(treasure.contains(treasures.get(room)[3])) {
+			System.out.println(treasures.get(room)[3]);
+			score = Integer.parseInt(treasures.get(room)[2]);
+		} else { //Bad identification
+			System.out.println(treasure);
+			System.out.println(treasures.get(room)[3]);
+			score = 0 - Integer.parseInt(treasures.get(room)[2]);
+		}
+		r.sendMessage("%%score Hider TabUI ," + score);
+	}
+
+	public void sendPicture(int room) {
+		r.sendMessage("%%image Hider TabUI " +room + " " + treasures.get(room)[4]);
+	}
+
+	//Listener functions implemented.
+	public void register(Observable observable) {observable.add(this);}
+  	public void unregister(Observable observable) {observable.remove(this);}
+
+  	public void fieldChanged(Object source, String attribute) {
+
+  		if(attribute.contains("error")) 
+  		{
+  			String[] temp = attribute.split("\"");
+  			int room = Integer.parseInt(temp[1]);
+  			sendTresureFirstProperty(r, room);
+  		} 
+  		else if(attribute.contains("found")) 
+  		{
+  			String[] temp = attribute.split("\"");
+  			temp = temp[1].split(",");
+  			int room = Integer.parseInt(temp[0]);
+  			String treasure = temp[1];
+  			System.out.println(room + " " + treasure);
+  			sendScore(room,treasure);
+  		} 
+  		else if(attribute.contains("snap")) 
+  		{
+  			String[] temp = attribute.split(" ");
+  			int room = Integer.parseInt(temp[temp.length-1]);
+  			sendPicture(room);
+  		}
+    	System.out.println("Hider GUI: " + attribute); // this has to be implemented
+  	}
+}
+\end{lstlisting}
+\textbf{mapTimes template} \\
+First line represents the number of points on the map that the robot can go to. X axis respesents the "to" location and y axis respresents the "from" location. Used by dialogue to calculate shortest paths.
+\begin{lstlisting}
+9
+99 17 14 17 13 13 16 13 15
+99 99 18 23 10 19 21 18 21
+99 17 99 18 15 14 19 17 19
+99 23 22 99 18 10 22 19 21
+99 18 22 26 99 26 22 22 29
+99 26 21 17 21 99 22 20 24
+99 29 27 29 24 24 99 16 21
+99 24 24 26 20 20 15 99 17
+99 27 27 29 24 25 23 18 99
+\end{lstlisting}
+\textbf{Treasures Template} \\
+Used by both the Hider and GUI to either hide treasures or present them as options. The last parameter refers to the file name of the picture data and inside the GUI is completely omitted.
+\begin{lstlisting}
+8
+Orange,Round and Large,10,Orange Bottle,rsz_t1.jpg
+Blue,Round and Large,20,Blue Bottle,rsz_t2.jpg
+Yellow,Square and Small,20,Yellow can,rsz_t3.jpg
+Pink,Square and Small,30,Pink can,rsz_t4.jpg
+\end{lstlisting}
+\textbf{Dialogues template} \\
+The dialogue template provides the Dialogue class with information as to what kind of questions to ask. £room£ and £cost£ are reserver keywords replaced when the question is fed to the user.
+\begin{lstlisting}
+DontKnow:
+Do you want me to go to room £room£
+It will cost me £cost£ to go to room £room£
+Are you sure?
+SpecificRoom:
+It will cost me £cost£ to go to room £room£
+Are you sure?
+\end{lstlisting}
+
+\lstset{frame=tb,
+  language=C++,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\section{The ROS classes}
+\subsection{Odometry class}
+This class is held inside the Robot package in ros and the filename is my\_odom2.cpp inside the src files. It handles mappings for robots to odometry as well as keeps track of the robot on the map.
+\begin{lstlisting}
+//my_odom2.cpp
+#include <string>
+#include <ros/ros.h>
+#include <sensor_msgs/JointState.h>
+#include <tf/transform_broadcaster.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
+#include <nav_msgs/Odometry.h>
+#include <nav_msgs/GridCells.h>
+#include "std_msgs/String.h"
+#include <move_base_msgs/MoveBaseAction.h>
+#include <actionlib/client/simple_action_client.h>
+#include <costmap_2d/costmap_2d_ros.h>
+
+// LayeredCostmap* layered_costmap_;
+double x;
+double y;
+double th;
+double linear_x;
+double linear_y;
+double linear_z;
+double angular_x;
+double angular_y;
+double angular_z;
+
+bool publish_transform;
+ros::Publisher odom_pub;
+char **args;
+
+// void updateCostCostMap() {
+//   costmap_2d::getCostmap();
+
+// }
+void poseCallBack(const geometry_msgs::PoseWithCovarianceStamped & pose )
+  {
+    //ROS_INFO("I Heard some shit: [%.2f, %.2f. %.2f]",pose.pose.pose.position.x,pose.pose.pose.position.y,pose.pose.pose.position.z);
+    //ROS_INFO("I heard: [%s]", msg->data.c_str());
+    x = pose.pose.pose.position.x;
+    y = pose.pose.pose.position.y;
+    //th = pose.pose.pose.position.z;
+    publish_transform = true;
+  }
+
+
+void poseAdjustment(const geometry_msgs::Twist & velocity) {
+  //ROS_INFO("Recieved a /cmd_vel message!");
+  //ROS_INFO("Linear components: [%.2f, %.2f. %.2f,%.2f, %.2f. %.2f]", velocity.linear.x,velocity.linear.y,velocity.linear.z,velocity.angular.x,velocity.angular.y,velocity.angular.z);
+  //x = velocity.linear.x;
+  //y = velocity.linear.y;
+  //th = 1.0;
+
+  linear_x = velocity.linear.x;
+  linear_y = velocity.linear.y;
+  angular_z = velocity.angular.z;
+  publish_transform = true;
+
+
+}
+
+std::string getName(std::string temp, char **args,bool addLastNumber) {
+    std::string y("/robot");
+    y += args[1];
+    y += temp;
+    if(addLastNumber)y += +args[1];
+    return y;
+}
+
+int main(int argc, char** argv) {
+
+  ros::init(argc, argv, getName("state_publisher", argv, true));
+  ros::NodeHandle n;
+  odom_pub = n.advertise<nav_msgs::Odometry>(getName("/odom",argv,true), 50);
+  args = argv;
+  int32_t publish_rate_ = 50;
+  tf::TransformBroadcaster tf_br_;
+  tf::StampedTransform tf_map_to_odom_;
+
+  // set up parent and child frames
+  tf_map_to_odom_.frame_id_ = std::string("/map");
+  tf_map_to_odom_.child_frame_id_ = std::string(getName("/odom",argv,true));
+
+  tf::StampedTransform tf_footprint_to_base_;
+
+  // set up parent and child frames
+  tf_footprint_to_base_.frame_id_ = std::string(getName("/base_footprint",argv,true));
+  tf_footprint_to_base_.child_frame_id_ = std::string(getName("/base_link",argv,true));
+
+  tf::StampedTransform tf_laser_to_frame_;
+
+  // set up parent and child frames
+  tf_laser_to_frame_.frame_id_ = std::string(getName("/base_laser", argv, true));
+  tf_laser_to_frame_.child_frame_id_ = std::string(getName("/laser_frame",argv,true));
+
+  //publishing the first position
+  publish_transform = true;
+
+  // initial position
+  x = 0.0; 
+  y = 0.0;
+  th = 0;
+
+  // velocity
+  linear_x = 0.0;
+  linear_y = 0.0;
+  angular_z = 0.0;
+
+  ros::Time current_time;
+  ros::Time last_time;
+  current_time = ros::Time::now();
+  last_time = ros::Time::now();
+
+  tf::TransformBroadcaster broadcaster;
+  ros::Rate loop_rate(50);
+
+  const double degree = M_PI/180;
+  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 50);
+  // message declarations
+  geometry_msgs::TransformStamped odom_trans;
+  odom_trans.header.frame_id = getName("/odom", argv, true);
+  odom_trans.child_frame_id = getName("/base_footprint", argv, true);
+
+  ros::Subscriber sub = n.subscribe(getName("/initialpose",argv,false), 50, poseCallBack);
+  ros::Subscriber sub2 = n.subscribe(getName("/cmd_vel",argv,false), 50, poseAdjustment);
+  int count = 0;
+  while (ros::ok()) {
+
+    // time stamp
+    tf_map_to_odom_.stamp_ = ros::Time::now();
+
+    // specify actual transformation vectors from odometry
+    // NOTE: zeros have to be substituted with actual variable data
+    tf_map_to_odom_.setOrigin(tf::Vector3(0.0f, 0.0f, 0.0f));
+    tf_map_to_odom_.setRotation(tf::Quaternion(0.0f, 0.0f, 0.0f));
+
+    // broadcast transform
+    tf_br_.sendTransform(tf_map_to_odom_);
+
+    // time stamp
+    tf_footprint_to_base_.stamp_ = ros::Time::now();
+
+    // specify actual transformation vectors from odometry
+    // NOTE: zeros have to be substituted with actual variable data
+    tf_footprint_to_base_.setOrigin(tf::Vector3(0.0f, 0.0f, 0.0f));
+    tf_footprint_to_base_.setRotation(tf::Quaternion(0.0f, 0.0f, 0.0f));
+
+    // broadcast transform
+    tf_br_.sendTransform(tf_footprint_to_base_);
+
+    // time stamp
+    tf_laser_to_frame_.stamp_ = ros::Time::now();
+
+    // specify actual transformation vectors from odometry
+    // NOTE: zeros have to be substituted with actual variable data
+    tf_laser_to_frame_.setOrigin(tf::Vector3(0.0f, 0.0f, 0.0f));
+    tf_laser_to_frame_.setRotation(tf::Quaternion(0.0f, 0.0f, 0.0f));
+
+    // broadcast transform
+    tf_br_.sendTransform(tf_laser_to_frame_);
+
+    current_time = ros::Time::now(); 
+
+    double dt = (current_time - last_time).toSec();
+    double delta_x = (linear_x * cos(th) - linear_y * sin(th)) * dt;
+    double delta_y = (linear_x * sin(th) + linear_y * cos(th)) * dt;
+    double delta_th = angular_z * dt;
+
+    x += delta_x;
+    y += delta_y;
+    th += delta_th;
+
+    geometry_msgs::Quaternion odom_quat;  
+    odom_quat = tf::createQuaternionMsgFromRollPitchYaw(0,0,th);
+
+    // update transform
+    odom_trans.header.stamp = current_time; 
+    odom_trans.transform.translation.x = x; 
+    odom_trans.transform.translation.y = y; 
+    odom_trans.transform.translation.z = 0.0;
+    odom_trans.transform.rotation = tf::createQuaternionMsgFromYaw(th);
+
+    //filling the odometry
+    nav_msgs::Odometry odom;
+    odom.header.stamp = current_time;
+    odom.header.frame_id = getName("/odom", argv, true);
+    odom.child_frame_id = getName("/base_footprint",argv,true);
+
+    // position
+    odom.pose.pose.position.x = x;
+    odom.pose.pose.position.y = y;
+    odom.pose.pose.position.z = th;
+    odom.pose.pose.orientation = odom_quat;
+
+    //velocity
+    odom.twist.twist.linear.x = linear_x;
+    odom.twist.twist.linear.y = linear_y;
+    odom.twist.twist.linear.z = linear_z;
+    odom.twist.twist.angular.x = angular_x;
+    odom.twist.twist.angular.y = angular_y;
+    odom.twist.twist.angular.z = angular_z;
+
+    last_time = current_time;
+
+    // publishing the odometry and the new tf
+    if(publish_transform) {
+      odom_pub.publish(odom);
+      
+    }
+    
+    std_msgs::String msg;
+
+    std::stringstream ss;
+    ss << "hello world " << count;
+    msg.data = ss.str();
+    chatter_pub.publish(msg);
+
+    ++count;
+    //publish_transform = false;
+    broadcaster.sendTransform(odom_trans);
+    ros::spinOnce();
+    loop_rate.sleep();
+  }
+
+  return 0;
+}
+\end{lstlisting}
+\subsection{Pose publisher node}
+This class is responsible for mapping positions in the ros environment for any previously omitted mappings that Ros requires to work properly. It is part of the Robot package.
+\begin{lstlisting}
+//PosePublisher.cpp
+#include <ros/ros.h>
+#include <tf/transform_listener.h>
+#include <geometry_msgs/PoseStamped.h>
+
+std::string getName(std::string temp, char **args,bool addLastNumber) {
+    std::string y("/robot");
+    y += args[1];
+    y += temp;
+    if(addLastNumber)y += +args[1];
+    return y;
+}
+
+int main(int argc, char **argv) {
+  ros::init(argc, argv, getName("/pose_publisher",argv,true));
+  ros::NodeHandle nh;
+  ros::NodeHandle private_nh("~");
+  
+  double publish_frequency;
+  std::string map_frame, base_frame;
+  ros::Publisher pose_publisher;
+  
+  private_nh.param<double>("publish_frequency", publish_frequency, 50);
+  private_nh.param<std::string>(getName("/map_frame",argv,false), map_frame, getName("/map",argv,false));
+  private_nh.param<std::string>(getName("/base_frame",argv,true), base_frame, getName("/base_link",argv,true));
+  
+  pose_publisher = nh.advertise<geometry_msgs::PoseStamped>(getName("/pose",argv,false), 50);
+  
+  tf::TransformListener listener;
+  std::string tf_prefix = tf::getPrefixParam(private_nh);
+  
+  ros::Rate rate(publish_frequency);
+  while(nh.ok()) {
+    tf::StampedTransform transform;
+    bool tf_ok = true;
+    try {
+      listener.lookupTransform(map_frame, base_frame, ros::Time(0), transform);
+    } catch(tf::TransformException ex) {
+      //ROS_ERROR("-------> %s", ex.what());
+      tf_ok = false;
+    }
+    
+    if(tf_ok) {
+      geometry_msgs::PoseStamped pose_stamped;
+      pose_stamped.header.stamp = ros::Time::now();
+      pose_stamped.header.frame_id = tf_prefix+"/"+map_frame;
+      
+      pose_stamped.pose.position.x = transform.getOrigin().getX();
+      pose_stamped.pose.position.y = transform.getOrigin().getY();
+      pose_stamped.pose.position.z = transform.getOrigin().getZ();
+      
+      pose_stamped.pose.orientation.x = transform.getRotation().getX();
+      pose_stamped.pose.orientation.y = transform.getRotation().getY();
+      pose_stamped.pose.orientation.z = transform.getRotation().getZ();
+      pose_stamped.pose.orientation.w = transform.getRotation().getW();
+      
+      pose_publisher.publish(pose_stamped);
+    }
+    
+    rate.sleep();
+  }
+  
+  return 0;
+}
+\end{lstlisting}
+\subsection{Controller} 
+This class is part of the controller package and named controller.cpp. It is responsible for holding room coordinates and processing commands from the server on the ROS side.
+\begin{lstlisting}
+//controller.cpp
+#include <string>
+#include <iostream>
+#include <ros/ros.h>
+#include <sensor_msgs/JointState.h>
+#include <tf/transform_broadcaster.h>
+#include <geometry_msgs/PoseWithCovarianceStamped.h>
+#include <nav_msgs/Odometry.h>
+#include "std_msgs/String.h"
+#include <move_base_msgs/MoveBaseAction.h>
+#include <actionlib/client/simple_action_client.h>
+#include <pthread.h>
+#include <vector>
+#include <sstream>
+#include <boost/algorithm/string/split.hpp>
+#include <boost/algorithm/string/classification.hpp>
+
+int run_once;
+double x;
+double y;
+int numberInput;
+int numberInput2;
+typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+pthread_t threads[2];
+bool robotSuccess;
+std::string tempo;
+int robot[2];
+
+void *send_goal(void*) {
+  int temp = numberInput2;
+  float x []= {-2.67080068588, -2.735394945468, -2.8692850494, 3.11004161835, 2.61151981354, 8.74360466003, 9.0023651123, 9.08391475677};
+  float y []= {4.69156122208, 1.44183540344, -2.96959543228, 4.85724782944, -2.75757598877, 5.43985700607, 1.45707416534, -2.5175409317};
+  
+  //tell the action client that we want to spin a thread by default
+  std::ostringstream oss;
+  oss << "robot" << (numberInput2+1) << "/move_base";
+  std::cout << oss.str();
+  MoveBaseClient ac(oss.str(), true);
+  //wait for the action server to come up
+  while(!ac.waitForServer(ros::Duration(5.0))){
+    ROS_INFO("Waiting for the move_base action server to come up");
+  }
+
+  //we'll send a goal to the robot.
+  move_base_msgs::MoveBaseGoal goal;
+  goal.target_pose.header.frame_id = "map";
+  goal.target_pose.header.stamp = ros::Time::now();
+  float x_cord = x[numberInput];
+  float y_cord = y[numberInput];
+  robot[numberInput2] = numberInput;
+  goal.target_pose.pose.position.x = x_cord;
+  goal.target_pose.pose.position.y = y_cord;
+  goal.target_pose.pose.orientation.w = 1.0;
+
+  ROS_INFO("Sending goal");
+  ac.sendGoal(goal);
+
+  ac.waitForResult();
+
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+    std::stringstream sstm;
+    sstm << "%%error SimR TabUI \"" << temp << ";" << robot[temp] << "\"";
+    tempo = sstm.str();
+    robotSuccess = true;
+  } else
+    ROS_INFO("The base 1 failed to move forward 1 meter for some reason");
+}
+//Debuggin method without using the server.
+void runQuestions() {
+  std::cout << "Please enter a room number from 0 to 7: ";
+  std::cin >> numberInput;
+
+  while(std::cin.fail() || numberInput<-1 || numberInput>8) {
+        std::cout << "Incorrect value. Please enter a room number from 0 to 7: " << std::endl;
+        std::cin.clear();
+        std::cin.ignore(256,'\n');
+        std::cin >> numberInput;
+  }
+  if(numberInput == -1) {
+    exit(0);
+  }
+  std::cout << "Please which robot should go?: ";
+  std::cin >> numberInput2;
+  
+  while(std::cin.fail() || numberInput2<-1 || numberInput2>8) {
+        std::cout << "Incorrect value. Please enter a robot number from 0 to 1: " << std::endl;
+        std::cin.clear();
+        std::cin.ignore(256,'\n');
+        std::cin >> numberInput2;
+  }
+  if(numberInput2 == -1) {
+    exit(0);
+  }
+  return;
+
+}
+//Initialize the therad to ensure we can get 
+void runThread() {
+  int rc;
+  int i;
+  rc = pthread_create(&threads[numberInput2], NULL, 
+                          send_goal, NULL);  
+  
+  if (rc){
+     std::cout << "Error:unable to create thread," << rc << std::endl;
+     exit(-1);
+  }
+  return;
+}
+
+//Splitter methods for C++.
+std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+    std::stringstream ss(s);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+    return elems;
+}
+
+
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::vector<std::string> elems;
+    split(s, delim, elems);
+    return elems;
+}
+
+//Command processor.
+void processCommand(const std_msgs::String::ConstPtr& msg)
+{
+  using namespace boost::algorithm;
+
+  ROS_INFO("I heard: %s", msg->data.c_str());
+  std::string temp2 = msg->data.c_str();
+  std::vector<std::string> tokens;
+
+  split(tokens, temp2, is_any_of(" ")); // here it is
+
+  std::cout << (tokens.at(3) + "\n");
+  std::cout << (tokens.at(4) + "\n");
+
+  numberInput2 = atoi(tokens.at(3).c_str());
+  numberInput = atoi(tokens.at(4).c_str());
+  runThread();
+  //std::cout << ("Done Converting data" + "\n");
+}
+
+int main(int argc, char **argv)
+{
+
+    
+  /**
+   * The ros::init() function needs to see argc and argv so that it can perform
+   * any ROS arguments and name remapping that were provided at the command line.
+   * For programmatic remappings you can use a different version of init() which takes
+   * remappings directly, but for most command-line programs, passing argc and argv is
+   * the easiest way to do it.  The third argument to init() is the name of the node.
+   *
+   * You must call one of the versions of ros::init() before using any other
+   * part of the ROS system.
+   */
+  
+  ros::init(argc, argv, "controller");
+  
+  
+  /**
+   * NodeHandle is the main access point to communications with the ROS system.
+   * The first NodeHandle constructed will fully initialize this node, and the last
+   * NodeHandle destructed will close down the node.
+   */
+  ros::NodeHandle n;
+  tempo = "";
+  robot[0] = 0;
+  robot[1] = 0;
+  robotSuccess = false;
+  ros::Subscriber sub = n.subscribe("sendRobots", 50, processCommand);
+  ros::Publisher chatter_pub = n.advertise<std_msgs::String>("success", 50);
+  ros::Rate loop_rate(10);
+  while (ros::ok())
+    {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+         */
+        if(robotSuccess) {
+            std_msgs::String msg;
+            
+            msg.data = tempo;
+            chatter_pub.publish(msg);
+
+            ROS_INFO("%s", msg.data.c_str());
+            robotSuccess = !robotSuccess;
+            
+        }
+        ros::spinOnce();
+
+        loop_rate.sleep();
+    }
+
+  ros::spin();
+  
+  
+
+
+  return 0;
+}
+\end{lstlisting}
+\subsection{Connect To server in ROS}
+This class is part of the controller package and is responsible for connecting ROS with the Server but is not allowed to publish goals. Instead it produces threads that handle communication with the controller.
+\begin{lstlisting}
+//connectToServer.cpp
+#include<iostream>    //cout
+#include<stdio.h> //printf
+#include<string.h>    //strlen
+#include<string>  //string
+#include<sys/socket.h>    //socket
+#include<arpa/inet.h> //inet_addr
+#include<netdb.h> //hostent
+#include <stdlib.h>
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include <pthread.h>
+
+using namespace std;
+bool moveRobot;
+string tempo;
+/**
+    TCP Client class
+*/
+class tcp_client
+{
+private:
+    int sock;
+    std::string address;
+    int port;
+    struct sockaddr_in server;
+     
+public:
+    tcp_client();
+    bool conn(string, int);
+    bool send_data(string data);
+    string receive(int);
+};
+ 
+tcp_client::tcp_client()
+{
+    sock = -1;
+    port = 0;
+    address = "";
+}
+ 
+/**
+    Connect to a host on a certain port number
+*/
+bool tcp_client::conn(string address , int port)
+{
+    //create socket if it is not already created
+    if(sock == -1)
+    {
+        //Create socket
+        sock = socket(AF_INET , SOCK_STREAM , 0);
+        if (sock == -1)
+        {
+            perror("Could not create socket");
+        }
+         
+        cout<<"Socket created\n";
+    }
+    else    {   /* OK , nothing */  }
+     
+    //setup address structure
+    if(inet_addr(address.c_str()) == -1)
+    {
+        struct hostent *he;
+        struct in_addr **addr_list;
+         
+        //resolve the hostname, its not an ip address
+        if ( (he = gethostbyname( address.c_str() ) ) == NULL)
+        {
+            //gethostbyname failed
+            herror("gethostbyname");
+            cout<<"Failed to resolve hostname\n";
+             
+            return false;
+        }
+         
+        //Cast the h_addr_list to in_addr , since h_addr_list also has the ip address in long format only
+        addr_list = (struct in_addr **) he->h_addr_list;
+ 
+        for(int i = 0; addr_list[i] != NULL; i++)
+        {
+            //strcpy(ip , inet_ntoa(*addr_list[i]) );
+            server.sin_addr = *addr_list[i];
+             
+            cout<<address<<" resolved to "<<inet_ntoa(*addr_list[i])<<endl;
+             
+            break;
+        }
+    }
+     
+    //plain ip address
+    else
+    {
+        server.sin_addr.s_addr = inet_addr( address.c_str() );
+    }
+     
+    server.sin_family = AF_INET;
+    server.sin_port = htons( port );
+     
+    //Connect to remote server
+    if (connect(sock , (struct sockaddr *)&server , sizeof(server)) < 0)
+    {
+        perror("connect failed. Error");
+        return 1;
+    }
+     
+    cout<<"Connected\n";
+    return true;
+}
+ 
+/**
+    Send data to the connected host
+*/
+bool tcp_client::send_data(string data)
+{
+    //Send some data
+    if( send(sock , data.c_str() , strlen( data.c_str() ) , 0) < 0)
+    {
+        perror("Send failed : ");
+        return false;
+    }
+    cout<<data + "\nData sent.\n";
+     
+    return true;
+}
+ 
+/**
+    Receive data from the connected host
+*/
+string tcp_client::receive(int size=512)
+{
+    char buffer[size];
+    string reply;
+     
+    //Receive a reply from the server
+    if( recv(sock , buffer , sizeof(buffer) , 0) < 0)
+    {
+        puts("recv failed");
+    }
+     
+    reply = buffer;
+    return reply;
+}
+void *run_controller(void*) {
+    system("rosrun controller controller");
+}
+tcp_client c;
+void *run_server(void*) {
+
+    //tcp_client c;
+    string host;
+    //system("roslaunch my_robot_name_2dnav launch_robot.launch");
+    //connect to host
+    c.conn("127.0.1.1" , 6009);
+     
+    //send some data
+    c.send_data("%%setid SimR \r\n");
+
+    while(true) {
+         //receive and echo reply
+        cout<<"----------------------------\n";
+        tempo = c.receive(1024);
+        if(tempo.find("ping") != std::string::npos) {
+            cout<<"PING\n";
+            c.send_data("%%pong\n");
+        } else if(tempo.find("ack") != std::string::npos) {
+            cout<<"ACKNOWLEDGED\n";
+        } else if(tempo.find("goto") != std::string::npos) {
+            moveRobot = true;
+        }
+        cout<<tempo;
+        cout<<"\n----------------------------\n";
+     
+    //done
+    } 
+   
+    return 0;
+}
+
+void processSuccess(const std_msgs::String::ConstPtr& msg) {
+    std::string temp2 = msg->data.c_str();
+    cout<<temp2;
+    c.send_data(temp2 + "\n");
+}
+ 
+int main(int argc , char *argv[])
+{
+
+    ros::init(argc, argv, "sender");
+    ros::NodeHandle n;
+    tempo = "";
+    ros::Publisher chatter_pub = n.advertise<std_msgs::String>("sendRobots", 50);
+    ros::Subscriber sub = n.subscribe("success", 50, processSuccess);
+    ros::Rate loop_rate(10);
+    moveRobot = false;
+    pthread_t temp;
+    pthread_create(&temp, NULL, run_server, NULL);
+    //pthread_t temp2;
+    //pthread_create(&temp2, NULL, run_controller, NULL);
+    while (ros::ok())
+    {
+    /**
+     * This is a message object. You stuff it with data, and then publish it.
+         */
+        if(moveRobot) {
+            std_msgs::String msg;
+            
+            msg.data = tempo;
+            chatter_pub.publish(msg);
+
+            ROS_INFO("%s", msg.data.c_str());
+            moveRobot = !moveRobot;
+            
+        }
+        ros::spinOnce();
+
+        loop_rate.sleep();
+    }
+
+    return 0;
+}
+\end{lstlisting}
+\subsection{SimpleLayers class}
+Responsible for creating a basic outline of how a layer is constructed for the GridLayer class.
+\begin{lstlisting}
+#include<simple_layers/simple_layer.h>
+#include <pluginlib/class_list_macros.h>
+
+PLUGINLIB_EXPORT_CLASS(simple_layer_namespace::SimpleLayer, costmap_2d::Layer)
+
+using costmap_2d::LETHAL_OBSTACLE;
+
+namespace simple_layer_namespace
+{
+
+SimpleLayer::SimpleLayer() {}
+
+void SimpleLayer::onInitialize()
+{
+  ros::NodeHandle nh("~/" + name_);
+  current_ = true;
+
+  dsrv_ = new dynamic_reconfigure::Server<costmap_2d::GenericPluginConfig>(nh);
+  dynamic_reconfigure::Server<costmap_2d::GenericPluginConfig>::CallbackType cb = boost::bind(
+      &SimpleLayer::reconfigureCB, this, _1, _2);
+  dsrv_->setCallback(cb);
+}
+
+
+void SimpleLayer::reconfigureCB(costmap_2d::GenericPluginConfig &config, uint32_t level)
+{
+  enabled_ = config.enabled;
+}
+
+void SimpleLayer::updateBounds(double robot_x, double robot_y, double robot_yaw, double* min_x,
+                                           double* min_y, double* max_x, double* max_y)
+{
+  if (!enabled_)
+    return;
+
+  mark_x_ = robot_x + cos(robot_yaw);
+  mark_y_ = robot_y + sin(robot_yaw);
+
+  *min_x = std::min(*min_x, mark_x_);
+  *min_y = std::min(*min_y, mark_y_);
+  *max_x = std::max(*max_x, mark_x_);
+  *max_y = std::max(*max_y, mark_y_);
+}
+
+void SimpleLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int min_j, int max_i,
+                                          int max_j)
+{
+  if (!enabled_)
+    return;
+  unsigned int mx;
+  unsigned int my;
+  if(master_grid.worldToMap(mark_x_, mark_y_, mx, my)){
+    master_grid.setCost(mx, my, LETHAL_OBSTACLE);
+  }
+}
+
+} // end namespace
+
+\end{lstlisting}
+\subsection{GridLayer class}
+Responsible for being another layer in the static map that was supposed to self update but didn't quite get there.
+\begin{lstlisting}
+#include <simple_layers/grid_layer.h>
+#include <pluginlib/class_list_macros.h>
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include "simple_layers/robotPosition.h"
+PLUGINLIB_EXPORT_CLASS(simple_layer_namespace::GridLayer, costmap_2d::Layer)
+
+using costmap_2d::LETHAL_OBSTACLE;
+using costmap_2d::NO_INFORMATION;
+
+namespace simple_layer_namespace
+{
+  double GridLayer::x_coord = -4.5;
+  double GridLayer::y_coord = -4.5;
+  GridLayer::GridLayer() {
+    // robotPosition robot;
+    //robot.set_GridLayer(*this);
+  }
+  void GridLayer::onInitialize()
+  {
+  ros::NodeHandle nh("~/" + name_);
+  current_ = true;
+  default_value_ = NO_INFORMATION;
+  matchSize();
+
+  dsrv_ = new dynamic_reconfigure::Server<costmap_2d::GenericPluginConfig>(nh);
+  dynamic_reconfigure::Server<costmap_2d::GenericPluginConfig>::CallbackType cb = boost::bind(
+      &GridLayer::reconfigureCB, this, _1, _2);
+  dsrv_->setCallback(cb);
+  
+  }
+
+
+void GridLayer::matchSize()
+{
+  Costmap2D* master = layered_costmap_->getCostmap();
+  resizeMap(master->getSizeInCellsX(), master->getSizeInCellsY(), master->getResolution(),
+            master->getOriginX(), master->getOriginY());
+}
+void GridLayer::setXY(double x, double y) {
+  ROS_INFO("I've Been Called");
+  //GridLayer::x_coord = x;
+  //GridLayer::y_coord = y;
+  //unsigned int robotX;
+  //unsigned int robotY;
+  //worldToMap (x_coord, y_coord, robotX, robotY);
+  //setCost(robotX, robotY, LETHAL_OBSTACLE);
+}
+
+
+void GridLayer::reconfigureCB(costmap_2d::GenericPluginConfig &config, uint32_t level)
+{
+  enabled_ = config.enabled;
+}
+
+void GridLayer::updateBounds(double robot_x, double robot_y, double robot_yaw, double* min_x,
+                                           double* min_y, double* max_x, double* max_y)
+{
+  if (!enabled_)
+    return;
+
+  double mark_x = robot_x + cos(robot_yaw), mark_y = robot_y + sin(robot_yaw);
+  unsigned int mx;
+  unsigned int my;
+  unsigned int robotX;
+  unsigned int robotY;
+  if(worldToMap(mark_x, mark_y, mx, my)){
+    //setCost(mx, my, LETHAL_OBSTACLE);
+    //std::cout << GridLayer::x_coord << "," << GridLayer::y_coord << "\n";
+    //worldToMap (GridLayer::x_coord, GridLayer::y_coord, robotX, robotY);
+    //setCost(robotX, robotY, LETHAL_OBSTACLE);
+    //x_coord += 0.1;
+    //y_coord += 0.1;
+  }
+  
+  *min_x = std::min(*min_x, mark_x);
+  *min_y = std::min(*min_y, mark_y);
+  *max_x = std::max(*max_x, mark_x);
+  *max_y = std::max(*max_y, mark_y);
+}
+
+void GridLayer::updateCosts(costmap_2d::Costmap2D& master_grid, int min_i, int min_j, int max_i,
+                                          int max_j)
+{
+  if (!enabled_)
+    return;
+  for (int j = min_j; j < max_j; j++)
+  {
+    for (int i = min_i; i < max_i; i++)
+    {
+      int index = getIndex(i, j);
+      if (costmap_[index] == NO_INFORMATION)
+        continue;
+      //master_grid.setCost(i, j, costmap_[index]); 
+      unsigned int robotX;
+      unsigned int robotY;
+      //worldToMap (GridLayer::x_coord, GridLayer::y_coord, robotX, robotY);
+    //setCost(robotX, robotY, LETHAL_OBSTACLE);
+    }
+  }
+}
+
+
+
+} // end namespace
+\end{lstlisting}
+\subsection{robotPosition}
+A class created to establish an integration environment between GridLayer and Odometry classes
+\begin{lstlisting}
+#include <iostream>    //cout
+#include <stdio.h> //printf
+#include <string.h>    //strlen
+#include <string>  //string
+#include <sys/socket.h>    //socket
+#include <arpa/inet.h> //inet_addr
+#include <netdb.h> //hostent
+#include <stdlib.h>
+#include "ros/ros.h"
+#include "std_msgs/String.h"
+#include <simple_layers/robotPosition.h>
+
+void robotPosition::set_values (int x, int y) {
+  width = x;
+  height = y;
+}
+
+void robotPosition::set_GridLayer(simple_layer_namespace::GridLayer& grid) {
+    // std::cout << &grid;
+    grid.x_coord = 0.0;
+}
+
+robotPosition::robotPosition() {
+    std::cout << "Created";
+}
+int main() {
+
+}
+\end{lstlisting}
+
+\lstset{frame=tb,
+  language=XML,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+\subsection{Launch file}
+This file is the heart of the ROS environment. It allows setting up the move\_base and amcl packages for the robot to be able to transverse through the map. Once run it runs the complete ROS system including connection to the server.
+\begin{lstlisting}
+<!--- launch_robot.launch-->
+<launch>
+  
+    <node name="map_server" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
+  <group ns="robot1">
+    <node name="map_server" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
+    <param name="tf_prefix" value="robot1"/>
+    <node pkg="amcl" type="amcl" name="amcl1" output="screen">
+
+      <param name="base_frame" value = "base_link"/>
+      <param name="fixed_frame" value = "map"/>
+      <param name="use_cloud_input" value="true"/>
+      <param name="use_laser_input" value="true"/>
+      <param name="publish_tf" value="true"/>
+      <param name="publish_odom" value="true"/>
+      <param name="use_odom" value="false"/>
+      <param name="use_imu" value="false"/>
+      <param name="use_alpha_beta" value="true"/>
+      <param name="max_iterations" value="10"/>
+
+    </node>
+
+  <node pkg="robot2_tf" type="my_odom2" name="my_odom1" args="1" output="screen">
+    <param name="odom_param" value="param_value" />
+  </node>
+
+<node pkg="robot2_tf" type="pose_publisher2" name="pose_publisher1" args="1" output="screen">
+    <param name="pose_publisher" value="param_value" />
+  </node>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find robot)/costmap_common_params 2.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find robot)/costmap_common_params 2.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find robot)/local_costmap_params 2.yaml" command="load" />
+    <rosparam file="$(find robot)/global_costmap_params 2.yaml" command="load" />
+    <rosparam file="$(find robot)/base_local_planner_params.yaml" command="load" />
+    
+  </node>
+</group>
+  
+  <group ns="robot2">
+    <param name="tf_prefix" value="robot"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="/home/maciejm/catkin_ws/src/map1.yaml"/>
+    <node pkg="amcl" type="amcl" name="amcl2">
+
+      <param name="base_frame" value = "base_link"/>
+      <param name="fixed_frame" value = "map"/>
+      <param name="use_cloud_input" value="true"/>
+      <param name="use_laser_input" value="true"/>
+      <param name="publish_tf" value="true"/>
+      <param name="publish_odom" value="true"/>
+      <param name="use_odom" value="false"/>
+      <param name="use_imu" value="false"/>
+      <param name="use_alpha_beta" value="true"/>
+      <param name="max_iterations" value="10"/>
+    </node>
+
+  <node pkg="robot2_tf" type="my_odom2" name="my_odom2" args="2" output="screen">
+    <param name="odom_param" value="param_value" />
+  </node>
+
+<node pkg="robot2_tf" type="pose_publisher2" name="pose_publisher2" args="2" output="screen">
+    <param name="pose_publisher" value="param_value" />
+  </node>
+
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base">
+    <rosparam file="$(find robot)/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find robot)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find robot)/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find robot)/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find robot)/base_local_planner_params.yaml" command="load" />
+    
+  </node>
+</group>
+
+
+<!--- Rviz left on for debugging -->
+<node pkg="rviz" type="rviz" name="rviz2" output="screen">
+    <param name="rviz" value="param_value" />
+  </node>
+
+  <node pkg="controller" type="serverToController" name="sTc" />
+  <node pkg="controller" type="controller" name="cntrl" output="screen"/>
+  
+</launch>
+\end{lstlisting}
+\section{Configuration files for the robots}
+\subsection{base local planner for both robots}
+This planner allows the trajectory planner to make decisions about how to steer the robot. Can be adjusted to need and each robot will take from it.
+\begin{lstlisting}
+TrajectoryPlannerROS:
+  max_vel_x: 1
+  min_vel_x: 0.1
+  max_vel_theta: 1.0
+  min_in_place_vel_theta: 0.4
+
+  acc_lim_theta: 10.0
+  acc_lim_x: 10.0
+  acc_lim_y: 10.0
+
+  holonomic_robot: false
+  meter_scoring: true
+
+  pdist_scale: 0.8
+  gdist_scale: 0.6
+  occdist_scale: 0.02
+\end{lstlisting}
+\subsection{costmap\_common\_planner for both robots.}
+This is the information that defines the robot and how it sees its obstacles.
+\begin{lstlisting}
+obstacle_range: 1.5
+raytrace_range: 1.5
+#robot_radius: 0.1
+inflation_radius: 0.5
+transform_tolerance: 0.3
+footprint: [ [0.25, 0.25], [-0.25, 0.25],[-0.25, -0.25], [0.25, -0.25], [0.35,0.0] ]
+observation_sources: laser_scan_sensor point_cloud_sensor
+
+laser_scan_sensor: {sensor_frame: my_sensor, data_type: LaserScan, topic: my_sensor, marking: true, clearing: true}
+
+point_cloud_sensor: {sensor_frame: laser_cloud, data_type: PointCloud, topic: laser_cloud, marking: true, clearing: true}
+\end{lstlisting}
+
+\subsection{Global costmap for Robot1}
+Provides the move\_base package with information about how to build a global costmap.
+\begin{lstlisting}
+global_costmap:
+  global_frame: /map
+  robot_base_frame: /robot1/base_link1
+  update_frequency: 5.0
+  static_map: true
+  plugins:
+    - {name: static_map, type: "costmap_2d::StaticLayer"}
+    - {name: obstacles, type: "costmap_2d::ObstacleLayer"}
+    - {name: additional2, type: "simple_layer_namespace::GridLayer"}
+    - {name: Inflation, type: "costmap_2d::InflationLayer"}
+\end{lstlisting}
+
+\subsection{Global costmap for Robot2}
+Provides the move\_base package with information about how to build a global costmap.
+\begin{lstlisting}
+global_costmap:
+  global_frame: /map
+  robot_base_frame: /robot2/base_link2
+  update_frequency: 5.0
+  static_map: true
+  plugins:
+    - {name: static_map, type: "costmap_2d::StaticLayer"}
+    - {name: obstacles, type: "costmap_2d::ObstacleLayer"}
+    - {name: additional2, type: "simple_layer_namespace::GridLayer"}
+    - {name: Inflation, type: "costmap_2d::InflationLayer"}
+\end{lstlisting}
+
+\subsection{Local costmap for Robot1}
+Provides the move\_base package with information about how to build a local costmap.
+\begin{lstlisting}
+local_costmap:
+  global_frame: /robot1/odom1
+  robot_base_frame: /robot1/base_link1
+  update_frequency: 5.0
+  publish_frequency: 5.0
+  static_map: true
+  rolling_window: false
+  /*width: 6.0
+  /*height: 6.0
+  resolution: 0.05
+  obstacles: 5.0
+  /*origin_x: 0.0
+  /*origin_y: 0.0
+\end{lstlisting}
+
+\subsection{Local costmap for Robot2}
+Provides the move\_base package with information about how to build a local costmap.
+\begin{lstlisting}
+local_costmap:
+  global_frame: /robot2/odom2
+  robot_base_frame: /robot2/base_link2
+  update_frequency: 5.0
+  publish_frequency: 5.0
+  static_map: true
+  rolling_window: false
+  /*width: 6.0
+  /*height: 6.0
+  resolution: 0.05
+  obstacles: 5.0
+  /*origin_x: 0.0
+  /*origin_y: 0.0
+\end{lstlisting}
+
+\section{CMake lists to make each package runnable in ROS. CMakeLists are generated by ROS and edited by the developer}
+\subsection{Robot package CMakeList.txt}
+\begin{lstlisting}
+cmake_minimum_required(VERSION 2.8.3)
+project(robot)
+
+## Find catkin macros and libraries
+## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
+## is used, also find other catkin packages
+find_package(catkin REQUIRED COMPONENTS
+  move_base
+  robot2_tf
+)
+
+## System dependencies are found with CMake's conventions
+# find_package(Boost REQUIRED COMPONENTS system)
+
+
+## Uncomment this if the package has a setup.py. This macro ensures
+## modules and global scripts declared therein get installed
+## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
+# catkin_python_setup()
+
+################################################
+## Declare ROS messages, services and actions ##
+################################################
+
+## To declare and build messages, services or actions from within this
+## package, follow these steps:
+## * Let MSG_DEP_SET be the set of packages whose message types you use in
+##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
+## * In the file package.xml:
+##   * add a build_depend tag for "message_generation"
+##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
+##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
+##     but can be declared for certainty nonetheless:
+##     * add a run_depend tag for "message_runtime"
+## * In this file (CMakeLists.txt):
+##   * add "message_generation" and every package in MSG_DEP_SET to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * add "message_runtime" and every package in MSG_DEP_SET to
+##     catkin_package(CATKIN_DEPENDS ...)
+##   * uncomment the add_*_files sections below as needed
+##     and list every .msg/.srv/.action file to be processed
+##   * uncomment the generate_messages entry below
+##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
+
+## Generate messages in the 'msg' folder
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
+
+## Generate services in the 'srv' folder
+# add_service_files(
+#   FILES
+#   Service1.srv
+#   Service2.srv
+# )
+
+## Generate actions in the 'action' folder
+# add_action_files(
+#   FILES
+#   Action1.action
+#   Action2.action
+# )
+
+## Generate added messages and services with any dependencies listed here
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs  # Or other packages containing msgs
+# )
+
+################################################
+## Declare ROS dynamic reconfigure parameters ##
+################################################
+
+## To declare and build dynamic reconfigure parameters within this
+## package, follow these steps:
+## * In the file package.xml:
+##   * add a build_depend and a run_depend tag for "dynamic_reconfigure"
+## * In this file (CMakeLists.txt):
+##   * add "dynamic_reconfigure" to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * uncomment the "generate_dynamic_reconfigure_options" section below
+##     and list every .cfg file to be processed
+
+## Generate dynamic reconfigure parameters in the 'cfg' folder
+# generate_dynamic_reconfigure_options(
+#   cfg/DynReconf1.cfg
+#   cfg/DynReconf2.cfg
+# )
+
+###################################
+## catkin specific configuration ##
+###################################
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## INCLUDE_DIRS: uncomment this if you package contains header files
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES robot
+#  CATKIN_DEPENDS move_base my_odom2 my_sensor2 robot_setup_tf2
+#  DEPENDS system_lib
+)
+
+###########
+## Build ##
+###########
+
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
+# include_directories(include)
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
+
+## Declare a C++ library
+# add_library(robot
+#   src/${PROJECT_NAME}/robot.cpp
+# )
+
+## Add cmake target dependencies of the library
+## as an example, code may need to be generated before libraries
+## either from message generation or dynamic reconfigure
+# add_dependencies(robot2 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+## Declare a C++ executable
+# add_executable(robot2 src/robot2_node.cpp)
+
+## Add cmake target dependencies of the executable
+## same as for the library above
+# add_dependencies(robot2 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+## Specify libraries to link a library or executable target against
+# target_link_libraries(robot2_node
+#   ${catkin_LIBRARIES}
+# )
+
+#############
+## Install ##
+#############
+
+# all install targets should use catkin DESTINATION variables
+# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+
+## Mark executable scripts (Python etc.) for installation
+## in contrast to setup.py, you can choose the destination
+# install(PROGRAMS
+#   scripts/my_python_script
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark executables and/or libraries for installation
+# install(TARGETS robot2 robot2_node
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark cpp header files for installation
+# install(DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#   FILES_MATCHING PATTERN "*.h"
+#   PATTERN ".svn" EXCLUDE
+# )
+
+## Mark other files for installation (e.g. launch and bag files, etc.)
+# install(FILES
+#   # myfile1
+#   # myfile2
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
+
+#############
+## Testing ##
+#############
+
+## Add gtest based cpp test target and link libraries
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_robot2.cpp)
+# if(TARGET ${PROJECT_NAME}-test)
+#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+# endif()
+
+## Add folders to be run by python nosetests
+# catkin_add_nosetests(test)
+
+\end{lstlisting}
+\subsection{Controller package CMakeList.txt}
+\begin{lstlisting}
+cmake_minimum_required(VERSION 2.8.3)
+project(controller)
+
+## Find catkin macros and libraries
+## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
+## is used, also find other catkin packages
+find_package(catkin REQUIRED COMPONENTS
+  roscpp
+  rospy
+  std_msgs
+  geometry_msgs
+  tf
+)
+
+## System dependencies are found with CMake's conventions
+# find_package(Boost REQUIRED COMPONENTS system)
+
+
+## Uncomment this if the package has a setup.py. This macro ensures
+## modules and global scripts declared therein get installed
+## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
+# catkin_python_setup()
+
+################################################
+## Declare ROS messages, services and actions ##
+################################################
+
+## To declare and build messages, services or actions from within this
+## package, follow these steps:
+## * Let MSG_DEP_SET be the set of packages whose message types you use in
+##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
+## * In the file package.xml:
+##   * add a build_depend tag for "message_generation"
+##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
+##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
+##     but can be declared for certainty nonetheless:
+##     * add a run_depend tag for "message_runtime"
+## * In this file (CMakeLists.txt):
+##   * add "message_generation" and every package in MSG_DEP_SET to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * add "message_runtime" and every package in MSG_DEP_SET to
+##     catkin_package(CATKIN_DEPENDS ...)
+##   * uncomment the add_*_files sections below as needed
+##     and list every .msg/.srv/.action file to be processed
+##   * uncomment the generate_messages entry below
+##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
+
+## Generate messages in the 'msg' folder
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
+
+## Generate services in the 'srv' folder
+# add_service_files(
+#   FILES
+#   Service1.srv
+#   Service2.srv
+# )
+
+## Generate actions in the 'action' folder
+# add_action_files(
+#   FILES
+#   Action1.action
+#   Action2.action
+# )
+
+## Generate added messages and services with any dependencies listed here
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs
+# )
+
+################################################
+## Declare ROS dynamic reconfigure parameters ##
+################################################
+
+## To declare and build dynamic reconfigure parameters within this
+## package, follow these steps:
+## * In the file package.xml:
+##   * add a build_depend and a run_depend tag for "dynamic_reconfigure"
+## * In this file (CMakeLists.txt):
+##   * add "dynamic_reconfigure" to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * uncomment the "generate_dynamic_reconfigure_options" section below
+##     and list every .cfg file to be processed
+
+## Generate dynamic reconfigure parameters in the 'cfg' folder
+# generate_dynamic_reconfigure_options(
+#   cfg/DynReconf1.cfg
+#   cfg/DynReconf2.cfg
+# )
+
+###################################
+## catkin specific configuration ##
+###################################
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## INCLUDE_DIRS: uncomment this if you package contains header files
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES controller
+#  CATKIN_DEPENDS roscpp rospy std_msgs
+#  DEPENDS system_lib
+)
+
+###########
+## Build ##
+###########
+
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
+# include_directories(include)
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
+
+## Declare a C++ library
+# add_library(controller
+#   src/${PROJECT_NAME}/controller.cpp
+# )
+
+## Add cmake target dependencies of the library
+## as an example, code may need to be generated before libraries
+## either from message generation or dynamic reconfigure
+# add_dependencies(controller ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+## Declare a C++ executable
+# add_executable(controller_node src/controller_node.cpp)
+
+## Add cmake target dependencies of the executable
+## same as for the library above
+# add_dependencies(controller_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+## Specify libraries to link a library or executable target against
+# target_link_libraries(controller_node
+#   ${catkin_LIBRARIES}
+# )
+
+#############
+## Install ##
+#############
+
+# all install targets should use catkin DESTINATION variables
+# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+
+## Mark executable scripts (Python etc.) for installation
+## in contrast to setup.py, you can choose the destination
+# install(PROGRAMS
+#   scripts/my_python_script
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark executables and/or libraries for installation
+# install(TARGETS controller controller_node
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark cpp header files for installation
+# install(DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#   FILES_MATCHING PATTERN "*.h"
+#   PATTERN ".svn" EXCLUDE
+# )
+
+## Mark other files for installation (e.g. launch and bag files, etc.)
+# install(FILES
+#   # myfile1
+#   # myfile2
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
+
+#############
+## Testing ##
+#############
+
+## Add gtest based cpp test target and link libraries
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_controller.cpp)
+# if(TARGET ${PROJECT_NAME}-test)
+#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+# endif()
+
+## Add folders to be run by python nosetests
+# catkin_add_nosetests(test)
+add_executable(controller src/controller.cpp)
+add_executable(serverToController src/serverToController.cpp)
+target_link_libraries(controller ${catkin_LIBRARIES})
+target_link_libraries(serverToController ${catkin_LIBRARIES})
+\end{lstlisting}
+\subsection{robot2\_tf CMakeLists.txt}
+\begin{lstlisting}
+cmake_minimum_required(VERSION 2.8.3)
+project(robot)
+
+## Find catkin macros and libraries
+## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
+## is used, also find other catkin packages
+find_package(catkin REQUIRED COMPONENTS
+  move_base
+  robot2_tf
+)
+
+## System dependencies are found with CMake's conventions
+# find_package(Boost REQUIRED COMPONENTS system)
+
+
+## Uncomment this if the package has a setup.py. This macro ensures
+## modules and global scripts declared therein get installed
+## See http://ros.org/doc/api/catkin/html/user_guide/setup_dot_py.html
+# catkin_python_setup()
+
+################################################
+## Declare ROS messages, services and actions ##
+################################################
+
+## To declare and build messages, services or actions from within this
+## package, follow these steps:
+## * Let MSG_DEP_SET be the set of packages whose message types you use in
+##   your messages/services/actions (e.g. std_msgs, actionlib_msgs, ...).
+## * In the file package.xml:
+##   * add a build_depend tag for "message_generation"
+##   * add a build_depend and a run_depend tag for each package in MSG_DEP_SET
+##   * If MSG_DEP_SET isn't empty the following dependency has been pulled in
+##     but can be declared for certainty nonetheless:
+##     * add a run_depend tag for "message_runtime"
+## * In this file (CMakeLists.txt):
+##   * add "message_generation" and every package in MSG_DEP_SET to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * add "message_runtime" and every package in MSG_DEP_SET to
+##     catkin_package(CATKIN_DEPENDS ...)
+##   * uncomment the add_*_files sections below as needed
+##     and list every .msg/.srv/.action file to be processed
+##   * uncomment the generate_messages entry below
+##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
+
+## Generate messages in the 'msg' folder
+# add_message_files(
+#   FILES
+#   Message1.msg
+#   Message2.msg
+# )
+
+## Generate services in the 'srv' folder
+# add_service_files(
+#   FILES
+#   Service1.srv
+#   Service2.srv
+# )
+
+## Generate actions in the 'action' folder
+# add_action_files(
+#   FILES
+#   Action1.action
+#   Action2.action
+# )
+
+## Generate added messages and services with any dependencies listed here
+# generate_messages(
+#   DEPENDENCIES
+#   std_msgs  # Or other packages containing msgs
+# )
+
+################################################
+## Declare ROS dynamic reconfigure parameters ##
+################################################
+
+## To declare and build dynamic reconfigure parameters within this
+## package, follow these steps:
+## * In the file package.xml:
+##   * add a build_depend and a run_depend tag for "dynamic_reconfigure"
+## * In this file (CMakeLists.txt):
+##   * add "dynamic_reconfigure" to
+##     find_package(catkin REQUIRED COMPONENTS ...)
+##   * uncomment the "generate_dynamic_reconfigure_options" section below
+##     and list every .cfg file to be processed
+
+## Generate dynamic reconfigure parameters in the 'cfg' folder
+# generate_dynamic_reconfigure_options(
+#   cfg/DynReconf1.cfg
+#   cfg/DynReconf2.cfg
+# )
+
+###################################
+## catkin specific configuration ##
+###################################
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## INCLUDE_DIRS: uncomment this if you package contains header files
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+#  INCLUDE_DIRS include
+#  LIBRARIES robot
+#  CATKIN_DEPENDS move_base my_odom2 my_sensor2 robot_setup_tf2
+#  DEPENDS system_lib
+)
+
+###########
+## Build ##
+###########
+
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
+# include_directories(include)
+include_directories(
+  ${catkin_INCLUDE_DIRS}
+)
+
+## Declare a C++ library
+# add_library(robot
+#   src/${PROJECT_NAME}/robot.cpp
+# )
+
+## Add cmake target dependencies of the library
+## as an example, code may need to be generated before libraries
+## either from message generation or dynamic reconfigure
+# add_dependencies(robot2 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+## Declare a C++ executable
+# add_executable(robot2 src/robot2_node.cpp)
+
+## Add cmake target dependencies of the executable
+## same as for the library above
+# add_dependencies(robot2 ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
+## Specify libraries to link a library or executable target against
+# target_link_libraries(robot2_node
+#   ${catkin_LIBRARIES}
+# )
+
+#############
+## Install ##
+#############
+
+# all install targets should use catkin DESTINATION variables
+# See http://ros.org/doc/api/catkin/html/adv_user_guide/variables.html
+
+## Mark executable scripts (Python etc.) for installation
+## in contrast to setup.py, you can choose the destination
+# install(PROGRAMS
+#   scripts/my_python_script
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark executables and/or libraries for installation
+# install(TARGETS robot2 robot2_node
+#   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+#   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
+
+## Mark cpp header files for installation
+# install(DIRECTORY include/${PROJECT_NAME}/
+#   DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+#   FILES_MATCHING PATTERN "*.h"
+#   PATTERN ".svn" EXCLUDE
+# )
+
+## Mark other files for installation (e.g. launch and bag files, etc.)
+# install(FILES
+#   # myfile1
+#   # myfile2
+#   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+# )
+
+#############
+## Testing ##
+#############
+
+## Add gtest based cpp test target and link libraries
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_robot2.cpp)
+# if(TARGET ${PROJECT_NAME}-test)
+#   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+# endif()
+
+## Add folders to be run by python nosetests
+# catkin_add_nosetests(test)
+\end{lstlisting}
+\subsection{simple\_layers CMakelists.txt}
+\begin{lstlisting}
+# toplevel CMakeLists.txt for a catkin workspace
+# catkin/cmake/toplevel.cmake
+
+cmake_minimum_required(VERSION 2.8.3)
+
+set(CATKIN_TOPLEVEL TRUE)
+
+# search for catkin within the workspace
+set(_cmd "catkin_find_pkg" "catkin" "${CMAKE_SOURCE_DIR}")
+execute_process(COMMAND ${_cmd}
+  RESULT_VARIABLE _res
+  OUTPUT_VARIABLE _out
+  ERROR_VARIABLE _err
+  OUTPUT_STRIP_TRAILING_WHITESPACE
+  ERROR_STRIP_TRAILING_WHITESPACE
+)
+if(NOT _res EQUAL 0 AND NOT _res EQUAL 2)
+  # searching fot catkin resulted in an error
+  string(REPLACE ";" " " _cmd_str "${_cmd}")
+  message(FATAL_ERROR "Search for 'catkin' in workspace failed (${_cmd_str}): ${_err}")
+endif()
+
+# include catkin from workspace or via find_package()
+if(_res EQUAL 0)
+  set(catkin_EXTRAS_DIR "${CMAKE_SOURCE_DIR}/${_out}/cmake")
+  # include all.cmake without add_subdirectory to let it operate in same scope
+  include(${catkin_EXTRAS_DIR}/all.cmake NO_POLICY_SCOPE)
+  add_subdirectory("${_out}")
+
+else()
+  # use either CMAKE_PREFIX_PATH explicitly passed to CMake as a command line argument
+  # or CMAKE_PREFIX_PATH from the environment
+  if(NOT DEFINED CMAKE_PREFIX_PATH)
+    if(NOT "$ENV{CMAKE_PREFIX_PATH}" STREQUAL "")
+      string(REPLACE ":" ";" CMAKE_PREFIX_PATH $ENV{CMAKE_PREFIX_PATH})
+    endif()
+  endif()
+
+  # list of catkin workspaces
+  set(catkin_search_path "")
+  foreach(path ${CMAKE_PREFIX_PATH})
+    if(EXISTS "${path}/.catkin")
+      list(FIND catkin_search_path ${path} _index)
+      if(_index EQUAL -1)
+        list(APPEND catkin_search_path ${path})
+      endif()
+    endif()
+  endforeach()
+
+  # search for catkin in all workspaces
+  set(CATKIN_TOPLEVEL_FIND_PACKAGE TRUE)
+  find_package(catkin QUIET
+    NO_POLICY_SCOPE
+    PATHS ${catkin_search_path}
+    NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
+  unset(CATKIN_TOPLEVEL_FIND_PACKAGE)
+
+  if(NOT catkin_FOUND)
+    message(FATAL_ERROR "find_package(catkin) failed. catkin was neither found in the workspace nor in the CMAKE_PREFIX_PATH. One reason may be that no ROS setup.sh was sourced before.")
+  endif()
+endif()
+
+catkin_workspace()
+
+\end{lstlisting}
+
+\section{Package.xml files generated by ROS that are required to run the code in ROS}
+
+\subsection{Robot package.xml}
+\begin{lstlisting}
+<?xml version="1.0"?>
+<package>
+  <name>robot</name>
+  <version>0.0.0</version>
+  <description>Second robot package.</description>
+
+  <maintainer email="maciejm@todo.todo">maciejm</maintainer>
+
+
+  <license>TODO</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>move_base</build_depend>
+  <build_depend>my_odom</build_depend>
+  <build_depend>my_sensor</build_depend>
+  <build_depend>robot_setup_tf</build_depend>
+  <run_depend>move_base</run_depend>
+  <run_depend>my_odom</run_depend>
+  <run_depend>my_sensor</run_depend>
+  <run_depend>robot_setup_tf</run_depend>
+
+
+  <export>
+
+  </export>
+</package>
+\end{lstlisting}
+\subsection{Controller Package.xml}
+\begin{lstlisting}
+<?xml version="1.0"?>
+<package>
+  <name>controller</name>
+  <version>0.0.0</version>
+  <description>The controller package</description>
+
+  <maintainer email="maciejm@todo.todo">maciejm</maintainer>
+
+  <license>TODO</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <export>
+
+  </export>
+</package>
+\end{lstlisting}
+\subsection{robot2\_tf Package.xml}
+\begin{lstlisting}
+<?xml version="1.0"?>
+<package>
+  <name>robot2_tf</name>
+  <version>0.0.0</version>
+  <description>The robot_setup_tf package</description>
+  <maintainer email="maciejm@todo.todo">maciejm</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>string</build_depend>
+  <build_depend>iostream</build_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>string</run_depend>
+  <run_depend>iostream</run_depend>
+
+  <export>
+  </export>
+</package>
+\end{lstlisting}
+\subsection{simple\_layers Package.xml}
+\begin{lstlisting}
+<?xml version="1.0"?>
+<package>
+  <name>robot2_tf</name>
+  <version>0.0.0</version>
+  <description>The robot_setup_tf package</description>
+  <maintainer email="maciejm@todo.todo">maciejm</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>tf</build_depend>
+  <build_depend>string</build_depend>
+  <build_depend>iostream</build_depend>
+  <run_depend>geometry_msgs</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>tf</run_depend>
+  <run_depend>string</run_depend>
+  <run_depend>iostream</run_depend>
+
+  <export>
+  </export>
+</package>
+\end{lstlisting}

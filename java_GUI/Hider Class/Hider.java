@@ -2,7 +2,7 @@ import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.io.*;
 
-public class GuiHider implements Listener{
+public class Hider implements Listener{
 
 	HashMap<Integer,String[]> treasures;
 	CommandObject command;

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  25 APR 2016 00:12
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  25 APR 2016 03:46
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -155,6 +155,14 @@ File: listings.cfg 2013/08/26 1.5b listings configuration
 ))
 Package: listings 2013/08/26 1.5b (Carsten Heinz)
 
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: pdftex.def on input line 130.
+)
 (/usr/share/texmf/tex/latex/lm/lmodern.sty
 Package: lmodern 2009/10/30 v1.6 Latin Modern Fonts
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
@@ -193,14 +201,6 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 ))
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
-
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
-File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
-)
-Package color Info: Driver file: pdftex.def on input line 130.
-)
 (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip43
@@ -211,455 +211,95 @@ LaTeX Info: Redefining \cite on input line 694.
 (./Chapters/Background.aux) (./Chapters/DesignSpecification.aux)
 (./Chapters/Implementation.aux) (./Chapters/ProfessionalIssues.aux)
 (./Chapters/Testing.aux) (./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux
-))
-\openout1 = `report.aux'.
+) (./Appendices/appendix.aux)
+Runaway argument?
+{Appendi\def \begingroup \let \protect \immediate \write \@unused {No\ETC.
+! Paragraph ended before \@input was complete.
+<to be read again> 
+                   \par 
+l.31 ...e Appendices/appendix.tex.}\endgroup {\par
+                                                   }\def \relax \vadjust {\d...
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 22.
- (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+! Extra }, or forgotten \endgroup.
+l.31 ...Appendices/appendix.tex.}\endgroup {\par }
+                                                  \def \relax \vadjust {\def...
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+! Use of \relax doesn't match its definition.
+l.31 ...ndgroup  \vskip \z@skip }\relax \futurelet
+                                                   \@let@token \let  \vskip ...
+If you say, e.g., `\def\a1{...}', then you must always
+put `1' after `\a', since control sequence names are
+made up of letters only. The macro here has not been
+followed by the required stuff, so I'm ignoring it.
+
+! Missing number, treated as zero.
+<to be read again> 
+                   \edef 
+l.31 ...\z@skip \prevdepth \dimen@ \relax \vadjust
+                                                   {\def \par {\let \par \@@...
+A number should have been here; I inserted `0'.
+(If you can't figure out why I needed to see a number,
+look up `weird error' in the index to The TeXbook.)
+
+! Illegal unit of measure (pt inserted).
+<to be read again> 
+                   \edef 
+l.31 ...\z@skip \prevdepth \dimen@ \relax \vadjust
+                                                   {\def \par {\let \par \@@...
+Dimensions can be in units of em, ex, in, pt, pc,
+cm, mm, dd, cc, nd, nc, bp, or sp; but yours is a new one!
+I'll assume that you meant to say pt, for printer's points.
+To recover gracefully from this error, it's best to
+delete the erroneous units; e.g., type `2' to delete
+two letters. (See Chapter 27 of The TeXbook.)
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.31 ...\z@skip \prevdepth \dimen@ \relax \vadjust
+                                                   {\def \par {\let \par \@@...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.31 ...\z@skip \prevdepth \dimen@ \relax \vadjust
+                                                   {\def \par {\let \par \@@...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! Undefined control sequence.
+\set@color ...\@pdfcolorstack push{\current@color 
+                                                  }\aftergroup \reset@color 
+l.31 ...\z@skip \prevdepth \dimen@ \relax \vadjust
+                                                   {\def \par {\let \par \@@...
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 31.
+(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-(/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count132
-\scratchdimen=\dimen117
-\scratchbox=\box28
-\nofMPsegments=\count133
-\nofMParguments=\count134
-\everyMPshowfont=\toks19
-\MPscratchCnt=\count135
-\MPscratchDim=\dimen118
-\MPnumerator=\count136
-\makeMPintoPDFobject=\count137
-\everyMPtoPDFconversion=\toks20
-) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
-)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
-*geometry* driver: auto-detecting
-*geometry* detected driver: pdftex
-*geometry* verbose mode - [ preamble ] result:
-* driver: pdftex
-* paper: <default>
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(101.17755pt, 411.9399pt, 101.17755pt)
-* v-part:(T,H,B)=(57.81621pt, 664.88379pt, 72.26999pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=411.9399pt
-* \textheight=664.88379pt
-* \oddsidemargin=28.90756pt
-* \evensidemargin=28.90756pt
-* \topmargin=-51.45378pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=10.0pt
-* \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
-* \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
-\c@lstlisting=\count138
-*geometry* verbose mode - [ newgeometry ] result:
-* driver: pdftex
-* paper: <default>
-* layout: <same size as paper>
-* layoutoffset:(h,v)=(0.0pt,0.0pt)
-* modes: 
-* h-part:(L,W,R)=(92.14519pt, 430.00462pt, 92.14519pt)
-* v-part:(T,H,B)=(57.81621pt, 641.75641pt, 95.39737pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=430.00462pt
-* \textheight=641.75641pt
-* \oddsidemargin=19.8752pt
-* \evensidemargin=19.8752pt
-* \topmargin=-51.45378pt
-* \headheight=12.0pt
-* \headsep=25.0pt
-* \topskip=10.0pt
-* \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
-* \columnsep=10.0pt
-* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
-* \hoffset=0.0pt
-* \voffset=0.0pt
-* \mag=1000
-* \@twocolumnfalse
-* \@twosidefalse
-* \@mparswitchfalse
-* \@reversemarginfalse
-* (1in=72.27pt=25.4mm, 1cm=28.453pt)
-
-<FrontMatter/logo.png, id=1, 234.8775pt x 214.8025pt>
-File: FrontMatter/logo.png Graphic file (type png)
-
-<use FrontMatter/logo.png>
-Package pdftex.def Info: FrontMatter/logo.png used on input line 23.
-(pdftex.def)             Requested size: 93.94933pt x 85.91946pt.
- [1
-
-
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./FrontMatter/logo.png (PN
-G copy)>] (./FrontMatter/abstract.tex) [1
-
-]
-[1] (./FrontMatter/acknowledgements.tex) [0
-
-] (./report.toc
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 3.
-
-(/usr/share/texmf/tex/latex/lm/omllmm.fd
-File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 3.
-
-(/usr/share/texmf/tex/latex/lm/omslmsy.fd
-File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 3.
-
-(/usr/share/texmf/tex/latex/lm/omxlmex.fd
-File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 3.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 3.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 3.
- [1
-
-])
-\tf@toc=\write3
-\openout3 = `report.toc'.
-
- [2]
-Chapter 1.
-[3
-
-] [4]
-\openout2 = `Chapters/Background.aux'.
-
- (./Chapters/Background.tex
-Chapter 2.
-[5
-
-
-] <figures/treasures.png, id=36, 547.04375pt x 90.3375pt>
-File: figures/treasures.png Graphic file (type png)
-
-<use figures/treasures.png>
-Package pdftex.def Info: figures/treasures.png used on input line 16.
-(pdftex.def)             Requested size: 420.18045pt x 69.38777pt.
-
-Overfull \hbox (8.24055pt too wide) in paragraph at lines 16--17
- [][] 
- []
-
-[6 <./figures/treasures.png>] [7] [8] [9] [10]) [11]
-\openout2 = `Chapters/DesignSpecification.aux'.
-
-
-(./Chapters/DesignSpecification.tex
-Chapter 3.
-LaTeX Font Info:    Try loading font information for OMS+lmr on input line 8.
-(/usr/share/texmf/tex/latex/lm/omslmr.fd
-File: omslmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-)
-LaTeX Font Info:    Font shape `OMS/lmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/lmsy/m/n' tried instead on input line 8.
- [12
-
-
-
-] [13] [14]
-Chapter 4.
-[15
-
-] <figures/mainCommunication.png, id=70, 369.38pt x 377.41pt>
-File: figures/mainCommunication.png Graphic file (type png)
-
-<use figures/mainCommunication.png>
-Package pdftex.def Info: figures/mainCommunication.png used on input line 66.
-(pdftex.def)             Requested size: 288.35666pt x 294.62624pt.
- [16 <./figures/mainCommunication.png>]
-<figures/RosCommunication.png, id=76, 330.23375pt x 368.37625pt>
-File: figures/RosCommunication.png Graphic file (type png)
-
-<use figures/RosCommunication.png>
-Package pdftex.def Info: figures/RosCommunication.png used on input line 77.
-(pdftex.def)             Requested size: 329.55316pt x 367.62775pt.
- [17 <./figures/RosCommunication.png>]
-<figures/GUICommunication.png, id=81, 352.31625pt x 445.665pt>
-File: figures/GUICommunication.png Graphic file (type png)
-
-<use figures/GUICommunication.png>
-Package pdftex.def Info: figures/GUICommunication.png used on input line 89.
-(pdftex.def)             Requested size: 329.55316pt x 416.87148pt.
- [18]
-<figures/RVIZ.png, id=85, 1627.07875pt x 1026.83624pt>
-File: figures/RVIZ.png Graphic file (type png)
- <use figures/RVIZ.png>
-Package pdftex.def Info: figures/RVIZ.png used on input line 102.
-(pdftex.def)             Requested size: 247.16644pt x 155.97731pt.
-
-[19 <./figures/GUICommunication.png>]
-<figures/ROSPlan.png, id=90, 464.73625pt x 94.3525pt>
-File: figures/ROSPlan.png Graphic file (type png)
-
-<use figures/ROSPlan.png>
-Package pdftex.def Info: figures/ROSPlan.png used on input line 112.
-(pdftex.def)             Requested size: 411.9399pt x 83.6351pt.
- [20 <./figures/RVIZ.png> <./figures/ROSPlan.png>]
-<figures/GUIDesign.png, id=94, 640.3925pt x 456.70625pt>
-File: figures/GUIDesign.png Graphic file (type png)
-
-<use figures/GUIDesign.png>
-Package pdftex.def Info: figures/GUIDesign.png used on input line 140.
-(pdftex.def)             Requested size: 411.9399pt x 293.7823pt.
- [21] [22 <./figures/GUIDesign.png>] [23]
-<figures/GuiUseCase2.png, id=105, 699.61375pt x 194.7275pt>
-File: figures/GuiUseCase2.png Graphic file (type png)
-
-<use figures/GuiUseCase2.png>
-Package pdftex.def Info: figures/GuiUseCase2.png used on input line 175.
-(pdftex.def)             Requested size: 411.9399pt x 114.65942pt.
-
-<figures/flowChart.png, id=106, 735.74875pt x 534.99875pt>
-File: figures/flowChart.png Graphic file (type png)
-
-<use figures/flowChart.png>
-Package pdftex.def Info: figures/flowChart.png used on input line 183.
-(pdftex.def)             Requested size: 453.1364pt x 329.508pt.
-
-Overfull \hbox (41.1965pt too wide) in paragraph at lines 183--184
- [][] 
- []
-
-) [24 <./figures/GuiUseCase2.png>] [25 <./figures/flowChart.png>]
-\openout2 = `Chapters/Implementation.aux'.
-
-
-(./Chapters/Implementation.tex
-Chapter 5.
-[26
-
-
-
-] [27] [28] [29] <figures/ROSmapping.png, id=128, 1663.21375pt x 835.12pt>
-File: figures/ROSmapping.png Graphic file (type png)
-
-<use figures/ROSmapping.png>
-Package pdftex.def Info: figures/ROSmapping.png used on input line 56.
-(pdftex.def)             Requested size: 411.9399pt x 206.84256pt.
- [30 <./figures/ROSmapping.png>] [31] [32] [33]
-[34] [35] [36] [37] [38] [39]
-Underfull \hbox (badness 10000) in paragraph at lines 194--204
-
- []
-
-[40] [41] [42] <figures/finished.png, id=173, 1007.765pt x 757.83125pt>
-File: figures/finished.png Graphic file (type png)
-
-<use figures/finished.png>
-Package pdftex.def Info: figures/finished.png used on input line 235.
-(pdftex.def)             Requested size: 411.9399pt x 309.77617pt.
- [43] [44 <./figures/finished.png>]
-<figures/App1.png, id=181, 312.16624pt x 132.495pt>
-File: figures/App1.png Graphic file (type png)
- <use figures/App1.png>
-Package pdftex.def Info: figures/App1.png used on input line 261.
-(pdftex.def)             Requested size: 164.77344pt x 69.93694pt.
-
-[45 <./figures/App1.png>] <figures/App2.png, id=187, 576.1525pt x 154.5775pt>
-File: figures/App2.png Graphic file (type png)
-
-<use figures/App2.png>
-Package pdftex.def Info: figures/App2.png used on input line 271.
-(pdftex.def)             Requested size: 164.77344pt x 44.206pt.
- <figures/App3.png, id=188, 181.67876pt x 214.8025pt>
-File: figures/App3.png Graphic file (type png)
-
-<use figures/App3.png>
-Package pdftex.def Info: figures/App3.png used on input line 279.
-(pdftex.def)             Requested size: 123.58322pt x 146.11948pt.
- [46 <./figures/App2.png> <./figures/App3.png>]
-<figures/App4.png, id=195, 325.215pt x 91.34125pt>
-File: figures/App4.png Graphic file (type png)
- <use figures/App4.png>
-Package pdftex.def Info: figures/App4.png used on input line 287.
-(pdftex.def)             Requested size: 164.77344pt x 46.27957pt.
-
-<figures/App5.png, id=196, 527.9725pt x 134.5025pt>
-File: figures/App5.png Graphic file (type png)
- <use figures/App5.png>
-Package pdftex.def Info: figures/App5.png used on input line 295.
-(pdftex.def)             Requested size: 164.77344pt x 41.9765pt.
-
-<figures/App6.png, id=197, 795.97375pt x 731.73375pt>
-File: figures/App6.png Graphic file (type png)
- <use figures/App6.png>
-Package pdftex.def Info: figures/App6.png used on input line 303.
-(pdftex.def)             Requested size: 164.77344pt x 151.46904pt.
-
-[47 <./figures/App4.png> <./figures/App5.png> <./figures/App6.png>]
-<figures/App7.png, id=204, 315.1775pt x 125.46875pt>
-File: figures/App7.png Graphic file (type png)
- <use figures/App7.png>
-Package pdftex.def Info: figures/App7.png used on input line 311.
-(pdftex.def)             Requested size: 164.77344pt x 65.59447pt.
-
-<figures/App8.png, id=205, 713.66624pt x 125.46875pt>
-File: figures/App8.png Graphic file (type png)
- <use figures/App8.png>
-Package pdftex.def Info: figures/App8.png used on input line 319.
-(pdftex.def)             Requested size: 247.16644pt x 43.45331pt.
-)
-[48 <./figures/App7.png> <./figures/App8.png>]
-\openout2 = `Chapters/ProfessionalIssues.aux'.
-
-
-(./Chapters/ProfessionalIssues.tex
-Chapter 6.
-) [49
-
-
-
-]
-\openout2 = `Chapters/Testing.aux'.
-
- (./Chapters/Testing.tex
-Chapter 7.
-[50
-
-
-
-] [51] [52] [53] [54] [55] [56]) [57]
-\openout2 = `Chapters/Evaluation.aux'.
-
- (./Chapters/Evaluation.tex
-Chapter 8.
-[58
-
-
-
-] [59]
-Overfull \hbox (16.42104pt too wide) in paragraph at lines 32--33
-\OT1/lmr/m/n/10 The sys-tem has been fully de-vel-oped and is ca-pa-ble of pro-
-vid-ing func-tion-al-ity for the argumentation-
- []
-
-[60] [61]) [62] [63]
-\openout2 = `Chapters/Conclusion.aux'.
-
- (./Chapters/Conclusion.tex
-Chapter 9.
-) [64
-
-
-
-] (./report.bbl [65
-
-
-]
-Overfull \hbox (6.23558pt too wide) in paragraph at lines 37--38
-[]\OT1/lmr/m/n/10 Multiple robots sim-u-la-tion and nav-i-ga-tion, \OT1/lmr/m/i
-t/10 http://answers.ros.org/question/41433/multiple-
- []
-
-
-Overfull \hbox (34.5409pt too wide) in paragraph at lines 40--41
-[]\OT1/lmr/m/n/10 Discussion on C++ be-ing plat-form de-pen-dent. \OT1/lmr/m/it
-/10 http://stackoverflow.com/questions/11810484/why-
- []
-
-) [66] (./report.aux (./Chapters/Background.aux)
-(./Chapters/DesignSpecification.aux) (./Chapters/Implementation.aux)
-(./Chapters/ProfessionalIssues.aux) (./Chapters/Testing.aux)
-(./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux)) ) 
-Here is how much of TeX's memory you used:
- 4077 strings out of 495028
- 60110 string characters out of 6181496
- 127165 words of memory out of 5000000
- 7144 multiletter control sequences out of 15000+600000
- 49646 words of font info for 35 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 38i,7n,34p,1581b,243s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/fon
-ts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</
-usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/
-public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/
-share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/publi
-c/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/t
-exmf/fonts/type1/public/lm/lmsy10.pfb>
-Output written on report.pdf (70 pages, 1478033 bytes).
-PDF statistics:
- 296 PDF objects out of 1000 (max. 8388607)
- 180 compressed objects within 2 object streams
- 0 named destinations out of 1000 (max. 500000)
- 101 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+! Undefined control sequence.
+l.31 ...ar {\let \par \@@par \par }\hrule height\z
+                                                  @ \penalty \@M \vski
