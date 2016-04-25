@@ -11,10 +11,10 @@ public class Hider implements Listener{
 	ArrayList<String[]> treasuresMap;
 
 	public static void main(String[] args) {
-		new GuiHider();
+		new Hider();
 	}
 
-	public GuiHider() {
+	public Hider() {
 		//Set up for the Hider environment.
 		treasuresMap = new ArrayList<String[]>();
 		readInTreasuresAndRoomsAmount();

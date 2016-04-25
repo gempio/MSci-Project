@@ -33,6 +33,9 @@
     \bibitem{technical}
       Elizabeth I. Sklar and Simon Parsons (2015). HRT2: System Architecture Overview, version 2.1. Technical Report, Dept of Computer Science, University of Liverpool, 2015.
 
+    \bibitem{publisher}
+      Information on ROS messaging pattern \emph{http://uk.mathworks.com/help/robotics/examples/exchange-data-with-ros-publishers-and-subscribers.html?requestedDomain=www.mathworks.com}.
+
     \bibitem{wiki1}
       Multiple robots simulation and navigation, \emph{http://answers.ros.org/question/41433/multiple-robots-simulation-andnavigation/}.
 
@@ -45,4 +48,8 @@
 
     \bibitem{port6009}
       Information on TCP port 6009 confirming it is not used and guarantees proper data transfer \emph{http://www.adminsub.net/tcp-udp-port-finder/6009}.
+
+    \bibitem{TSP}
+       No, The TSP Isn't NP Complete JeanFrancoisPuget Dec 29 2013, \emph{https://www.ibm.com/developerworks/community/blogs/jfp/entry/no_the_tsp_isn_t_np_complete?lang=en}
+
 \end{thebibliography}
