@@ -1,0 +1,13 @@
+local_costmap:
+  global_frame: /robot2/odom2
+  robot_base_frame: /robot2/base_link2
+  update_frequency: 5.0
+  publish_frequency: 5.0
+  static_map: true
+  rolling_window: false
+  /*width: 6.0
+  /*height: 6.0
+  resolution: 0.05
+  obstacles: 5.0
+  /*origin_x: 0.0
+  /*origin_y: 0.0

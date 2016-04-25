@@ -1,0 +1,8 @@
+plugins: 
+    - {name: static_map,       type: "costmap_2d::StaticLayer"}
+    - {name: obstacles,        type: "costmap_2d::VoxelLayer"}
+    - {name: grid_layer, type: "navigation::GridLayer"}
+publish_frequency: 1.0
+obstacles:
+    observation_sources: base_scan
+    base_scan: {data_type: LaserScan, sensor_frame: /base_laser_link, clearing: true, marking: true, topic: /base_scan}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  25 APR 2016 04:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.10.27)  25 APR 2016 05:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -211,7 +211,7 @@ LaTeX Info: Redefining \cite on input line 694.
 (./Chapters/Background.aux) (./Chapters/DesignSpecification.aux)
 (./Chapters/Implementation.aux) (./Chapters/ProfessionalIssues.aux)
 (./Chapters/Testing.aux) (./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux
-) (./Appendices/UserGuide.aux) (./Appendices/SourceCode.aux))
+))
 \openout1 = `report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 23.
@@ -227,8 +227,7 @@ LaTeX Font Info:    ... okay on input line 23.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 23.
 LaTeX Font Info:    ... okay on input line 23.
 LaTeX Font Info:    Try loading font information for OT1+lmr on input line 23.
-
-(/usr/share/texmf/tex/latex/lm/ot1lmr.fd
+ (/usr/share/texmf/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
@@ -459,13 +458,13 @@ Package pdftex.def Info: figures/RosCommunication.png used on input line 77.
 File: figures/GUICommunication.png Graphic file (type png)
 
 <use figures/GUICommunication.png>
-Package pdftex.def Info: figures/GUICommunication.png used on input line 89.
+Package pdftex.def Info: figures/GUICommunication.png used on input line 88.
 (pdftex.def)             Requested size: 329.55316pt x 416.87148pt.
  [18]
 <figures/RVIZ.png, id=85, 1627.07875pt x 1026.83624pt>
 File: figures/RVIZ.png Graphic file (type png)
  <use figures/RVIZ.png>
-Package pdftex.def Info: figures/RVIZ.png used on input line 102.
+Package pdftex.def Info: figures/RVIZ.png used on input line 101.
 (pdftex.def)             Requested size: 247.16644pt x 155.97731pt.
 
 [19 <./figures/GUICommunication.png>]
@@ -473,31 +472,31 @@ Package pdftex.def Info: figures/RVIZ.png used on input line 102.
 File: figures/ROSPlan.png Graphic file (type png)
 
 <use figures/ROSPlan.png>
-Package pdftex.def Info: figures/ROSPlan.png used on input line 112.
+Package pdftex.def Info: figures/ROSPlan.png used on input line 111.
 (pdftex.def)             Requested size: 411.9399pt x 83.6351pt.
  [20 <./figures/RVIZ.png> <./figures/ROSPlan.png>]
 <figures/GUIDesign.png, id=94, 640.3925pt x 456.70625pt>
 File: figures/GUIDesign.png Graphic file (type png)
 
 <use figures/GUIDesign.png>
-Package pdftex.def Info: figures/GUIDesign.png used on input line 140.
+Package pdftex.def Info: figures/GUIDesign.png used on input line 139.
 (pdftex.def)             Requested size: 411.9399pt x 293.7823pt.
  [21] [22 <./figures/GUIDesign.png>] [23]
 <figures/GuiUseCase2.png, id=105, 726.715pt x 194.7275pt>
 File: figures/GuiUseCase2.png Graphic file (type png)
 
 <use figures/GuiUseCase2.png>
-Package pdftex.def Info: figures/GuiUseCase2.png used on input line 175.
+Package pdftex.def Info: figures/GuiUseCase2.png used on input line 174.
 (pdftex.def)             Requested size: 411.9399pt x 110.38373pt.
 
 <figures/flowChart.png, id=106, 767.86874pt x 541.02126pt>
 File: figures/flowChart.png Graphic file (type png)
 
 <use figures/flowChart.png>
-Package pdftex.def Info: figures/flowChart.png used on input line 183.
+Package pdftex.def Info: figures/flowChart.png used on input line 182.
 (pdftex.def)             Requested size: 453.1364pt x 319.27406pt.
 
-Overfull \hbox (41.1965pt too wide) in paragraph at lines 183--184
+Overfull \hbox (41.1965pt too wide) in paragraph at lines 182--183
  [][] 
  []
 
@@ -634,155 +633,58 @@ Chapter 9.
 
 
 ]
-Overfull \hbox (6.23558pt too wide) in paragraph at lines 37--38
+Overfull \hbox (40.91748pt too wide) in paragraph at lines 37--38
+[]\OT1/lmr/m/n/10 Information on ROS mes-sag-ing pat-tern \OT1/lmr/m/it/10 http
+://uk.mathworks.com/help/robotics/examples/exchange-
+ []
+
+
+Overfull \hbox (6.23558pt too wide) in paragraph at lines 40--41
 []\OT1/lmr/m/n/10 Multiple robots sim-u-la-tion and nav-i-ga-tion, \OT1/lmr/m/i
 t/10 http://answers.ros.org/question/41433/multiple-
  []
 
 
-Overfull \hbox (34.5409pt too wide) in paragraph at lines 40--41
+Overfull \hbox (34.5409pt too wide) in paragraph at lines 43--44
 []\OT1/lmr/m/n/10 Discussion on C++ be-ing plat-form de-pen-dent. \OT1/lmr/m/it
 /10 http://stackoverflow.com/questions/11810484/why-
  []
 
-) [66]
-\openout2 = `Appendices/UserGuide.aux'.
 
- (./Appendices/UserGuide.tex
-Appendix A.
-<figures/IOError.png, id=270, 425.59pt x 97.36375pt>
-File: figures/IOError.png Graphic file (type png)
- <use figures/IOError.png>
-Package pdftex.def Info: figures/IOError.png used on input line 9.
-(pdftex.def)             Requested size: 164.77344pt x 37.69536pt.
-File: figures/App1.png Graphic file (type png)
-
-<use figures/App1.png>
-Package pdftex.def Info: figures/App1.png used on input line 17.
-(pdftex.def)             Requested size: 164.77344pt x 69.93694pt.
-File: figures/finished.png Graphic file (type png)
- <use figures/finished.png>
-Package pdftex.def Info: figures/finished.png used on input line 25.
-(pdftex.def)             Requested size: 164.77344pt x 123.90353pt.
- [67
-
-
- <./figures/IOError.png>]
-File: figures/App2.png Graphic file (type png)
-
-<use figures/App2.png>
-Package pdftex.def Info: figures/App2.png used on input line 32.
-(pdftex.def)             Requested size: 164.77344pt x 44.206pt.
-File: figures/App3.png Graphic file (type png)
- <use figures/App3.png>
-Package pdftex.def Info: figures/App3.png used on input line 38.
-(pdftex.def)             Requested size: 123.58322pt x 146.11948pt.
-File: figures/App4.png Graphic file (type png)
- <use figures/App4.png>
-Package pdftex.def Info: figures/App4.png used on input line 44.
-(pdftex.def)             Requested size: 123.58322pt x 34.71002pt.
-File: figures/App5.png Graphic file (type png)
-
-<use figures/App5.png>
-Package pdftex.def Info: figures/App5.png used on input line 50.
-(pdftex.def)             Requested size: 123.58322pt x 31.4829pt.
- [68]
-File: figures/App6.png Graphic file (type png)
- <use figures/App6.png>
-Package pdftex.def Info: figures/App6.png used on input line 58.
-(pdftex.def)             Requested size: 123.58322pt x 113.60736pt.
-File: figures/App7.png Graphic file (type png)
- <use figures/App7.png>
-Package pdftex.def Info: figures/App7.png used on input line 66.
-(pdftex.def)             Requested size: 123.58322pt x 49.19681pt.
-File: figures/App8.png Graphic file (type png)
-
-<use figures/App8.png>
-Package pdftex.def Info: figures/App8.png used on input line 73.
-(pdftex.def)             Requested size: 329.55316pt x 57.9384pt.
- [69] [70]) [71] [72]
-\openout2 = `Appendices/SourceCode.aux'.
-
- (./Appendices/SourceCode.tex
-Appendix B.
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2013/08/26 1.5b listings language file
-)
-LaTeX Font Info:    Try loading font information for OT1+lmtt on input line 24.
-
-
-(/usr/share/texmf/tex/latex/lm/ot1lmtt.fd
-File: ot1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [73
-
-
-
-] [74] [75] [76] [77] [78]
-[79] [80] [81] [82] [83] [84] [85] [86] [87] [88] [89] [90] [91] [92] [93]
-[94] [95]
-Overfull \hbox (2.12413pt too wide) in paragraph at lines 826--827
-[][][][][][][][][][][][][][][][]  
+Underfull \hbox (badness 10000) in paragraph at lines 53--54
+[]\OT1/lmr/m/n/10 No, The TSP Isn't NP Com-plete Jean-Fran-cois-Puget Dec 29 20
+13,
  []
 
-[96] [97] [98] [99] [100] [101] [102] [103] [104] [105] [106]
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2013/08/26 1.5b listings language file
-)
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2013/08/26 1.5b listings language file
-)
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
-) [107]
-Overfull \hbox (31.41914pt too wide) in paragraph at lines 1257--1258
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][]  
+
+Overfull \hbox (53.73798pt too wide) in paragraph at lines 53--54
+\OT1/lmr/m/it/10 https://www.ibm.com/developerworks/community/blogs/jfp/entry/n
+o[]the[]tsp[]isn[]t[]np[]complete?lang=en 
  []
 
-[108]
-Overfull \hbox (145.76399pt too wide) in paragraph at lines 1268--1269
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]  
- []
-
-[109] [110] [111] [112] [113] [114] [115] [116] [117] [118] [119] [120]
-[121] [122] [123] [124] [125] [126] [127] [128] [129] [130] [131] [132]
-[133] (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2013/08/26 1.5b listings language file
-)
-(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
-File: lstmisc.sty 2013/08/26 1.5b (Carsten Heinz)
-) [134] [135]
-[136] [137] [138] [139] [140] [141] [142] [143] [144] [145] [146] [147]
-[148] [149] [150] [151] [152] [153] [154] [155] [156] [157] [158] [159]
-[160]) [161] (./report.aux (./Chapters/Background.aux)
+) [66] (./report.aux (./Chapters/Background.aux)
 (./Chapters/DesignSpecification.aux) (./Chapters/Implementation.aux)
 (./Chapters/ProfessionalIssues.aux) (./Chapters/Testing.aux)
-(./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux)
-(./Appendices/UserGuide.aux) (./Appendices/SourceCode.aux)) ) 
+(./Chapters/Evaluation.aux) (./Chapters/Conclusion.aux)) ) 
 Here is how much of TeX's memory you used:
- 5540 strings out of 495028
- 80532 string characters out of 6181496
- 206959 words of memory out of 5000000
- 8571 multiletter control sequences out of 15000+600000
- 52904 words of font info for 37 fonts, out of 8000000 for 9000
+ 4094 strings out of 495028
+ 60450 string characters out of 6181496
+ 127298 words of memory out of 5000000
+ 7160 multiletter control sequences out of 15000+600000
+ 49646 words of font info for 35 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 38i,9n,60p,1581b,1563s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf/
-fonts/enc/dvips/lm/lm-rmtt.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-rm.enc}{
-/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</usr/share/texmf/fonts/type1
-/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx12.pfb></usr/
-share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/share/texmf/fonts/type1/pub
-lic/lm/lmr10.pfb></usr/share/texmf/fonts/type1/public/lm/lmr12.pfb></usr/share/
-texmf/fonts/type1/public/lm/lmr5.pfb></usr/share/texmf/fonts/type1/public/lm/lm
-ri10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/f
-onts/type1/public/lm/lmtt9.pfb>
-Output written on report.pdf (165 pages, 1729877 bytes).
+ 38i,7n,34p,1581b,243s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf/fon
+ts/enc/dvips/lm/lm-rm.enc}{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathsy.enc}</
+usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/type1/
+public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbxi10.pfb></usr/
+share/texmf/fonts/type1/public/lm/lmr10.pfb></usr/share/texmf/fonts/type1/publi
+c/lm/lmr12.pfb></usr/share/texmf/fonts/type1/public/lm/lmri10.pfb></usr/share/t
+exmf/fonts/type1/public/lm/lmsy10.pfb>
+Output written on report.pdf (70 pages, 1557470 bytes).
 PDF statistics:
- 615 PDF objects out of 1000 (max. 8388607)
- 396 compressed objects within 4 object streams
+ 298 PDF objects out of 1000 (max. 8388607)
+ 180 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 111 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 

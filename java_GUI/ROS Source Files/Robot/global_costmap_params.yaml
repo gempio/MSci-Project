@@ -1,0 +1,10 @@
+global_costmap:
+  global_frame: /map
+  robot_base_frame: /robot2/base_link2
+  update_frequency: 5.0
+  static_map: true
+  plugins:
+    - {name: static_map, type: "costmap_2d::StaticLayer"}
+    - {name: obstacles, type: "costmap_2d::ObstacleLayer"}
+    - {name: additional2, type: "simple_layer_namespace::GridLayer"}
+    - {name: Inflation, type: "costmap_2d::InflationLayer"}

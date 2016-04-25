@@ -50,6 +50,9 @@
       Information on TCP port 6009 confirming it is not used and guarantees proper data transfer \emph{http://www.adminsub.net/tcp-udp-port-finder/6009}.
 
     \bibitem{TSP}
-       No, The TSP Isn't NP Complete JeanFrancoisPuget Dec 29 2013, \emph{https://www.ibm.com/developerworks/community/blogs/jfp/entry/no_the_tsp_isn_t_np_complete?lang=en}
+       No, The TSP Isn't NP Complete JeanFrancoisPuget Dec 29 2013, \emph{https://www.ibm.com/developerworks/community/blogs/jfp/entry/no\_the\_tsp\_isn\_t\_np\_complete?lang=en}
+
+    \bibitem{Dialogue full implementation}
+      MSci Final Year Project Dialogue framework - Quick walkthrough, Maciej Musialek \emph{https://youtu.be/CfMTp-bqJpo}.
 
 \end{thebibliography}
